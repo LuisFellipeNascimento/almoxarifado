@@ -1,0 +1,1 @@
+<img src="{{Vite::asset('resources/images/logo_principal.png')}}" class="h-200 w-40">
