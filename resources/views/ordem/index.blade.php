@@ -138,7 +138,7 @@
         </thead>
           <tbody>
            
-                <td >{{$resultado}}  </td>   
+                <td >{{$resultado}}  oi</td>   
           
       
         </tr>
