@@ -21,18 +21,19 @@ class OrdemFornecimentoController extends Controller
             $whenQuery ->where('id_processo','like','%'.$request->id_processo.'%');
         })
        ->orderByDesc('id_fornecedor')
-       ->paginate(5);
+       ->paginate(3);
        
        $total_produtos = $ordem->sum('valor_total');
       
        $valorempenhado = Processo::where('id',$request->id_processo)->sum('valor');
        
        $resultado = $valorempenhado - $total_produtos;
+          
 
        //recuperar valor selecionado
        $id_processo = $request->id_processo;
 
-        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo' ));
+        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo'));
      
     }
 
