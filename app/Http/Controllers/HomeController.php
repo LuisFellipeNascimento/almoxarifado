@@ -11,10 +11,23 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $Processo = Processo::orderBy('created_at','DESC')->Paginate(5);
-        return view ('processo.index',compact('Processo'));
+        $Processo = Processo::when($request->has('nome','valor'),function($whenQuery) use ($request){
+        if($request->nome)
+        $whenQuery->where('numero','like','%'.$request->nome.'%');
+        if($request->valor)
+        $whenQuery->where('valor','like','%'.$request->valor.'%');
+
+        }) 
+        ->orderByDesc('created_at')
+        ->Paginate(5)
+        ->withQueryString();
+
+        $nome =$request->nome;
+        $valor=$request->valor;
+
+        return view ('processo.index',compact('Processo','nome','valor'));
        
     }
 

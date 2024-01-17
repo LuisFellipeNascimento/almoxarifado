@@ -17,8 +17,11 @@ class OrdemFornecimentoController extends Controller
     public function index(Request $request)
     {   $Processos =Processo::all(); 
         $Fornecedores = Fornecedores::all();       
-        $ordem = OrdemFornecimento::when($request->has('id_processo'), function ($whenQuery) use ($request){
+        $ordem = OrdemFornecimento::when($request->has('id_processo','id_fornecedor'), function ($whenQuery) use ($request){
+            if($request->id_processo)
             $whenQuery ->where('id_processo','like','%'.$request->id_processo.'%');
+            if($request->id_fornecedor)
+            $whenQuery->where('id_fornecedor','like','%'.$request->id_fornecedor.'%');
         })
        ->orderByDesc('id_fornecedor')
        ->paginate(3);
@@ -32,8 +35,9 @@ class OrdemFornecimentoController extends Controller
 
        //recuperar valor selecionado
        $id_processo = $request->id_processo;
+       $id_fornecedor = $request->id_fornecedor;
 
-        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo'));
+        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor'));
      
     }
 
