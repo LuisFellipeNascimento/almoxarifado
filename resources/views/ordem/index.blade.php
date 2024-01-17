@@ -20,22 +20,18 @@
         </div>
     </div>
 
-    <div class="content mt-3">
+    <div class="content mt-3">      
+        <div class="float-right"><a href="{{ route('ordem.create') }}" class="btn btn-success">Adicionar Ordem</a></div>        
 
-        <div class="d-flex align-itens-center justify-content-between">
-
-            <form method ="GET" action="{{ route('ordem.index') }}">
+            <form method ="GET" class="form-inline" action="{{ route('ordem.index') }}">
                 @csrf
 
-                <div class="col-12 col-md-15">
-
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Procurar</button>
-
-                        </div>
-
-                        <div class="form-group col-md-5">
+                <label class="sr-only" for="inlineFormInputGroupUsername2">Processo</label>
+                <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Processo</div>
+                        </div>   
+                         <div>
                             <select name="id_processo" id="select" class="form-control">
 
                                 <option value="">Ver todas as ordens.</option>
@@ -46,22 +42,37 @@
 
 
                             </select>
-                        </div>
+                          </div> 
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Fornecedor</div>
+                            </div>   
+                          <div> 
+                            <select name="id_fornecedor" id="select" class="form-control">
+
+                                <option value="">Ver todas os fornecedores.</option>
+                                @foreach ( $Fornecedores as $Fornecedor )
+                                    <option value="{{ $Fornecedor->id }}"
+                                        {{ $Fornecedor->id == $id_fornecedor ? 'selected' : '' }}>{{ $Fornecedor->nome_fantasia }}</option>
+                                @endforeach
+                           </select>
+                          </div>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> Procurar</button>
+                <a href="{{ route('ordem.index') }}" class="btn btn-warning mb-2">Limpar</a>
+                 </div>
+                
+                    
+                
             </form>
-            <div class="form-group col-md-5"><a href="{{ route('ordem.create') }}" class="btn btn-primary">Adicionar
-                    Ordem</a></div>
-        </div>
+            
+        
         @if (Session::has('success'))
             <div class="alert alert-success" role="alert">
                 {{ Session::get('success') }}
             </div>
         @endif
 
-        @if($resultado==0)
-        <div class="alert alert-success" role="alert">Processo bem aproveitado</div>                   
-        @elseif($resultado>0) 
-        <div class="alert alert-warning" role="alert">Existe {{Number::format($resultado,locale: 'pt_BR')}} R$ de saldo disponíveis a serem pedidos!</div>
-        @endif
+        
 
         <table class="table hover">
             <thead class="table-primary">
@@ -97,7 +108,7 @@
                                         class="btn btn-secondary">Detalhes</a>
 
                                     <a href="{{ route('ordem.edit', $rs->id) }}" type="button"
-                                        class="btn btn-warning">Editar</a>
+                                        class="btn btn-info">Editar</a>
                                     <form action="{{ route('fornecedor.destroy', $rs->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -120,7 +131,7 @@
                 <tr>
                     <thead class="table-primary">
                         <tr>
-                            <th colspan="8">Valor total das ordens do processo </th>
+                            <th colspan="8">Valor total das ordens do processo desse fornecedor. </th>
 
 
 
@@ -158,7 +169,11 @@
         <div class="d-flex">
             {!! $ordem->links() !!}
         </div>
-
+        @if($resultado==0)
+        <div class="alert alert-success" role="alert">Processo bem aproveitado</div>                   
+        @elseif($resultado>0) 
+        <div class="alert alert-warning" role="alert">Existe {{Number::format($resultado,locale: 'pt_BR')}} R$ de saldo disponíveis a serem pedidos!</div>
+        @endif
        
 
     </div>
