@@ -31,7 +31,8 @@
                     <div class="input-group-text">Buscar</div>
                 </div>
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Número do processo" value="{{$nome}}">
-                <input type="text" class="form-control" id="valor" name="valor" placeholder="Número valor total" value="{{$valor}}">
+                <input type="text" class="form-control" id="valor" name="valor" placeholder="Valor total" value="{{$valor}}">
+                <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição" value="{{$descricao}}">
 
             </div>
             
@@ -55,7 +56,7 @@
                 <tr>
                     <th>#</th>
                     <th>Processo</th>
-
+                    <th>Descrição</th>
                     <th>Valor total</th>
                     <th>Ação</th>
 
@@ -68,6 +69,7 @@
                         <tr>
                             <td class = "align-middle">{{ $loop->iteration }}</td>
                             <td class = "align-middle">{{ $rs->numero }}</td>
+                            <td class = "align-middle">{{ $rs->descricao }}</td>
                             <td class = "align-middle">{{ $rs->valor }}</td>
 
 
