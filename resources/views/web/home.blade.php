@@ -23,11 +23,19 @@
     <link rel="stylesheet" href="{{ url('vendors/flag-icon-css/css/flag-icon.min.css')}}">
     <link rel="stylesheet" href="{{ url('vendors/selectFX/css/cs-skin-elastic.css')}}">
     <link rel="stylesheet" href="{{ url('vendors/jqvmap/dist/jqvmap.min.css')}}">
+    
 
 
     <link rel="stylesheet" href="{{ url('assets/css/style.css')}}">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+    <script src="jquery.maskMoney.js" type="text/javascript"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 </head>
 
@@ -262,6 +270,20 @@
     <script src="{{ url('vendors/jqvmap/dist/jquery.vmap.min.js')}}"></script>
     <script src="{{ url('vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
     <script src="{{ url('vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   <script src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js"></script>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> 
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>  
+  
+         <script>
+         $(document).ready(function() {
+         $('.select2').select2();
+         });
+         </script>  
+ 
     <script>
         (function($) {
             "use strict";
@@ -279,7 +301,8 @@
                 normalizeFunction: 'polynomial'
             });
         })(jQuery);
-    </script>
+</script>
+
 
 </body>
 
