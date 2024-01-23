@@ -39,14 +39,20 @@
         @endif            
          
         <label class="control-label mb-1" >Número do processo</label>
-        <input type="text" class= "form-control"  name="numero" id="numero" placeholder="Número do processo" >        
+        <input type="text" class= "form-control"  name="numero" id="numero" placeholder="Número do processo" >
+        
+        <label class="control-label mb-1">Descricão</label>
+        <input type="text" class= "form-control"  name="descricao" id="descricao" placeholder="Diga o objetivo do material a ser adquirido" >         
+        
         <label class="control-label mb-1">Valor total</label>
-        <input type="number"  step="0.01" class= "form-control" name="valor" id="valor" placeholder="Digite o total do processo" >
+        <input type="text"   class="form-control" name="valor" id="valor">
+
+/>
  <br>
  
         <button type="submit">Cadastrar</button>
 
-
+  
  
 
     </form>
@@ -55,5 +61,5 @@
 
 
 
-
 @endsection
+

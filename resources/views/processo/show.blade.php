@@ -29,6 +29,8 @@
         @endif   
         <label class="control-label mb-1" >Número</label>
         <input type="text" class= "form-control"  name="numero" id="numero" placeholder="Número do processo" value="{{$Processo->numero}}" readonly>        
+        <label class="control-label mb-1" >Descrição</label>
+        <input type="text" class= "form-control"  name="descricao" id="descricao" placeholder="" value="{{$Processo->descricao}}" readonly>
         <label class="control-label mb-1" >Total</label>
         <input type="text" class= "form-control"  name="valor" id="valor" placeholder="Número do processo" value="{{$Processo->valor}}" readonly>        
        
