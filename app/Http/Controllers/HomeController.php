@@ -7,6 +7,7 @@ use App\Models\Processo;
 use App\Models\Fornecedores;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 
 class HomeController extends Controller
@@ -18,6 +19,8 @@ class HomeController extends Controller
         $whenQuery->where('numero','like','%'.$request->nome.'%');
         if($request->valor)
         $whenQuery->where('valor','like','%'.$request->valor.'%');
+        if($request->descricao)
+        $whenQuery->where('descricao','like','%'.$request->descricao.'%');
 
         }) 
         ->orderByDesc('created_at')
@@ -26,8 +29,9 @@ class HomeController extends Controller
 
         $nome =$request->nome;
         $valor=$request->valor;
+        $descricao=$request->descricao;
 
-        return view ('processo.index',compact('Processo','nome','valor'));
+        return view ('processo.index',compact('Processo','nome','valor','descricao'));
        
     }
 
@@ -40,8 +44,16 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-         Processo::create($request->all());
-         return redirect()->route('processo.index')->with('success','O número do processo foi cadastrado com sucesso!');
+       
+        $campos = $request->validate([ 
+            'numero'=>['required','unique:processo'],
+            'descricao'=>'required',
+            'valor'=>'required',
+                ]);
+        
+                Processo::create($campos);
+
+         return redirect()->route('processo.index')->with('success','O processo foi cadastrado com sucesso!');
 
      
     }
@@ -61,13 +73,15 @@ class HomeController extends Controller
     {
         $Processo = Processo::findOrFail($id);   
         
-        $request->validate([ 
-    'numero'=>['required','unique:Processo'],	
+       $request->validate([ 
+    'numero'=>['required','unique:processo'],
+    'descricao'=>'required',
+    'valor'=>'required',
     ]);
+   
+      $Processo->update($request->all());
                         
-                        $Processo->update($request->all());
-                        
-        return redirect()->route('processo.index')->with('success','O número do processo foi editado com sucesso!');
+        return redirect()->route('processo.index')->with('success','O processo foi editado com sucesso!');
     }
 
     public function destroy(Request $request,string $id)

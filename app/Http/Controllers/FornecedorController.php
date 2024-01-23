@@ -27,11 +27,11 @@ class FornecedorController extends Controller
             'razao_social'=>['required'],
             'nome_representante'=>['required'],
             'inscricao_estadual'=>['required'],
-            'telefone'=>['required'],
+            'telefone'=>['required','celular_com_ddd'],
             'telefone2'=>['nullable'],
             'endereco'=>['required'],
             'email'=>['required'],
-            'cnpj'=>['required'],
+            'cnpj'=>['required','formato_cpf_ou_cnpj'],
             'observacao'=>['nullable']]) ;
             Fornecedores::create($campos);
          
@@ -57,7 +57,7 @@ class FornecedorController extends Controller
         
         $request->validate([ 
     'nome_fantasia'=>['required','unique:Fornecedores'],	
-    'razao_social'=>'required',
+    'razao_social'=>['required','unique:Fornecedores'],
     'nome_representante'=>'required',
     'inscricao_estadual'=>'required',
     'telefone'=>'required',
