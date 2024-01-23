@@ -31,7 +31,9 @@ class OrdemFornecimentoController extends Controller
        $valorempenhado = Processo::where('id',$request->id_processo)->sum('valor');
        
        $resultado = $valorempenhado - $total_produtos;
-          
+
+       //somar por fornecedor
+       //$valorFornecedor =  $ordem('id_fonecedor',$request->id_fonecedor)->sum('valor_total'); 
 
        //recuperar valor selecionado
        $id_processo = $request->id_processo;
