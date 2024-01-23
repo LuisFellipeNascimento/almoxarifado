@@ -40,8 +40,11 @@
            </div>
         @endif   
         <label class="control-label mb-1" >Número do processo</label>
-        <input type="text" class= "form-control"  name="numero"  value="{{$Processo->numero}}"><br>        
-        <input type="text" class= "form-control"  name="valor"  value="{{$Processo->valor}}"><br> 
+        <input type="text" class= "form-control"  name="numero" id="numero" value="{{old ('numero',$Processo->numero)}}"><br>
+        <label class="control-label mb-1" >Descrição</label>
+        <input type="text" class= "form-control"  name="descricao"  value="{{old('descricao',$Processo->descricao)}}"><br>        
+        <label class="control-label mb-1" >Valor total empenhado</label>
+        <input type="text" class= "form-control"  name="valor"  value="{{old('valor',$Processo->valor)}}"><br> 
         
   
  <br>
@@ -55,7 +58,9 @@
 
 </div>
 
-
+<script>
+    $("#valor").mask("5000000");
+</script>
 
 
 @endsection
