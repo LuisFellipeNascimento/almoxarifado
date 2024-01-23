@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('endereco');
             $table->string('email');
             $table->string('cnpj');
-            $table->string('observacao');
+            $table->text('observacao');
             $table->timestamps();
         });
     }
