@@ -22,10 +22,25 @@
 
 <div class="content mt-3">
 
-    <div class="d-flex align-itens-center justify-content-between">
-         <h1 class="mb-0">Listar Fornecedores</h1>
-         <a href="{{route('criar-fornecedor')}}" class="btn btn-primary">Adicionar Fornecedor</a>
-   </div>
+    <div class="float-right">
+        <a href="{{ route('fornecedor.create') }}" class="btn btn-success">Adicionar Fornecedores</a>            
+    </div>
+    <form class="form-inline">
+        <label class="sr-only" for="inlineFormInputGroupUsername2">Nome do fornecedor</label>
+        <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">Buscar</div>
+            </div>
+            <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia" placeholder="Nome fantasia" value="{{$nome_fantasia}}">
+            <input type="text" class="form-control" id="valor" name="razao_social" placeholder="Razão Social" value="{{$razao_social}}">
+                                                                          
+        </div>
+        
+        <div>
+        <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> Procurar</button>
+        <a href="{{ route('lista-fornecedor') }}" class="btn btn-warning mb-2">Limpar</a>
+        </div>
+    </form>
     @if(Session::has('success'))
     <div class="alert alert-success" role="alert">
      {{Session::get('success')}}

@@ -39,16 +39,17 @@
         @endif            
          
         <label class="control-label mb-1" >Número do processo</label>
-        <input type="text" class= "form-control"  name="numero" id="numero" placeholder="Número do processo" >
+        <input type="text" class= "form-control"  name="numero" id="numero" placeholder="Número do processo" value="{{ old('numero')}}">
         
         <label class="control-label mb-1">Descricão</label>
-        <input type="text" class= "form-control"  name="descricao" id="descricao" placeholder="Diga o objetivo do material a ser adquirido" >         
-        
+        <input type="text" class= "form-control"  name="descricao" id="descricao" placeholder="Diga o objetivo do material a ser adquirido"  value="{{ old('descricao')}}" >         
+        <div x-data="{data :''}">
         <label class="control-label mb-1">Valor total</label>
-        <input type="text"   class="form-control" name="valor" id="valor">
-
-/>
+        <input type="text"    class="form-control" name="valor" id="valor" placeholder="10.000,00" value="{{ old('valor')}}">
+        </div>
+       
  <br>
+ 
  
         <button type="submit">Cadastrar</button>
 
@@ -56,10 +57,16 @@
  
 
     </form>
-
+  
 </div>
 
-
+<script>
+    $(function(){
+        $('#valor').maskMoney({ allowNegative: true, thousands:'.', decimal:',', affixesStay: true,});
+      
+    })
+    
+</script>
 
 @endsection
 

@@ -31,9 +31,11 @@ class OrdemFornecimento extends Model
 
 
     public function Fornecedores(){
-        return $this->belongsTo(Fornecedores::class,'id_fornecedor','id');
+        return $this->belongsTo(Fornecedores::class,'id_fornecedor','id')->withDefault([
+            'nome_fantasia' => 'Fornecedor excluído']);
     }
     public function Processo(){
-        return $this->belongsTo(Processo::class,'id_processo','id');
+        return $this->belongsTo(Processo::class,'id_processo','id')->withDefault([
+            'numero' => 'Processo excluído']);
     }
 }

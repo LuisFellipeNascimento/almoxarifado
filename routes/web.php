@@ -62,9 +62,9 @@ Route::delete('processo.destroy/{id}', [App\Http\Controllers\HomeController::cla
 ->middleware(['auth'],['verified'])
 ->name('processo.destroy');
 
-Route::get('/criar-fornecedor', [App\Http\Controllers\FornecedorController::class,'create'])
+Route::get('/fornecedor.create', [App\Http\Controllers\FornecedorController::class,'create'])
 ->middleware(['auth'],['verified'])
-->name('criar-fornecedor');
+->name('fornecedor.create');
 
 Route::get('/lista-fornecedor', [App\Http\Controllers\FornecedorController::class,'index'])
 ->middleware(['auth'],['verified'])
@@ -113,6 +113,10 @@ Route::put('ordem.update/{id}', [App\Http\Controllers\OrdemFornecimentoControlle
 Route::get('ordem.edit/{id}', [App\Http\Controllers\OrdemFornecimentoController::class,'edit'])
 ->middleware(['auth'],['verified'])
 ->name('ordem.edit');
+
+Route::delete('ordem.destroy/{id}', [App\Http\Controllers\OrdemFornecimentoController::class,'destroy'])
+->middleware(['auth'],['verified'])
+->name('ordem.destroy');
 
 Route::get('logout', [App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
 

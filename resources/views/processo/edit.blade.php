@@ -44,7 +44,7 @@
         <label class="control-label mb-1" >Descrição</label>
         <input type="text" class= "form-control"  name="descricao"  value="{{old('descricao',$Processo->descricao)}}"><br>        
         <label class="control-label mb-1" >Valor total empenhado</label>
-        <input type="text" class= "form-control"  name="valor"  value="{{old('valor',$Processo->valor)}}"><br> 
+        <input type="text" class= "form-control" id="valor"  name="valor"  value="{{old('valor',$Processo->valor)}}"><br> 
         
   
  <br>
@@ -59,8 +59,11 @@
 </div>
 
 <script>
-    $("#valor").mask("5000000");
+    $(function(){
+        $('#valor').maskMoney({ allowNegative: true, thousands:'.', decimal:',', affixesStay: true,});
+       
+    })
+    
 </script>
-
 
 @endsection

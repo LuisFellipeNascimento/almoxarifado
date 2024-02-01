@@ -16,12 +16,12 @@ class Processo extends Model
 
         'numero',
         'valor',    
-        
+        'descricao',
     ];
 
    
     public function Processo(){
-        return $this->hasMany(Processo::class,'id_processo','id');
+        return $this->hasMany(Processo::class)->withDefault();
     }
 }
 	

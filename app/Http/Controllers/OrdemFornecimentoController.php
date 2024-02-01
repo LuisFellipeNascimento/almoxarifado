@@ -61,6 +61,10 @@ class OrdemFornecimentoController extends Controller
      */
     public function store(Request $request)
     {
+        //removendo pontos e traço e criando a chave para validação.
+        
+        
+
         $campos = $request->validate([ 
             'numero_ordem'=>['required'],	
             'emissao'=>['required'],
@@ -71,6 +75,14 @@ class OrdemFornecimentoController extends Controller
             'quant_total'=>['required'],
             'id_fornecedor'=>['required'],
             'id_processo'=>['required']]) ;
+
+
+            
+            $campos = $request->except('valor_unitario','valor_total');   
+            $campos['valor_unitario'] = str_replace(',','.',str_replace('.','', $request->input('valor_unitario')));            
+            $campos['valor_total'] = str_replace(',','.',str_replace('.','', $request->input('valor_total')));
+            
+                
             OrdemFornecimento::create($campos);
          
        
@@ -106,9 +118,9 @@ class OrdemFornecimentoController extends Controller
      */
     public function update(Request $request,string $id)
     {
-        $OrdemFornecimento = OrdemFornecimento::findOrFail($id);  
-
-        $request->validate([ 
+        $OrdemFornecimento = OrdemFornecimento::findOrFail($id); 
+         
+        $campos = $request->validate([ 
         'numero_ordem' =>['required'],	
 
         'emissao' =>['required'],
@@ -123,11 +135,17 @@ class OrdemFornecimentoController extends Controller
 
         'quant_total' =>['required'],
 
-        'id_fornecedor' =>[''],
+        'id_fornecedor' =>['required'],
 
         'id_processo' =>['required']]);
 
-        $OrdemFornecimento->update($request->all());
+         //removendo pontos e traço e criando a chave para validação.
+        $campos = $request->except('valor_unitario','valor_total');   
+        $campos['valor_unitario'] = str_replace(',','.',str_replace('.','', $request->input('valor_unitario')));            
+        $campos['valor_total'] = str_replace(',','.',str_replace('.','', $request->input('valor_total')));
+        
+
+        $OrdemFornecimento->update($campos);
                         
         return redirect()->route('ordem.index')->with('success','a ordem de foi editada com sucesso!');
         
@@ -136,9 +154,12 @@ class OrdemFornecimentoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OrdemFornecimento $ordemFornecimento)
+    public function destroy(Request $request,string $id)
     {
-        //
+        $OrdemFornecimento = OrdemFornecimento::Find($id);
+        $OrdemFornecimento->delete($id);
+        return redirect()->route('ordem.index')->with('success','A Ordem de Fornecimento foi apagada com sucesso!');
+  
     }
     
 }

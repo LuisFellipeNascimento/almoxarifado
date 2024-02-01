@@ -36,27 +36,37 @@
            <div class="alert alert-success" role="alert">
             {{Session::get('success')}}
            </div>
-        @endif   
+        @endif  
+        
         <label class="control-label mb-1" >Nome Fantasia</label>
-        <input type="text" class= "form-control"  name="nome_fantasia" id="nome_fantasia" placeholder="Número do processo" >        
+        <input type="text" class= "form-control"  name="nome_fantasia" id="nome_fantasia" placeholder="Ex.: Lazzari"  >        
        
-        <label class="control-label mb-1">Razão Social</label>
-        <input type="text" class= "form-control"  name="razao_social" id="razao_social" placeholder="Número do processo" >        
+        <label class="control-label mb-1">Razão Social</label>    
+        <input type="text"  class= "form-control"   name="razao_social" id="razao_social"  placeholder="TRANSPORTES LAZZARI LTDA" > 
+        <div x-data="{data :''}">
+        <label class="control-label mb-1">CNPJ</label>
+        <input type="text"   class= "form-control" name="cnpj"  x-mask="99.999.999/9999-99" id="cnpj" placeholder="99.999.999/9999-99" >
+        </div>
         <label class="control-label mb-1">nome_representante</label>
         <input type="text"  class= "form-control" name="nome_representante" id="nome_representante" placeholder="Empenho do processo" >
+        <div x-data="{data :''}">
         <label class="control-label mb-1"> Inscricão Estadual</label>
-        <input type="text"   class= "form-control"name="inscricao_estadual" id="inscricao_estadual" placeholder="Fornecedor do processo" >
+        <input type="text"   class= "form-control" name="inscricao_estadual" x-mask="99.999.999/9999-99" id="inscricao_estadual" placeholder="99.999.999/9999-99" >
+        </div>
+        <div x-data="{data :''}">
         <label class="control-label mb-1"> Telefone de contato</label>
-        <input type="text"   class= "form-control" name="telefone" id="telefone" placeholder="Digite o telefone" >
+        <input type="text"   class= "form-control" name="telefone" x-mask="(99)9999-9999" id="telefone" placeholder="(99)9999-9999" >
+        </div>
+        <div x-data="{data :''}">
         <label class="control-label mb-1"> Telefone de contato reserva</label>
-        <input type="text"   class= "form-control" name="telefone2" id="telefone2" placeholder="Número da Ordem emitida" >
-
+        <input type="text"   class= "form-control" name="telefone2" id="telefone2" x-mask="(99)9999-9999" placeholder="(99)9999-9999" >
+        </div>
         <label class="control-label mb-1">Endereço</label>
         <textarea  class= "form-control" name="endereco" id="endereco" placeholder="Digite o endereço do fornecedor"  ></textarea>
         <label class="control-label mb-1">E-mail</label>
         <input type="email"   class= "form-control" name="email" id="email" placeholder="Digite o e-mail"  >
-        <label class="control-label mb-1">CNPJ</label>
-        <input type="text"   class= "form-control" name="cnpj" id="cnpj" placeholder="Digite o CNPJ" >
+       
+
         <label class="control-label mb-1">Observação</label>
         <textarea  class= "form-control" name="observacao" id="observacao" placeholder="Diga algum detalhe do fornecedor"  ></textarea>
         

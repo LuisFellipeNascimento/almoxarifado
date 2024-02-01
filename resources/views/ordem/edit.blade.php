@@ -75,11 +75,11 @@
         <input type="text"   class= "form-control" name="item" id="item"  value="{{$OrdemFornecimento->item}}"  >
 
         <label class="control-label mb-1">valor Unitário</label>
-        <textarea  class= "form-control" name="valor_unitario" id="valor_unitario"  >{{$OrdemFornecimento->valor_unitario}}</textarea>
+        <input type="text" class= "form-control" name="valor_unitario" id="valor_unitario" value="{{$OrdemFornecimento->valor_unitario}}">
         <label class="control-label mb-1">quant_total</label>
         <input type="text"   class= "form-control" name="quant_total" id="quant_total" value="{{$OrdemFornecimento->quant_total}}"  >
         <label class="control-label mb-1">Valor total</label>
-        <input type="text"   class= "form-control" name="valor_total" id="valor_total"  value="{{$OrdemFornecimento->valor_total}}"  >
+        <input type="text"   class= "form-control" name="valor_total" id="valor_total"  value="{{$OrdemFornecimento->valor_total}}" >
     
         
        <br>
@@ -92,6 +92,14 @@
 </div>
 
 
+<script>
+    $(function(){
+        $('#valor_total').maskMoney({ allowNegative: true, thousands:'.', decimal:',', affixesStay: true,});
+        $('#valor_unitario').maskMoney({ allowNegative: true, thousands:'.', decimal:',', affixesStay: true,});
+      
+    })
+    
+</script>
 
 
 @endsection

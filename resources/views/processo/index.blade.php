@@ -33,7 +33,7 @@
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Número do processo" value="{{$nome}}">
                 <input type="text" class="form-control" id="valor" name="valor" placeholder="Valor total" value="{{$valor}}">
                 <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição" value="{{$descricao}}">
-
+                                                                                 
             </div>
             
             <div>
@@ -70,7 +70,8 @@
                             <td class = "align-middle">{{ $loop->iteration }}</td>
                             <td class = "align-middle">{{ $rs->numero }}</td>
                             <td class = "align-middle">{{ $rs->descricao }}</td>
-                            <td class = "align-middle">{{ $rs->valor }}</td>
+                            <td class = "align-middle">{{ Number::format($rs->valor,locale: 'pt_BR') }} R$</td>
+                           
 
 
                             <td class = "align-middle">
