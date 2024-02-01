@@ -10,10 +10,21 @@ use App\Models\OrdemFornecimento;
 class FornecedorController extends Controller
 {
   
-    public function index()
+    public function index(Request  $request)
     {
-        $Fornecedores = Fornecedores::orderBy('created_at','DESC')->Paginate(5);
-        return view ('fornecedor.lista_fornecedor',compact('Fornecedores'));
+       
+        $Fornecedores =  Fornecedores::when($request->has('nome_fantasia','razao_social'), function ($whenQuery) use ($request){
+            if($request->nome_fantasia)
+            $whenQuery ->where('nome_fantasia','like','%'.$request->nome_fantasia.'%');
+            if($request->razao_social)
+            $whenQuery->where('razao_social','like','%'.$request->razao_social.'%');
+        })
+       ->orderByDesc('created_at')
+       ->Paginate(5);
+        //recuperar valor selecionado
+        $nome_fantasia = $request->nome_fantasia;
+        $razao_social = $request->razao_social;
+        return view ('fornecedor.lista_fornecedor',compact('Fornecedores','razao_social','nome_fantasia'));
     }
 
     public function create()
@@ -55,7 +66,7 @@ class FornecedorController extends Controller
     {
         $Fornecedores = Fornecedores::findOrFail($id);   
         
-        $request->validate([ 
+    $request->validate([ 
     'nome_fantasia'=>['required','unique:Fornecedores'],	
     'razao_social'=>['required','unique:Fornecedores'],
     'nome_representante'=>'required',
@@ -67,7 +78,7 @@ class FornecedorController extends Controller
     'cnpj'=>'required',
     'observacao'=>'nullable']);
                         
-                        $Fornecedores->update($request->all());
+     $Fornecedores->update($request->all());
                         
         return redirect()->route('lista-fornecedor')->with('success','O fornecedor foi editado com sucesso!');
     }
