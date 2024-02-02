@@ -14,7 +14,7 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $Processo = Processo::when($request->has('nome','valor'),function($whenQuery) use ($request){
+        $Processo = Processo::when($request->has('nome','valor','descricao'),function($whenQuery) use ($request){
         if($request->nome)
         $whenQuery->where('numero','like','%'.$request->nome.'%');
         if($request->valor)
@@ -47,8 +47,8 @@ class HomeController extends Controller
        
         $campos = $request->validate([ 
             'numero'=>['required','unique:processo'],
-            'descricao'=>'required',
-            'valor'=>'required',
+            'descricao'=>['required'],
+            'valor'=>['required']
                 ]);
 
                 $campos = $request->except('valor');
@@ -97,9 +97,9 @@ class HomeController extends Controller
     //removendo pontos e traço e criando a chave para validação.
     $campos['valor'] = str_replace(',','.',str_replace('.','', $request->input('valor')));
     
- 
-   
+         
       $Processo->update($campos);
+     
                         
         return redirect()->route('processo.index')->with('success','O processo foi editado com sucesso!');
     }
