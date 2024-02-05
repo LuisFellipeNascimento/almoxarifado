@@ -102,19 +102,22 @@
                             
 
 
-                            <td class = "align-middle">
+                            <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{ route('ordem.show', $rs->id) }}" type="button"
                                         class="btn btn-secondary">Detalhes</a>
 
                                     <a href="{{ route('ordem.edit', $rs->id) }}" type="button"
                                         class="btn btn-info">Editar</a>
-                                    <form action="{{ route('ordem.destroy', $rs->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger m-0" type="submit">Apagar</button>
 
-                                    </form>
+
+                                             <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#mediumModal-{{$rs->id}}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+
+                                            @include('ordem.MediumModal')
+                              
+                                    
 
 
                                 </div>
@@ -179,6 +182,9 @@
             </tbody>
 
             </tbody>
+            
+
+           
             @endif
         </table>
 
@@ -201,9 +207,10 @@
         $(".select3").select2({   
                                          
             
-        });
+        });      
 
-    </script>   
+    </script> 
+
   
 
 @endsection
