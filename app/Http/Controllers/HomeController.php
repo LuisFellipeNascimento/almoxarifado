@@ -15,8 +15,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $Processo = Processo::when($request->has('nome','valor','descricao'),function($whenQuery) use ($request){
-        $Processo = Processo::when($request->has('nome','valor','descricao'),function($whenQuery) use ($request){
-        if($request->nome)
+         if($request->nome)
         $whenQuery->where('numero','like','%'.$request->nome.'%');
         if($request->valor)
         $whenQuery->where('valor','like','%'.$request->valor.'%');
