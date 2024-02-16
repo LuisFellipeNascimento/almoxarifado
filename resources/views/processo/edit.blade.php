@@ -44,7 +44,7 @@
         <label class="control-label mb-1" >Descrição</label>
         <input type="text" class= "form-control"  name="descricao"  value="{{old('descricao',$Processo->descricao)}}"><br>        
         <label class="control-label mb-1" >Valor total empenhado</label>
-        <input type="text" class= "form-control" id="valor"  name="valor"    required pattern="\d+(\.\d{2})?" title="Exemplo: R$ 15.000,50, digite 15000.10"  placeholder="0.00" value="{{old('valor',$Processo->valor)}}"><br> 
+        <input type="number" step=".01" class= "form-control" id="valor"  name="valor"      placeholder="R$ 15.000,50, digite 15000.10"  value="{{old('valor',$Processo->valor)}}"><br> 
         
   
  <br>

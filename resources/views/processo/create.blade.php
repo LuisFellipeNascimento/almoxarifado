@@ -57,7 +57,7 @@
                                 placeholder="Diga o objetivo do material a ser adquirido"></td>
                         <td>
                           
-                                <input type="text" class="form-control  money" name="inputs[0][valor]" id="valor"
+                                <input type="number"  step=".01" class="form-control  money" name="inputs[0][valor]" id="valor"
                                     placeholder="10.000,00">
                         </td>
     </div>
@@ -88,19 +88,13 @@
                         <td> <input type="text" name="inputs[`+i+`][numero]"  class= "form-control"   placeholder="Número do processo" ></td>
                         <td><input type="text"  name="inputs[`+i+`][descricao]"  class= "form-control"   placeholder="Diga o objetivo do material a ser adquirido"   ></td>
                         <td>                 
-                            <input type="text"  class= "form-control money"  name="inputs[`+i+`][valor]"  id="debit-transaction-edit" placeholder="10.000,00" ></td>
+                            <input type="number" step=".01"  class= "form-control money"  name="inputs[`+i+`][valor]"  id="debit-transaction-edit" placeholder="10.000,00" ></td>
                        
                             <td><button type="button" class= "btn btn-danger remove-table-row">Remover</button></td>
                 
             </tr> `);
             //adicionando mascara no formulário
-            $('.money').maskMoney({
-                allowNegative: true,
-                thousands: '.',
-                decimal: ',',
-                affixesStay: true,
-            });
-            var table = $(".debit-transaction-edit");
+            
         });
         $(document).on('click', '.remove-table-row', function() {
 
@@ -113,38 +107,7 @@
 
 
         });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.money').maskMoney({
-                allowNegative: true,
-                thousands: '.',
-                decimal: ',',
-                affixesStay: true,
-            });
-
-        })
-    </script>
-{{--  removendo mascara moeda --}}
-<script>
-   $("#form-id").submit(function(){
-    var value = $('#valor').maskMoney('unmasked')[0];
-    $('#valor').val(value);
-  });
-</script>
-{{-- removendo mascara moeda --}}
-<script>
-    $("#form-id").submit(function(){
-     var value = $('#debit-transaction-edit').maskMoney('unmasked')[0];
-     $('#debit-transaction-edit').val(value);
-   });
-
-   function setMask() {
-	$('.money').mask('#.##0,00', {
-		reverse: true,
-		maxlength: false
-	});
-}
+    
  </script>
  
 

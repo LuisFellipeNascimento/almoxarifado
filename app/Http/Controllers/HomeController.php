@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $Processo = Processo::when($request->has('nome','valor','descricao'),function($whenQuery) use ($request){
-         if($request->nome)
+        if($request->nome)
         $whenQuery->where('numero','like','%'.$request->nome.'%');
         if($request->valor)
         $whenQuery->where('valor','like','%'.$request->valor.'%');
@@ -63,26 +63,7 @@ class HomeController extends Controller
         foreach($request->inputs as $key=>$value){
                 Processo::create($value); }
        
-        $campos = $request->validate([ 
-            'numero'=>['required','unique:processo'],
-            'descricao'=>['required'],
-            'valor'=>['required']
-                ]);
-
-                $campos = $request->except('valor');
-
-                //removendo pontos e traço e criando a chave para validação.
-                $campos['valor'] = str_replace(',','.',str_replace('.','', $request->input('valor')));
-                
-                
-              
-                //$numero = "1.234,56";
-               // $numero = str_replace(',','.',str_replace('.','',$numero));
-               // echo $numero;
-                // 1234.56
-                
-        
-                Processo::create($campos);
+       
 
          return redirect()->route('processo.index')->with('success','O processo foi cadastrado com sucesso!');
 
@@ -111,8 +92,6 @@ class HomeController extends Controller
      ]);
     
 
-    //removendo pontos e traço e criando a chave para validação.
-    $campos['valor'] = str_replace(',','.',str_replace('.','', $request->input('valor')));
     
          
     
