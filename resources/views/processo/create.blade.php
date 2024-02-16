@@ -43,7 +43,8 @@
                     <tr>
 
                         <th scope="col">Número do processo</th>
-                        <th scope="col">Descricão</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Fornecedor</th>                     
                         <th scope="col">Valor total</th>
                         <th scope="col">Ação</th>
                     </tr>
@@ -55,6 +56,23 @@
                                 placeholder="Número do processo"></td>
                         <td><input type="text" class= "form-control" name="inputs[0][descricao]" 
                                 placeholder="Diga o objetivo do material a ser adquirido"></td>
+                                <td>
+                                    <select name="id_fornecedor"  id="select3" class="select3 form-control" >
+                                        @if ($Fornecedores->count() > 0)
+                                        <option value="" disabled selected>Selecione um fornecedor</option>
+                                        @foreach ( $Fornecedores as $Fornecedor )
+                                        <option value="{{$Fornecedor->id}}">{{$Fornecedor->nome_fantasia}}</option>
+                                        @endforeach
+                                        @else
+                                        No records
+                                        @endif
+                            
+                                    </select>
+
+
+
+
+                                </td>
                         <td>
                           
                                 <input type="number"  step=".01" class="form-control  money" name="inputs[0][valor]" id="valor"

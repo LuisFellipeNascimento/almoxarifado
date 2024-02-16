@@ -37,7 +37,13 @@
             {{Session::get('success')}}
            </div>
         @endif
-        
+        <label class="control-label mb-1" >Número da ordem de fornecimento</label>
+        <input type="text" class= "form-control"  name="numero_ordem" id="numero_ordem" placeholder="Número do processo" value="{{ old('numero_ordem')}}" >
+          
+        <label class="control-label mb-1">Emissao</label>
+        <input type="date" class= "form-control"  name="emissao" id="emissao" placeholder="Número do processo" value="{{ old('emissao')}}" >        
+         
+
         <label class="control-label mb-1">Fornecedor</label>
 
         <select name="id_fornecedor"  id="select3" class="select3 form-control" >
@@ -65,13 +71,11 @@
             @endif
 
         </select>
-        <label class="control-label mb-1" >Numero ordem</label>
-        <input type="text" class= "form-control"  name="numero_ordem" id="numero_ordem" placeholder="Número do processo" value="{{ old('numero_ordem')}}" >        
-       
-        <label class="control-label mb-1">Emissao</label>
-        <input type="date" class= "form-control"  name="emissao" id="emissao" placeholder="Número do processo" value="{{ old('emissao')}}" >        
+         
         <label class="control-label mb-1">Empenho</label>
         <input type="text"  class= "form-control" name="empenho" id="empenho" placeholder="Empenho do processo" value="{{ old('empenho')}}" >
+       
+       
         <label class="control-label mb-1">Item</label>
         <input type="text"   class= "form-control"name="item" id="item" placeholder="Fornecedor do processo" value="{{ old('item')}}" >
         <label class="control-label mb-1">Valor unitario</label>
@@ -88,7 +92,7 @@
 
  <br>
  
-        <button type="submit">Cadastrar</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Cadastrar</button>
 
 
  

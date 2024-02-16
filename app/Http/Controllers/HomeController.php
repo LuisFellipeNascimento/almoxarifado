@@ -40,8 +40,10 @@ class HomeController extends Controller
     public function create()
     {
         $Processo = Processo::all();
+
+        $Fornecedores = Fornecedores::all();  
         
-        return view ('processo.create', compact('Processo'));
+        return view ('processo.create', compact('Processo','Fornecedores'));
     }
 
     public function store(Request $request)
