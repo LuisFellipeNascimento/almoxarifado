@@ -30,9 +30,9 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">Buscar</div>
                 </div>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Número do processo" value="{{$nome}}">
-                <input type="text" class="form-control" id="valor" name="valor" placeholder="Valor total" value="{{$valor}}">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Número do processo" value="{{$nome}}">           
                 <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição" value="{{$descricao}}">
+                <input type="text" class="form-control" id="valor" name="valor" placeholder="Valor total" value="{{$valor}}">
                                                                                  
             </div>
             
