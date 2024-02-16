@@ -17,18 +17,24 @@ class OrdemFornecimentoController extends Controller
     public function index(Request $request)
     {   $Processos =Processo::all(); 
         $Fornecedores = Fornecedores::all();       
-        $ordem = OrdemFornecimento::when($request->has('id_processo','id_fornecedor'), function ($whenQuery) use ($request){
-            if($request->id_processo)
-            $whenQuery ->where('id_processo','like','%'.$request->id_processo.'%');
-            if($request->id_fornecedor)
-            $whenQuery->where('id_fornecedor','like','%'.$request->id_fornecedor.'%');
-        })
+            $ordem =  OrdemFornecimento::orderBy('id', 'desc')
+            ->with('processo')
+            ->when($request->id_processo, function ($query) use ($request) {
+                $query->whereIn('id_processo', $request->id_processo);
+            })
+            ->when($request->id_fornecedor, function ($query) use ($request) {
+                $query->where('id_fornecedor', $request->id_fornecedor);
+            })
        ->orderByDesc('id_fornecedor')
        ->paginate(3);
-       
-       $total_produtos = $ordem->sum('valor_total');
+       $n1=0;
+       foreach ($ordem as $rs) {
+       $rs->Processo->numero;
+       $n1=$rs->Processo->numero;}
+     
       
-       $valorempenhado = Processo::where('id',$request->id_processo)->sum('valor');
+       $valorempenhado = Processo::where('numero','like','%'.$n1.'%')->sum('valor');
+       $total_produtos = $ordem->sum('valor_total');
        
        $resultado = $valorempenhado - $total_produtos;
 
@@ -63,7 +69,7 @@ class OrdemFornecimentoController extends Controller
     {
         //removendo pontos e traço e criando a chave para validação.
         
-        
+      
 
         $campos = $request->validate([ 
             'numero_ordem'=>['required'],	
@@ -76,7 +82,7 @@ class OrdemFornecimentoController extends Controller
             'id_fornecedor'=>['required'],
             'id_processo'=>['required']]) ;
 
-
+           
             
             $campos = $request->except('valor_unitario','valor_total');   
             $campos['valor_unitario'] = str_replace(',','.',str_replace('.','', $request->input('valor_unitario')));            

@@ -22,7 +22,7 @@
 
 <div class="content mt-3">
     
-    <form  action="{{route('processo.update',$Processo->id)}}" method="POST">
+    <form  action="{{route('processo.update',$Processo->id)}}" method="POST" id="form-id">
         @csrf
         @method('PUT')
         @if ($errors->any())
@@ -44,7 +44,7 @@
         <label class="control-label mb-1" >Descrição</label>
         <input type="text" class= "form-control"  name="descricao"  value="{{old('descricao',$Processo->descricao)}}"><br>        
         <label class="control-label mb-1" >Valor total empenhado</label>
-        <input type="text" class= "form-control" id="valor"  name="valor"  value="{{old('valor',$Processo->valor)}}"><br> 
+        <input type="text" class= "form-control" id="valor"  name="valor"    required pattern="\d+(\.\d{2})?" title="Exemplo: R$ 15.000,50, digite 15000.10"  placeholder="0.00" value="{{old('valor',$Processo->valor)}}"><br> 
         
   
  <br>
@@ -58,12 +58,8 @@
 
 </div>
 
-<script>
-    $(function(){
-        $('#valor').maskMoney({ allowNegative: true, thousands:'.', decimal:',', affixesStay: true,});
-       
-    })
-    
-</script>
+
+
+
 
 @endsection

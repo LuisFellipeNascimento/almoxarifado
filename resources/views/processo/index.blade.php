@@ -89,6 +89,7 @@
                                     </form>
                                 </div>
                             </td>
+                            <td>{{$valorempenhado}}</td>
 
                         </tr>
                     @endforeach

@@ -28,7 +28,7 @@
                 <div class="form-row">
                     <div class="col-md-2 mb-3">
                             <label for="id_processo" class="control-label mb-1">Processo</label>
-                            <select name="id_processo" id="select2" class="select2 form-control cc-exp">
+                            <select multiple name="id_processo[]" id="select2" class="select2 form-control cc-exp">
 
                                             <option value="">Processos</option>
                                             @foreach ($Processos as $process)
@@ -38,6 +38,7 @@
 
 
                                         </select>
+                                        
                     </div>        
                     <div class="col-md-6 mb-3">
                                        <label  for="id_fornecedor" class="control-label mb-1"> Fornecedor</label>                                      

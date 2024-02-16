@@ -8,13 +8,13 @@ use App\Models\Fornecedores;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use PhpParser\Node\Stmt\Foreach_;
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $Processo = Processo::when($request->has('nome','valor'),function($whenQuery) use ($request){
+        $Processo = Processo::when($request->has('nome','valor','descricao'),function($whenQuery) use ($request){
         if($request->nome)
         $whenQuery->where('numero','like','%'.$request->nome.'%');
         if($request->valor)
@@ -27,11 +27,13 @@ class HomeController extends Controller
         ->Paginate(5)
         ->withQueryString();
 
+        $valorempenhado = Processo::where('numero','like','%'.$request->nome.'%')->sum('valor');
+
         $nome =$request->nome;
         $valor=$request->valor;
         $descricao=$request->descricao;
 
-        return view ('processo.index',compact('Processo','nome','valor','descricao'));
+        return view ('processo.index',compact('Processo','nome','valor','descricao','valorempenhado'));
        
     }
 
@@ -44,27 +46,22 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-       
-        $campos = $request->validate([ 
-            'numero'=>['required','unique:processo'],
-            'descricao'=>'required',
-            'valor'=>'required',
-                ]);
-
-                $campos = $request->except('valor');
-
-                //removendo pontos e traço e criando a chave para validação.
-                $campos['valor'] = str_replace(',','.',str_replace('.','', $request->input('valor')));
+           
+        $request->validate([ 
+                    'inputs.*.numero'=>'required',
+                    'inputs.*.descricao'=>'required',           
+                    'inputs.*.valor'=>'required',
+                    
+                ]  ,
+                [ 
+                    'inputs.*.numero'=>'É preciso digitar o número do processo',
+                    'inputs.*.descricao'=>'É preciso digitar o item do processo',
+                    'inputs.*.valor'=>'O digite o valor do produto',  ]            
+            );
+         
                 
-                
-              
-                //$numero = "1.234,56";
-               // $numero = str_replace(',','.',str_replace('.','',$numero));
-               // echo $numero;
-                // 1234.56
-                
-        
-                Processo::create($campos);
+        foreach($request->inputs as $key=>$value){
+                Processo::create($value); }
 
          return redirect()->route('processo.index')->with('success','O processo foi cadastrado com sucesso!');
 
@@ -92,10 +89,7 @@ class HomeController extends Controller
     'valor'=>'required',
      ]);
     
-    $campos = $request->except('valor');
 
-    //removendo pontos e traço e criando a chave para validação.
-    $campos['valor'] = str_replace(',','.',str_replace('.','', $request->input('valor')));
     
  
    
