@@ -57,8 +57,9 @@
                     <th>#</th>
                     <th>Processo</th>
                     <th>Descrição</th>
-                    <th>Valor total</th>
+                    <th>Valor do total item</th>
                     <th>Ação</th>
+                    <th>Total do Processo</th>
 
                 </tr>
             </thead>
@@ -88,8 +89,9 @@
                                         @include('processo.MediumModal')
                                 </div>
                             </td>
+                            @if(isset($nome) OR ($descricao) OR ($valor) )
                             <td>{{$valorempenhado}}</td>
-
+                            @endif
                         </tr>
                     @endforeach
                 @else
