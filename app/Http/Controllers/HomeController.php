@@ -106,10 +106,11 @@ class HomeController extends Controller
     }
 
     public function destroy(Request $request,string $id)
-    { 
-        $Processo = Processo::Find($id);
-        $Processo->delete($id);
-        return redirect()->route('processo.index')->with('success','O processo foi apagado com sucesso!');
+    {
+        $OrdemFornecimento = Processo::Find($id);
+        $OrdemFornecimento->delete($id);
+        return redirect()->back()->with('success','O processo foi apagado com sucesso!');
+       
     }
 
 }

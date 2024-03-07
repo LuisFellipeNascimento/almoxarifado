@@ -79,7 +79,7 @@
         <label class="control-label mb-1">quant_total</label>
         <input type="number" step="0.01"   class= "form-control" name="quant_total" onblur="soma()" id="quant_total" value="{{$OrdemFornecimento->quant_total}}"  >
         <label class="control-label mb-1">Valor total</label>
-        <input type="text"   class= "form-control" name="valor_total" id="valor_total"   readonly  >
+        <input type="text"   class= "form-control" name="valor_total" id="valor_total"  value="{{$OrdemFornecimento->valor_total}}"  readonly  >
     
         
        <br>

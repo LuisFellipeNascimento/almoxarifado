@@ -81,12 +81,11 @@
 
                                     <a href="{{ route('processo.edit', $rs->id) }}" type="button"
                                         class="btn btn-info">Editar</a>
-                                    <form action="{{ route('processo.destroy', $rs->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger m-0" type="submit">Apagar</button>
+                                        <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#mediumModal-{{$rs->id}}">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
 
-                                    </form>
+                                        @include('processo.MediumModal')
                                 </div>
                             </td>
                             <td>{{$valorempenhado}}</td>

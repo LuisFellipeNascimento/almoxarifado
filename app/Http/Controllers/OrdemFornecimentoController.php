@@ -164,7 +164,7 @@ class OrdemFornecimentoController extends Controller
     {
         $OrdemFornecimento = OrdemFornecimento::Find($id);
         $OrdemFornecimento->delete($id);
-        return redirect()->route('ordem.index')->with('success','A Ordem de Fornecimento foi apagada com sucesso!');
+        return redirect()->back()->with('success','A Ordem de Fornecimento foi apagada com sucesso!');
   
     }
     
