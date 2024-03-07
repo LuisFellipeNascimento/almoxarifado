@@ -44,9 +44,9 @@
         <input type="date" class= "form-control"  name="emissao" id="emissao" placeholder="Número do processo" value="{{ old('emissao')}}" >        
          
 
-        <label class="control-label mb-1">Fornecedor</label>
+        <label class="control-label mb-1">Fornecedor</label><br>
 
-        <select name="id_fornecedor"  id="select3" class="select3 form-control" >
+        <select name="id_fornecedor"  id="select3" class="form-control select " >
             @if ($Fornecedores->count() > 0)
             <option value="" disabled selected>Selecione um fornecedor</option>
             @foreach ( $Fornecedores as $Fornecedor )
@@ -56,11 +56,11 @@
             No records
             @endif
 
-        </select>
+        </select><br>
 
-        <label class="control-label mb-1">Processo</label>
+        <label class="control-label mb-1">Processo</label><br>
 
-        <select name="id_processo"  id="select2" class="select2 form-control" >
+        <select name="id_processo"  id="select2" class="form-control select " >
             @if ($Processos->count() > 0)
             <option value="" disabled selected>Selecione um processo.</option>
             @foreach ( $Processos as $process )
@@ -70,20 +70,20 @@
             No records
             @endif
 
-        </select>
+        </select><br>
          
         <label class="control-label mb-1">Empenho</label>
         <input type="text"  class= "form-control" name="empenho" id="empenho" placeholder="Empenho do processo" value="{{ old('empenho')}}" >
        
        
         <label class="control-label mb-1">Item</label>
-        <input type="text"   class= "form-control"name="item" id="item" placeholder="Fornecedor do processo" value="{{ old('item')}}" >
+        <input type="text"   class= "form-control"name="item" id="item" placeholder="Item do processo" value="{{ old('item')}}" >
         <label class="control-label mb-1">Valor unitario</label>
-        <input type="text" class= "form-control" name="valor_unitario" id="valor_unitario" placeholder="Digite o telefone" value="{{ old('valor_unitario')}}" >       
+        <input type="number" step="0.01" class= "form-control" name="valor_unitario" onblur="soma()" id="valor_unitario" value="{{ old('valor_unitario')}}" >       
         <label class="control-label mb-1">Quantidade</label>
-        <input type="text"  class= "form-control" name="quant_total" id="quant_total" placeholder="Digite o e-mail" value="{{ old('quant_total')}}"  >
-        <label class="control-label mb-1">valor total</label>
-        <input type="text"    class= "valor_total form-control" name="valor_total" id="valor_total" placeholder="Exemplo 10.000,00" value="{{ old('valor_total')}}" >
+        <input type="number" step="0.01"  class= "form-control" name="quant_total" id="quant_total" onblur="soma()" value="{{ old('quant_total')}}"  >
+        <label class="control-label mb-1">valor Total</label>
+        <input type="text"  class= "form-control"    name="valor_total"   readonly id="valor_total"   >
        
         
         
@@ -102,32 +102,33 @@
 </div>
 
 <script>
-    $(".select2").select2({   
-                                     
-        
-    });
+   
+    $('select').select2({
+    theme: 'bootstrap4',
+});
 
 </script>
-<script>
-    $(".select3").select2({   
-                                     
-        
-    });
 
-</script>   
 
-<script>
-    $(function(){
-        $('#valor_total').maskMoney({ allowNegative: true, thousands:'.', decimal:',', affixesStay: true,});
-      
-    })
-    $(function(){
-        $('#valor_unitario').maskMoney({ allowNegative: true, thousands:'.', decimal:',', affixesStay: true,});
-      
-    })
-    
 
-    
+<script type="text/javascript"> 
+
+function id(valor_campo)
+{
+	return document.getElementById(valor_campo);
+}
+function getValor(valor_campo)
+{
+	var valor = document.getElementById(valor_campo).value.replace( ',', '.');
+	/*document.write("Valor: " + valor);*/
+	return parseFloat( valor );
+}
+
+function soma()
+{
+	var total = getValor('quant_total') * getValor('valor_unitario');
+	id('valor_total').value = total;
+}
 </script>
 
 
