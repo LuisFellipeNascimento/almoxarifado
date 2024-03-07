@@ -75,31 +75,40 @@
         <input type="text"   class= "form-control" name="item" id="item"  value="{{$OrdemFornecimento->item}}"  >
 
         <label class="control-label mb-1">valor Unitário</label>
-        <input type="text" class= "form-control" name="valor_unitario" id="valor_unitario" value="{{$OrdemFornecimento->valor_unitario}}">
+        <input type="number" step="0.01" class= "form-control" name="valor_unitario" onblur="soma()" id="valor_unitario" value="{{$OrdemFornecimento->valor_unitario}}">
         <label class="control-label mb-1">quant_total</label>
-        <input type="text"   class= "form-control" name="quant_total" id="quant_total" value="{{$OrdemFornecimento->quant_total}}"  >
+        <input type="number" step="0.01"   class= "form-control" name="quant_total" onblur="soma()" id="quant_total" value="{{$OrdemFornecimento->quant_total}}"  >
         <label class="control-label mb-1">Valor total</label>
-        <input type="text"   class= "form-control" name="valor_total" id="valor_total"  value="{{$OrdemFornecimento->valor_total}}" >
+        <input type="text"   class= "form-control" name="valor_total" id="valor_total"   readonly  >
     
         
        <br>
 
-        <button type="submit">Editar</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Editar</button>
 
 
     </form>
 
 </div>
 
+<script type="text/javascript"> 
 
-<script>
-    $(function(){
-        $('#valor_total').maskMoney({ allowNegative: true, thousands:'.', decimal:',', affixesStay: true,});
-        $('#valor_unitario').maskMoney({ allowNegative: true, thousands:'.', decimal:',', affixesStay: true,});
-      
-    })
+    function id(valor_campo)
+    {
+        return document.getElementById(valor_campo);
+    }
+    function getValor(valor_campo)
+    {
+        var valor = document.getElementById(valor_campo).value.replace( ',', '.');
+        /*document.write("Valor: " + valor);*/
+        return parseFloat( valor );
+    }
     
-</script>
-
+    function soma()
+    {
+        var total = getValor('quant_total') * getValor('valor_unitario');
+        id('valor_total').value = total;
+    }
+    </script>
 
 @endsection
