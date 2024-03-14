@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\OrdemFornecimentoController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\ProdutoController;
 
 
 /*
@@ -120,7 +120,33 @@ Route::delete('ordem.destroy/{id}', [App\Http\Controllers\OrdemFornecimentoContr
 
 Route::get('logout', [App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
 
+Route::get('produto.index', [App\Http\Controllers\ProdutoController::class,'index'])
+->middleware(['auth'],['verified'])
+->name('produto.index');
 
+Route::get('produto.create', [App\Http\Controllers\ProdutoController::class,'create'])
+->middleware(['auth'],['verified'])
+->name('produto.create');
+
+Route::post('produto.store', [App\Http\Controllers\ProdutoController::class,'store'])
+->middleware(['auth'],['verified'])
+->name('produto.store');
+
+Route::get('produto.show/{id}', [App\Http\Controllers\ProdutoController::class, 'show'])
+->middleware(['auth'],['verified'])
+->name('produto.show');
+
+Route::put('produto.update/{id}', [App\Http\Controllers\ProdutoController::class, 'update'])
+->middleware(['auth'],['verified'])
+->name('produto.update');
+
+Route::get('produto.edit/{id}', [App\Http\Controllers\ProdutoController::class,'edit'])
+->middleware(['auth'],['verified'])
+->name('produto.edit');
+
+Route::delete('produto.destroy/{id}', [App\Http\Controllers\ProdutoController::class,'destroy'])
+->middleware(['auth'],['verified'])
+->name('produto.destroy');
 
 
 require __DIR__.'/auth.php';

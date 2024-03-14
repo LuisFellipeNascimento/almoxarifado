@@ -108,28 +108,24 @@
 
                         </ul>
                     </li>
-                    <h3 class="menu-title">Controle do Material</h3><!-- /.menu-title -->
+                    <h3 class="menu-title">Movimentação de Materiais</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Material</a>
-                        <ul class="sub-menu children dropdown-menu">
+                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Gerenciar Materias</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li>
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.create') }}">Cadastrar</a></li>
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/saidas.index') }}">Dar Saidas</a></li>
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Pedidos de compra</a></li>
+                                <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Gerenciar Categorias</a></li>
 
-                            <li><i class="fa fa-share-square-o"></i><a href="ui-social-buttons.html">Gerenciar
-                                    Material</a></li>
+                            </ul>   
 
-
-                        </ul>
+                    
                     </li>
 
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Categorias</a>
-                        <ul class="sub-menu children dropdown-menu">
-
-                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Gerenciar Categorias</a></li>
-
-                        </ul>
-                    </li>
+                    
+                 
 
 
 
