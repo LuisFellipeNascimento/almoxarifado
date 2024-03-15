@@ -27,7 +27,8 @@ class ProdutoFactory extends Factory
             'observacao'=>$this->faker->sentence(45),          
             'id_categoria'=>$this->faker->numberBetween(1,7), 
             'quant_total'=>$this->faker->randomNumber(5),
-            'valor_saida'=>$this->faker->randomFloat(2),    
+            'valor_saida'=>$this->faker->randomFloat(2),
+            'codigobarras'=>$this->faker->ean13(),   
                     
       
         ];

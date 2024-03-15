@@ -32,12 +32,10 @@
                 </div>
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Material" value="{{$nome}}">
                 <select name="vencimento" id="vencimento" class="form-control" value="{{$vencimento}}">
-                    <option value="" disabled selected>Selecione um ano</option>
+                    <option value="" disabled selected>Selecione a validade</option>
                     <option value="2023">2023</option>
                     <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                    <option value="2026">2026</option>
-                   
+                    <option value="2025">2025</option>            
                 </select>           
                  <input type="text" class="form-control" id="local" name="local" placeholder="Reta,Patrimônio" value="{{$local}}">
                                                                                
@@ -62,14 +60,14 @@
             <thead class="table-primary">
                 <tr>
                  
-                
+                    <th class="text-center">#</th>
                     <th class="text-center">Descrição</th>
                     <th class="text-center">Vencimento</th>  
                     <th class="text-left">Local de armazenamento</th>
                     <th class="text-left">Quantidade</th>                    
                     <th class="text-center">Foto</th>
                     
-                    <th class="text-center">Ação</th>
+                    <th class="text-center" colspan="4">Ação</th>
                 
 
                 </tr>
@@ -79,27 +77,41 @@
                 @if ($produto->count() > 0)
                     @foreach ($produto as $rs)
                         <tr>
-                        
+                            <td class = "align-middle">{{ $loop->iteration }}</td>
                             <td class = "align-middle">{{ $rs->nome }}</td>
                             <td class = "align-middle">{{ date('d/m/Y', strtotime($rs->vencimento))}}</td>
                             <td class = "align-middle">{{ $rs->local }}</td> 
                             <td class = "align-middle">{{ $rs->quant_total }}</td>                           
                             <td class = "align-middle"><img src="{{ asset($rs->foto) }}" style="width: 70px; height: 70px;" alt="img"/></td>
 
+                           
                             <td class = "align-middle">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{ route('produto.show', $rs->id) }}" type="button"
-                                        class="btn btn-secondary">Detalhes</a>
-
-                                    <a href="{{ route('produto.edit', $rs->id) }}" type="button"
+                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#show-{{$rs->id}}">
+                                        Detalhes
+                                    </button>
+    
+                                    @include('produto.show')
+                                </div>
+                                </td>   
+                            
+                                <td class = "align-middle">
+                                                                        <a href="{{ route('produto.edit', $rs->id) }}" type="button"
                                         class="btn btn-info">Editar</a>
+                                
+                                    </td>  
+                            
+                                    <td class = "align-middle">
                                         <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#mediumModal-{{$rs->id}}">
                                             <i class="bi bi-trash"></i>
                                         </button>
 
                                         @include('produto.MediumModal')
-                                </div>
-                            </td>
+                                    </td>
+                                  
+                               
+                           
+                            
                             
                         </tr>
                     @endforeach
