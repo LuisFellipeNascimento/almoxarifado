@@ -25,11 +25,7 @@
             
             <label class="control-label mb-1">Estoque ideal</label>
             <input type="number" step="0.01"   class= "form-control" name="estoque_ideal" id="estoque_ideal"  value="{{$rs->estoque_ideal}}" readonly >
-         
-            <label class="control-label mb-1">Valor unitario</label>
-            <input type="number" step="0.01"   class= "form-control" name="valor_unitario"  id="valor_unitario"  value="{{$rs->valor_unitario}}" readonly >
-           
-           
+                    
             <label class="control-label mb-1">Valor saida</label>
             <input type="number" step="0.01"   class= "form-control" name="valor_saida"  id="valor_saida"  value="{{$rs->valor_saida}}" readonly >
             <label class="control-label mb-1">Código de barras</label>

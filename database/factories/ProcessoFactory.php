@@ -17,9 +17,12 @@ class ProcessoFactory extends Factory
     public function definition(): array
     {
         return [
-            'numero'=>$this->faker->unique()->randomElement(array('13219/2024','14000/2024','11000/2024','18000/2024')),
+            'numero'=>$this->faker->randomElement(array('13219/2024','14000/2024','11000/2024','18000/2024')),
             'valor'=>$this->faker->numberBetween(15000,90000),  
-            'descricao'=>$this->faker->unique()->randomElement(array('Mobília Escolar','Expediente','Extintores','Uniforme')),
+            'descricao'=>$this->faker->randomElement(array('Mobília Escolar','Material de Expediente','Extintores','Uniforme')),
+            'id_fornecedor'=>$this->faker->randomElement(array('1','2','3','4')),
+            'item'=>$this->faker->numberBetween(15000,90000),
+            'quantidade'=>$this->faker->randomNumber(3),
         ];
     }
 }

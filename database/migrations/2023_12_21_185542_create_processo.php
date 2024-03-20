@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('numero');
             $table->string('descricao');
-            $table->double('valor');         
-            
+            $table->double('valor');
+            $table->string('item');
+            $table->integer('quantidade');
+            $table->unsignedBigInteger('id_fornecedor');         
+            $table->foreign('id_fornecedor')->references('id')->on('fornecedores')->onDelete('cascade');
+        
             $table->timestamps();
         });
 

@@ -13,16 +13,25 @@ use PhpParser\Node\Stmt\Foreach_;
 class HomeController extends Controller
 {
     public function index(Request $request)
-    {
-        $Processo = Processo::when($request->has('nome','valor','descricao'),function($whenQuery) use ($request){
-        if($request->nome)
-        $whenQuery->where('numero','like','%'.$request->nome.'%');
-        if($request->valor)
-        $whenQuery->where('valor','like','%'.$request->valor.'%');
-        if($request->descricao)
-        $whenQuery->where('descricao','like','%'.$request->descricao.'%');
+    {   $Fornecedores = Fornecedores::all();
 
-        }) 
+        $Processo = Processo::orderBy('id')  
+        
+        ->when($request->nome,function($query) use ($request){
+            $query->where('numero','like','%'.$request->nome.'%');  
+        })
+        
+        ->when($request->item,function($query) use ($request){
+            $query->where('item','like','%'.$request->item.'%');  
+        })
+        
+        ->when($request->descricao,function($query) use ($request){
+            $query->where('descricao','like','%'.$request->descricao.'%');  
+        })
+
+        ->when($request->id_fornecedor,function($query) use ($request){
+            $query->where('id_fornecedor','like','%'.$request->id_fornecedor.'%');  
+        })
         ->orderByDesc('created_at')
         ->Paginate(5)
         ->withQueryString();
@@ -30,10 +39,10 @@ class HomeController extends Controller
         $valorempenhado = Processo::where('numero','like','%'.$request->nome.'%')->sum('valor');
 
         $nome =$request->nome;
-        $valor=$request->valor;
+        $item=$request->item;
         $descricao=$request->descricao;
-
-        return view ('processo.index',compact('Processo','nome','valor','descricao','valorempenhado'));
+        $id_fornecedor=$request->id_fornecedor;
+        return view ('processo.index',compact('Processo','Fornecedores','nome','item','descricao','valorempenhado','id_fornecedor'));
        
     }
 
@@ -53,12 +62,19 @@ class HomeController extends Controller
                     'inputs.*.numero'=>'required',
                     'inputs.*.descricao'=>'required',           
                     'inputs.*.valor'=>'required',
+                    'inputs.*.item'=>'required',
+                    'inputs.*.quantidade'=>'required',
+                    'inputs.*.id_fornecedor'=>'required',
                     
                 ]  ,
                 [ 
                     'inputs.*.numero'=>'É preciso digitar o número do processo',
                     'inputs.*.descricao'=>'É preciso digitar o item do processo',
-                    'inputs.*.valor'=>'O digite o valor do produto',  ]            
+                    'inputs.*.valor'=>'O digite o valor do produto', 
+                    'inputs.*.item'=>'É preciso digitar o número do item',
+                    'inputs.*.quantidade'=>'É preciso digitar a quantidade deste item',
+                    'inputs.*.id_fornecedor'=>'É preciso escolher um fornecedor',
+                ]            
             );
          
                 
@@ -72,15 +88,16 @@ class HomeController extends Controller
      
     }
     public function show(string $id)
-    {
+    {    
         $Processo =  Processo::findOrFail($id);
         return view ('processo.show',compact('Processo'));
     }
 
     public function edit(string $id)
     {
+        $Fornecedores = Fornecedores::all();
         $Processo = Processo::findOrFail($id);
-        return view ('processo.edit',compact('Processo'));
+        return view ('processo.edit',compact('Processo','Fornecedores'));
     }
     
     public function update(Request $request,string $id)
@@ -91,6 +108,9 @@ class HomeController extends Controller
     'numero'=>['required'],
     'descricao'=>'required',
     'valor'=>'required',
+    'id_fornecedor'=>'required',
+    'item'=>'required',
+    'quantidade'=>'required',
      ]);
     
 

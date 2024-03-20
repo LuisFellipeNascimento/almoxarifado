@@ -38,28 +38,43 @@
            <div class="alert alert-success" role="alert">
             {{Session::get('success')}}
            </div>
-        @endif   
+        @endif    
         <label class="control-label mb-1" >Número do processo</label>
-        <input type="text" class= "form-control"  name="numero" id="numero" value="{{old ('numero',$Processo->numero)}}"><br>
+        <input type="text" class= "form-control"  name="numero" id="numero" value="{{old ('numero',$Processo->numero)}}">
         <label class="control-label mb-1" >Descrição</label>
-        <input type="text" class= "form-control"  name="descricao"  value="{{old('descricao',$Processo->descricao)}}"><br>        
+        <input type="text" class= "form-control"  name="descricao"  value="{{old('descricao',$Processo->descricao)}}">        
+        <label class="control-label mb-1" >Fornecedor</label><br>  
+        <select name="id_fornecedor"  id="select" class="form-control">
+
+            <option value = "{{ $Processo->id_fornecedor}}"  @if ($Processo->id_fornecedor ===$Processo->fornecedores->numero) {'selected':''}  @endif> {{$Processo->Fornecedores->nome_fantasia}}</option>
+
+            @foreach ( $Fornecedores as $Process )
+            <option  value="{{$Process->id}}" >{{$Process->nome_fantasia}}</option>
+            @endforeach
+        </select><br>       
+        <label class="control-label mb-1" >Item</label>
+        <input type="text" class= "form-control"  name="item"  value="{{old('item',$Processo->item)}}">        
+        <label class="control-label mb-1" >Quantidade</label>
+        <input type="number" step=".01"  class= "form-control"  name="quantidade"  value="{{old('quantidade',$Processo->quantidade)}}">        
+        
         <label class="control-label mb-1" >Valor total empenhado</label>
-        <input type="number" step=".01" class= "form-control" id="valor"  name="valor"      placeholder="R$ 15.000,50, digite 15000.10"  value="{{old('valor',$Processo->valor)}}"><br> 
+        <input type="number" step=".01" class= "form-control" id="valor"  name="valor"  value="{{old('valor',$Processo->valor)}}"> 
         
   
  <br>
- 
-        <button type="submit">Editar</button>
 
-
- 
-
-    </form>
+        <button type="submit" class="btn btn-primary btn-lg btn-block medio">Editar</button>
+  </form>
 
 </div>
 
 
 
-
+<script>
+   
+    $('select').select2({
+    theme: 'bootstrap4',
+});
+</script>
 
 @endsection

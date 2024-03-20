@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\Fornecedores;
+use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\HomeController;
 
 class Processo extends Model
 {
@@ -17,11 +18,19 @@ class Processo extends Model
         'numero',
         'valor',    
         'descricao',
+        'item',
+       'quantidade',
+        'id_fornecedor',
     ];
 
    
     public function Processo(){
         return $this->hasMany(Processo::class)->withDefault();
     }
+
+    public function Fornecedores(){
+        return $this->belongsTo(Fornecedores::class,'id_fornecedor','id')->withDefault([
+            'nome_fantasia' => 'Fornecedor excluído']);
 }
-	
+
+}

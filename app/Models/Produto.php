@@ -26,7 +26,7 @@ class Produto extends Model
         'id_categoria',
         'quant_total',
         'valor_saida',     
-                
+        'codigobarras',    
         
       ];
 

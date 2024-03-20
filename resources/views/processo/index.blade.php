@@ -30,9 +30,24 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">Buscar</div>
                 </div>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Número do processo" value="{{$nome}}">           
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Número do Processo" value="{{$nome}}">
                 <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição" value="{{$descricao}}">
-                <input type="text" class="form-control" id="valor" name="valor" placeholder="Valor total" value="{{$valor}}">
+                <input type="text" class="form-control" id="item" name="item" placeholder="item" value="{{$item}}">
+                <select name="id_fornecedor"  id="select3" class="select3 form-control" >
+                    @if ($Fornecedores->count() > 0)
+                    <option value="" disabled selected>Selecione um fornecedor</option>
+                    @foreach ( $Fornecedores as $Fornecedor )
+                    <option value="{{$Fornecedor->id}}"
+                        {{ $Fornecedor->id == $id_fornecedor ? 'selected' : '' }}> 
+                        {{$Fornecedor->nome_fantasia}}</option>
+                    @endforeach
+                    @else
+                    No records
+                    @endif
+
+                   
+                                            
+                </select>
                                                                                  
             </div>
             
@@ -57,9 +72,12 @@
                     <th>#</th>
                     <th>Processo</th>
                     <th>Descrição</th>
-                    <th>Valor do total item</th>
-                    <th>Ação</th>
-                    <th>Total do Processo</th>
+                    <th>Fornecedor</th>
+                    <th>Item</th>
+                    <th>Quantidade</th>
+                    <th>Valor do item</th>
+                    <th class="text-center">Ação</th>
+                    
 
                 </tr>
             </thead>
@@ -71,11 +89,14 @@
                             <td class = "align-middle">{{ $loop->iteration }}</td>
                             <td class = "align-middle">{{ $rs->numero }}</td>
                             <td class = "align-middle">{{ $rs->descricao }}</td>
+                            <td class = "align-middle">{{ $rs->Fornecedores->nome_fantasia  }}</td>
+                            <td class = "align-middle">{{ $rs->item }}</td>
+                            <td class = "align-middle">{{ $rs->quantidade }}</td>
                             <td class = "align-middle">{{ Number::format($rs->valor,locale: 'pt_BR') }} R$</td>
                            
 
 
-                            <td class = "align-middle">
+                            <td class = "align-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{ route('processo.show', $rs->id) }}" type="button"
                                         class="btn btn-secondary">Detalhes</a>
@@ -89,15 +110,30 @@
                                         @include('processo.MediumModal')
                                 </div>
                             </td>
-                            @if(isset($nome) OR ($descricao) OR ($valor) )
-                            <td>{{$valorempenhado}}</td>
-                            @endif
+                          
                         </tr>
                     @endforeach
+
                 @else
                     <tr>
                         <td>Não existem processos cadastrados</td>
                     </tr>
+                @endif
+                @if(isset($nome) OR ($descricao) OR ($item) )
+                <table class="table hover">
+                    <thead class="table-primary">
+                        <tr class="align-middle">
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th class="text-right" >Total:</th>
+                            <th class = "align-middle">{{  Number::format($valorempenhado,locale: 'pt_BR')}} R$</th>
+                            <th></th>
+                       </tr>
+                   </thead>
+                </table>
                 @endif
             </tbody>
         </table>
@@ -107,6 +143,18 @@
 
     </div>
 
+    <script>
+   
+        $('select').select2({
+        theme: 'bootstrap4',
+    });
+</script>
 
+<script>
+   
+    $('select1').select2({
+    theme: 'bootstrap4',
+});
+</script>
 
 @endsection

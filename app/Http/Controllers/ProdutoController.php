@@ -66,6 +66,7 @@ class ProdutoController extends Controller
             'foto'=> 'nullable|mimes:jpeg,jpg,png',
             'observacao'=>['nullable'],           
             'id_categoria'=>['nullable'],
+            'codigobarras'=>['nullable'],
             'quant_total'=>['required']
             ]) ;
 
@@ -90,6 +91,7 @@ class ProdutoController extends Controller
         'observacao'=>$request->observacao,           
         'id_categoria'=>$request->id_categoria,
         'quant_total'=>$request->quant_total,
+        'codigobarras'=>$request->codigobarras,
           ]);
        
          return redirect()->route('produto.index')->with('success','O produto foi cadastrado com sucesso!');
@@ -128,7 +130,8 @@ class ProdutoController extends Controller
             'foto'=> 'nullable|mimes:jpeg,jpg,png',
             'observacao'=>['nullable'],           
             'id_categoria'=>['nullable'],
-            'quant_total'=>['required']
+            'quant_total'=>['required'],
+            'codigobarras'=>['nullable'],
             ]) ;
             
             $produto = Produto::findOrFail($id);
@@ -158,6 +161,7 @@ class ProdutoController extends Controller
         'observacao'=>$request->observacao,           
         'id_categoria'=>$request->id_categoria,
         'quant_total'=>$request->quant_total,
+        'codigobarras'=>$request->codigobarras,
           ]);
        
          return redirect()->route('produto.index')->with('success','O produto foi editado com sucesso!');

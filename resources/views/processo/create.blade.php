@@ -43,7 +43,9 @@
                     <tr>
 
                         <th scope="col">Número do processo</th>
-                        <th scope="col">Material</th>
+                        <th scope="col">Descrição geral</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Quantidade</th>
                         <th scope="col">Fornecedor</th>                     
                         <th scope="col">Valor total</th>
                         <th scope="col">Ação</th>
@@ -56,8 +58,14 @@
                                 placeholder="Número do processo"></td>
                         <td><input type="text" class= "form-control" name="inputs[0][descricao]" 
                                 placeholder="Diga o objetivo do material a ser adquirido"></td>
-                                <td>
-                                    <select name="id_fornecedor"  id="select3" class="select3 form-control" >
+                                
+                        <td><input type="text" class= "form-control" name="inputs[0][item]" 
+                            placeholder="Diga item do processo a ser adquirido"></td>
+                        <td><input type="number" step=".01"  class= "form-control" name="inputs[0][quantidade]" 
+                            placeholder="Diga a quantidade prevista dentro do processo para este item"></td>
+                               
+                            <td>
+                                    <select name="inputs[0][id_fornecedor]"  id="select3" class="select3 form-control" >
                                         @if ($Fornecedores->count() > 0)
                                         <option value="" disabled selected>Selecione um fornecedor</option>
                                         @foreach ( $Fornecedores as $Fornecedor )
@@ -68,30 +76,27 @@
                                         @endif
                             
                                     </select>
-
-
-
-
                                 </td>
                         <td>
                           
                                 <input type="number"  step=".01" class="form-control  money" name="inputs[0][valor]" id="valor"
-                                    placeholder="10.000,00">
+                                    placeholder="Exemplo: 10.50">
                         </td>
     </div>
-    <td><button type="button" class= "btn btn-success  money" name="add" id="add">Add</button></td>
+    <td><button type="button" class= "btn btn-success" name="add" id="add">Add</button></td>
 
     </tr>
 
     </tbody>
     </table>
 
-    <button type="submit">Cadastrar</button>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Cadastrar</button>
 
 
     </form>
 
     </div>
+
 
     <script>
         var i = 0;
@@ -105,8 +110,27 @@
 
                         <td> <input type="text" name="inputs[`+i+`][numero]"  class= "form-control"   placeholder="Número do processo" ></td>
                         <td><input type="text"  name="inputs[`+i+`][descricao]"  class= "form-control"   placeholder="Diga o objetivo do material a ser adquirido"   ></td>
+                        <td> <input type="text" name="inputs[`+i+`][item]"  class= "form-control"   placeholder="Diga item do processo a ser adquirido" ></td>
+                        <td><input type="number" step=".01"   name="inputs[`+i+`][quantidade]"  class= "form-control"   placeholder="Diga o objetivo do material a ser adquirido"   ></td>
+                        
+                        <td>
+                            <select name="inputs[`+i+`][id_fornecedor]"  id="select2" class="select3 form-control" >
+                                        @if ($Fornecedores->count() > 0)
+                                        <option value="" disabled selected>Selecione um fornecedor</option>
+                                        @foreach ( $Fornecedores as $Fornecedor )
+                                        <option value="{{$Fornecedor->id}}">{{$Fornecedor->nome_fantasia}}</option>
+                                        @endforeach
+                                        @else
+                                        No records
+                                        @endif
+                            
+                            </select>   
+                            
+                            
+                            
+                        </td>
                         <td>                 
-                            <input type="number" step=".01"  class= "form-control money"  name="inputs[`+i+`][valor]"  id="debit-transaction-edit" placeholder="10.000,00" ></td>
+                            <input type="number" step=".01"  class= "form-control"  name="inputs[`+i+`][valor]"  id="debit-transaction-edit" placeholder="10.000,00" ></td>
                        
                             <td><button type="button" class= "btn btn-danger remove-table-row">Remover</button></td>
                 
@@ -127,6 +151,13 @@
         });
     
  </script>
+
+<script>
+   
+    $('select').select2({
+    theme: 'bootstrap4',
+});
+</script>
  
 
 @endsection
