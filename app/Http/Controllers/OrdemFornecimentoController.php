@@ -25,8 +25,11 @@ class OrdemFornecimentoController extends Controller
             ->when($request->id_fornecedor, function ($query) use ($request) {
                 $query->where('id_fornecedor', $request->id_fornecedor);
             })
+            ->when($request->item, function ($query) use ($request) {
+                $query->where('item', $request->item);
+            })
        ->orderByDesc('id_fornecedor')
-       ->paginate(3);
+       ->paginate(10);
        $n1=0;
        foreach ($ordem as $rs) {
        $rs->Processo->numero;
@@ -37,15 +40,22 @@ class OrdemFornecimentoController extends Controller
        $total_produtos = $ordem->sum('valor_total');
        
        $resultado = $valorempenhado - $total_produtos;
-
+            
        //somar por fornecedor
-       //$valorFornecedor =  $ordem('id_fonecedor',$request->id_fonecedor)->sum('valor_total'); 
+       //$valorFornecedor =  $ordem('id_fonecedor',$request->id_fonecedor)->sum('valor_total');
+
+       $valorItem =  Processo::where('numero','like','%'.$n1.'%')
+       ->where('item','like','%'.$request->item.'%')       
+       ->sum('quantidade');
+       $resultado_quantidade = $ordem->sum('quant_total');
+       $resultado_confronto =  $valorItem - $resultado_quantidade ;
+    
 
        //recuperar valor selecionado
        $id_processo = $request->id_processo;
        $id_fornecedor = $request->id_fornecedor;
-
-        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor'));
+       $item = $request->item;
+        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item'));
      
     }
 

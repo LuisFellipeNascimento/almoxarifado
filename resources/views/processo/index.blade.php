@@ -69,7 +69,7 @@
         <table class="table hover">
             <thead class="table-primary">
                 <tr>
-                    <th>#</th>
+                    <th >#</th>
                     <th>Processo</th>
                     <th>Descrição</th>
                     <th>Fornecedor</th>
@@ -122,14 +122,20 @@
                 @if(isset($nome) OR ($descricao) OR ($item) )
                 <table class="table hover">
                     <thead class="table-primary">
-                        <tr class="align-middle">
+                        <tr>
+                            
+                            <th class="text-left" >Totais:</th>
+                            
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th> 
                             <th></th>
-                            <th></th>
-                            <th class="text-right" >Total:</th>
-                            <th class = "align-middle">{{  Number::format($valorempenhado,locale: 'pt_BR')}} R$</th>
+                            <th class="text-center">{{$valorquantidade}} </th>
+                            <th class="align-middle">{{  Number::format($valorempenhado,locale: 'pt_BR')}} R$</th>
+                            
+                            
+                            
                             <th></th>
                        </tr>
                    </thead>
