@@ -34,9 +34,9 @@
         <label class="control-label mb-1" >Fornecedor</label>
         <input type="text" class= "form-control"  name="id_fornecedor" id="id_fornecedor" value="{{$Processo->Fornecedores->nome_fantasia}}" readonly>
         <label class="control-label mb-1" >Item</label>
-        <input type="text" class= "form-control"  name="Item" id="Item" placeholder="Número do processo" value="{{$Processo->Item}}" readonly>        
+        <input type="text" class= "form-control"  name="Item" id="Item" placeholder="Número do processo" value="{{$Processo->item}}" readonly>        
         <label class="control-label mb-1" >Quantidade</label>
-        <input type="text" class= "form-control"  name="Quantidade" id="Quantidade" placeholder="Número do processo" value="{{$Processo->Quantidade}}" readonly>        
+        <input type="text" class= "form-control"  name="Quantidade" id="Quantidade" placeholder="Número do processo" value="{{$Processo->quantidade}}" readonly>        
      
        
         <label class="control-label mb-1" >Total</label>

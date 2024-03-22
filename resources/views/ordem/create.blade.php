@@ -38,7 +38,7 @@
            </div>
         @endif
         <label class="control-label mb-1" >Número da ordem de fornecimento</label>
-        <input type="text" class= "form-control"  name="numero_ordem" id="numero_ordem" placeholder="Número do processo" value="{{ old('numero_ordem')}}" >
+        <input type="text" class= "form-control"  name="numero_ordem" id="numero_ordem" placeholder="Número da ordem de fornecimento" value="{{ old('numero_ordem')}}" >
           
         <label class="control-label mb-1">Emissao</label>
         <input type="date" class= "form-control"  name="emissao" id="emissao" placeholder="Número do processo" value="{{ old('emissao')}}" >        
