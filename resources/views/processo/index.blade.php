@@ -13,7 +13,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
+                        <li class="active">{{$nome}}</li>
                     </ol>
                 </div>
             </div>
@@ -123,19 +123,12 @@
                 <table class="table hover">
                     <thead class="table-primary">
                         <tr>
-                            
-                            <th class="text-left" >Totais:</th>
-                            
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th> 
-                            <th></th>
-                            <th class="text-center">{{$valorquantidade}} </th>
-                            <th class="align-middle">{{  Number::format($valorempenhado,locale: 'pt_BR')}} R$</th>
-                            
-                            
-                            
+                            <th class="align-center" >Totais:</th>
+                                                       
+                           
+                            <th class="align-center">Items do processo: {{$NumeroItem}}</th>                             
+                            <th class="align-center">{{$valorquantidade}}</th>                            
+                            <th class="align-center">{{  Number::format($valorempenhado,locale: 'pt_BR')}} R$</th> 
                             <th></th>
                        </tr>
                    </thead>
@@ -143,8 +136,16 @@
                 @endif
             </tbody>
         </table>
+        <div class="d-flex">      
+            Total de itens: {!! $Processo->total() !!}
+        </div>       
+        <div class="d-flex">
+           
+            Página atual: {!! $Processo->currentPage() !!}
+        </div>
         <div class="d-flex">
             {!! $Processo->links() !!}
+           
         </div>
 
     </div>

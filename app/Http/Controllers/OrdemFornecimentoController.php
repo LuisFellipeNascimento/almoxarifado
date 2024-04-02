@@ -15,8 +15,9 @@ class OrdemFornecimentoController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {   $Processos =Processo::all(); 
-        $Fornecedores = Fornecedores::all();       
+    {   $Processos =Processo::orderBy('numero','desc')->get(); 
+        $Fornecedores = Fornecedores::all();   
+        $empenho_unico = OrdemFornecimento::distinct()->get(['empenho']);  
             $ordem =  OrdemFornecimento::orderBy('id', 'desc')
             ->with('processo')
             ->when($request->id_processo, function ($query) use ($request) {
@@ -27,6 +28,9 @@ class OrdemFornecimentoController extends Controller
             })
             ->when($request->item, function ($query) use ($request) {
                 $query->where('item', $request->item);
+            })
+            ->when($request->empenho, function ($query) use ($request) {
+                $query->where('empenho', $request->empenho);
             })
        ->orderByDesc('id_fornecedor')
        ->paginate(10);
@@ -55,7 +59,8 @@ class OrdemFornecimentoController extends Controller
        $id_processo = $request->id_processo;
        $id_fornecedor = $request->id_fornecedor;
        $item = $request->item;
-        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item'));
+       $empenho= $request->empenho;
+        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item','empenho','empenho_unico'));
      
     }
 

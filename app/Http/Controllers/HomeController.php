@@ -35,14 +35,14 @@ class HomeController extends Controller
         ->orderByDesc('created_at')
         ->Paginate(5)
         ->withQueryString();
-
+        $NumeroItem = Processo::where('numero','like','%'.$request->nome.'%')->count('numero');
         $valorempenhado = Processo::where('numero','like','%'.$request->nome.'%')->sum('valor');
         $valorquantidade = Processo::where('numero','like','%'.$request->nome.'%')->sum('quantidade');
         $nome =$request->nome;
         $item=$request->item;
         $descricao=$request->descricao;
         $id_fornecedor=$request->id_fornecedor;
-        return view ('processo.index',compact('Processo','Fornecedores','nome','item','descricao','valorempenhado','valorquantidade','id_fornecedor'));
+        return view ('processo.index',compact('Processo','Fornecedores','nome','item','descricao','valorempenhado','valorquantidade','id_fornecedor','NumeroItem'));
        
     }
 
