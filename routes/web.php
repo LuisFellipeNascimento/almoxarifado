@@ -7,6 +7,7 @@ use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\OrdemFornecimentoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProdutoController;
+use App\Exports\OrdemExport;
 
 
 /*
@@ -117,6 +118,9 @@ Route::get('ordem.edit/{id}', [App\Http\Controllers\OrdemFornecimentoController:
 Route::delete('ordem.destroy/{id}', [App\Http\Controllers\OrdemFornecimentoController::class,'destroy'])
 ->middleware(['auth'],['verified'])
 ->name('ordem.destroy');
+
+Route::get('ordem.export', [OrdemFornecimentoController::class, 'export'])
+->name('ordem.export');
 
 Route::get('logout', [App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
 

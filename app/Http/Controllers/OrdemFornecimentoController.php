@@ -8,6 +8,9 @@ use App\Models\Processo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\Cast\Double;
+use App\Exports\OrdemExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class OrdemFornecimentoController extends Controller
 {
@@ -31,6 +34,9 @@ class OrdemFornecimentoController extends Controller
             })
             ->when($request->empenho, function ($query) use ($request) {
                 $query->where('empenho', $request->empenho);
+            })
+            ->when($request->numero_ordem, function ($query) use ($request) {
+                $query->where('numero_ordem', $request->numero_ordem);
             })
        ->orderByDesc('id_fornecedor')
        ->paginate(10);
@@ -60,7 +66,8 @@ class OrdemFornecimentoController extends Controller
        $id_fornecedor = $request->id_fornecedor;
        $item = $request->item;
        $empenho= $request->empenho;
-        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item','empenho','empenho_unico'));
+       $numero_ordem= $request->numero_ordem;
+        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item','empenho','numero_ordem','empenho_unico'));
      
     }
 
@@ -160,12 +167,7 @@ class OrdemFornecimentoController extends Controller
 
         'id_processo' =>['required']]);
 
-         //removendo pontos e traço e criando a chave para validação.
-        $campos = $request->except('valor_unitario','valor_total');   
-        $campos['valor_unitario'] = str_replace(',','.',str_replace('.','', $request->input('valor_unitario')));            
-        $campos['valor_total'] = str_replace(',','.',str_replace('.','', $request->input('valor_total')));
         
-
         $OrdemFornecimento->update($campos);
                         
         return redirect()->route('ordem.index')->with('success','a ordem de foi editada com sucesso!');
@@ -182,5 +184,13 @@ class OrdemFornecimentoController extends Controller
         return redirect()->back()->with('success','A Ordem de Fornecimento foi apagada com sucesso!');
   
     }
+
+
+    public function export() 
+    {
+        return Excel::download(new OrdemExport,'invoices.xlsx');
+       
+    }
+
     
 }

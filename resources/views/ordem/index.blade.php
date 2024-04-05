@@ -81,6 +81,18 @@
                     </select>
                 </div>
 
+                <div class="col-md-2 mb-3">
+                    <label for="numero_ordem" class="control-label mb-1">Número da ordem</label><br>
+                    <select name="numero_ordem" id="select7" class="select2 form-control cc-exp">
+                        @foreach ($ordem as $numero_ordem1)
+                            <option value="">numero_ordem</option>
+                            <option value="{{ $numero_ordem1->numero_ordem }}"
+                                {{ $numero_ordem1->numero_ordem == $numero_ordem ? 'selected' : '' }}>
+                                {{ $numero_ordem1?->numero_ordem }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
             </div>
 
             <button type="submit" class="btn btn-primary "><i class="fa fa-search"></i> Procurar</button>
