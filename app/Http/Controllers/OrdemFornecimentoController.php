@@ -39,13 +39,13 @@ class OrdemFornecimentoController extends Controller
                 $query->where('numero_ordem', $request->numero_ordem);
             })
        ->orderByDesc('id_fornecedor')
-       ->paginate(10);
+       ->paginate(25);
        $n1=0;
        foreach ($ordem as $rs) {
        $rs->Processo->numero;
        $n1=$rs->Processo->numero;}
      
-      
+       $quantidade_total_item = Processo::where('item','=',$request->item)->where('numero','like','%'.$n1.'%')->sum('quantidade');
        $valorempenhado = Processo::where('numero','like','%'.$n1.'%')->sum('valor');
        $total_produtos = $ordem->sum('valor_total');
        
@@ -59,7 +59,7 @@ class OrdemFornecimentoController extends Controller
        ->sum('quantidade');
        $resultado_quantidade = $ordem->sum('quant_total');
        $resultado_confronto =  $valorItem - $resultado_quantidade ;
-    
+       
 
        //recuperar valor selecionado
        $id_processo = $request->id_processo;
@@ -67,7 +67,7 @@ class OrdemFornecimentoController extends Controller
        $item = $request->item;
        $empenho= $request->empenho;
        $numero_ordem= $request->numero_ordem;
-        return view ('ordem.index',compact('ordem','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item','empenho','numero_ordem','empenho_unico'));
+        return view ('ordem.index',compact('ordem','quantidade_total_item','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item','empenho','numero_ordem','empenho_unico'));
      
     }
 
@@ -103,13 +103,7 @@ class OrdemFornecimentoController extends Controller
             'quant_total'=>['required'],
             'id_fornecedor'=>['required'],
             'id_processo'=>['required']]) ;
-
-           
-            
-            $campos = $request->except('valor_unitario','valor_total');   
-            $campos['valor_unitario'] = str_replace(',','.',str_replace('.','', $request->input('valor_unitario')));            
-            $campos['valor_total'] = str_replace(',','.',str_replace('.','', $request->input('valor_total')));
-            
+                 
                 
             OrdemFornecimento::create($campos);
          

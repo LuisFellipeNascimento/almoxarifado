@@ -60,10 +60,10 @@
                     <label for="item" class="control-label mb-1">Item</label><br>
                     <select name="item" id="select4" class="select2 form-control cc-exp">
 
-                        @foreach ($ordem as $process2)
+                        @foreach ($ordem->unique('item') as $process2)
                             <option value="">Item</option>
                             <option value="{{ $process2->item }}" {{ $process2->item == $item ? 'selected' : '' }}>
-                                {{ $process2?->item }}</option>
+                                {{  $process2?->item }}</option>
                         @endforeach
 
                     </select>
@@ -72,7 +72,7 @@
                 <div class="col-md-2 mb-3">
                     <label for="empenho" class="control-label mb-1">Empenho</label><br>
                     <select name="empenho" id="select5" class="select2 form-control cc-exp">
-                        @foreach ($ordem as $empenho1)
+                        @foreach ($ordem->unique('empenho') as $empenho1)
                             <option value="">empenho</option>
                             <option value="{{ $empenho1->empenho }}"
                                 {{ $empenho1->empenho == $empenho ? 'selected' : '' }}>
@@ -84,7 +84,7 @@
                 <div class="col-md-2 mb-3">
                     <label for="numero_ordem" class="control-label mb-1">Número da ordem</label><br>
                     <select name="numero_ordem" id="select7" class="select2 form-control cc-exp">
-                        @foreach ($ordem as $numero_ordem1)
+                        @foreach ($ordem->unique('numero_ordem') as $numero_ordem1)
                             <option value="">numero_ordem</option>
                             <option value="{{ $numero_ordem1->numero_ordem }}"
                                 {{ $numero_ordem1->numero_ordem == $numero_ordem ? 'selected' : '' }}>
@@ -203,18 +203,20 @@
 
             <thead class="table-primary">
                 <tr>
-                    <th>Saldo livre processo </th>
-                    <th>Quantidade recebida </th>
-                    <th>Quantidade a receber </th>
-
+                    <th>Saldo livre processo </th>                   
+                    <th>Quantidade total de produtos a receber </th>
+                    <th>Quantidade do item no processo(Selecionar 1º)</th>
+                    <th>Quantidade total de produtos recebidos</th>
+                    
                 </tr>
             </thead>
             <tbody>
                 @if (!isset($id_fornecedor))
                     <tr>
-                        <td>{{ Number::format($resultado, locale: 'pt_BR') }} R$</td>
+                        <td> R${{ Number::format($resultado, locale: 'pt_BR') }}</td>                       
+                        <td>{{ $resultado_confronto }}</td>
+                        <td> {{$quantidade_total_item}}</td>
                         <td>{{ $resultado_quantidade }}</td>
-                        <td>{{ Number::format($resultado_confronto, locale: 'pt_BR') }}</td>
                     </tr>
                 @endif
             </tbody>

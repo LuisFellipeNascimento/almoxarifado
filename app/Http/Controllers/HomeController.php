@@ -22,7 +22,7 @@ class HomeController extends Controller
         })
         
         ->when($request->item,function($query) use ($request){
-            $query->where('item','like','%'.$request->item.'%');  
+            $query->where('item','like',$request->item);  
         })
         
         ->when($request->descricao,function($query) use ($request){
@@ -33,7 +33,7 @@ class HomeController extends Controller
             $query->where('id_fornecedor','like','%'.$request->id_fornecedor.'%');  
         })
         ->orderByDesc('created_at')
-        ->Paginate(5)
+        ->Paginate(7)
         ->withQueryString();
         $NumeroItem = Processo::where('numero','like','%'.$request->nome.'%')->count('numero');
         $valorempenhado = Processo::where('numero','like','%'.$request->nome.'%')->sum('valor');
