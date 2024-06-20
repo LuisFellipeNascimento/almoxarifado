@@ -21,6 +21,7 @@ class Processo extends Model
         'item',
        'quantidade',
         'id_fornecedor',
+        'numero_of',
     ];
 
    

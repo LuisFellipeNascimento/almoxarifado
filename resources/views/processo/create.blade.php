@@ -46,7 +46,8 @@
                         <th scope="col">Descrição geral</th>
                         <th scope="col">Item</th>
                         <th scope="col">Quantidade</th>
-                        <th scope="col">Fornecedor</th>                     
+                        <th scope="col">Fornecedor</th>
+                        <th scope="col">Número da O.F</th>                    
                         <th scope="col">Valor total</th>
                         <th scope="col">Ação</th>
                     </tr>
@@ -77,10 +78,12 @@
                             
                                     </select>
                                 </td>
+                                <td> <input type="text" class= "form-control" name="inputs[0][numero_of]" 
+                                    placeholder="Número da O.F referente a esse processo"></td>   
                         <td>
                           
                                 <input type="number"  step=".01" class="form-control  money" name="inputs[0][valor]" id="valor"
-                                    placeholder="Exemplo: 10.50">
+                                    placeholder="00.00">
                         </td>
     </div>
     <td><button type="button" class= "btn btn-success" name="add" id="add">Add</button></td>
@@ -124,11 +127,9 @@
                                         No records
                                         @endif
                             
-                            </select>   
-                            
-                            
-                            
-                        </td>
+                            </select>                           
+                         </td>
+                         <td> <input type="text" name="inputs[`+i+`][numero_of]"  class= "form-control"   placeholder="Número da O.F referente a esse processo" ></td>
                         <td>                 
                             <input type="number" step=".01"  class= "form-control"  name="inputs[`+i+`][valor]"  id="debit-transaction-edit" placeholder="10.000,00" ></td>
                        
@@ -136,6 +137,10 @@
                 
             </tr> `);
             //adicionando mascara no formulário
+
+            $('select').select2({
+    theme: 'bootstrap4',
+});
             
         });
         $(document).on('click', '.remove-table-row', function() {
@@ -149,6 +154,8 @@
 
 
         });
+
+      
     
  </script>
 

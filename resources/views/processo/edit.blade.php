@@ -51,7 +51,9 @@
             @foreach ( $Fornecedores as $Process )
             <option  value="{{$Process->id}}" >{{$Process->nome_fantasia}}</option>
             @endforeach
-        </select><br>       
+        </select><br> 
+        <label class="control-label mb-1" >Número da O.F</label>
+        <input type="text" class= "form-control"  name="numero_of"  value="{{old('numero_of',$Processo->numero_of)}}">        
         <label class="control-label mb-1" >Item</label>
         <input type="text" class= "form-control"  name="item"  value="{{old('item',$Processo->item)}}">        
         <label class="control-label mb-1" >Quantidade</label>

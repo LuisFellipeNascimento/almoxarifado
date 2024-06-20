@@ -15,6 +15,10 @@ class OrdemFornecimento extends Model
 
     'emissao',
 
+    'descricao',
+
+    'nota_fiscal',
+
     'empenho',
 
     'item',
@@ -28,6 +32,10 @@ class OrdemFornecimento extends Model
     'id_fornecedor',
 
     'id_processo'];
+
+    protected $dates = [
+        'emissao',
+    ];
 
 
     public function Fornecedores(){

@@ -28,7 +28,9 @@
            </div>
         @endif   
         <label class="control-label mb-1" >Número</label>
-        <input type="text" class= "form-control"  name="numero" id="numero" placeholder="Número do processo" value="{{$Processo->numero}}" readonly>        
+        <input type="text" class= "form-control"  name="numero" id="numero" placeholder="Número do processo" value="{{$Processo->numero}}" readonly>
+        <label class="control-label mb-1" >Número da O.F</label>
+        <input type="text" class= "form-control"  name="numero_of" id="numero_of" placeholder="Número da O.F" value="{{$Processo->numero_of}}" readonly>              
         <label class="control-label mb-1" >Descrição</label>
         <input type="text" class= "form-control"  name="descricao" id="descricao" placeholder="" value="{{$Processo->descricao}}" readonly>
         <label class="control-label mb-1" >Fornecedor</label>

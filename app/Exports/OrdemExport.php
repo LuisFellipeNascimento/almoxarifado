@@ -2,22 +2,18 @@
 
 namespace App\Exports;
 
-use App\Models\Fornecedores;
+
 use App\Models\OrdemFornecimento;
-use App\Models\Processo;
-use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
-
-class OrdemExport implements FromView
+class OrdemExport implements FromCollection
 {
-      public function view(): View
+    use Exportable;
+
+    public function collection(Request $request)
     {
-        return view('ordem.index',[
-            'ordem'=>OrdemFornecimento::all(),
-            'Processos'=>Processo::all(),
-            'Fornecedores'=>Fornecedores::all(),
-            
-        ]);
+        return OrdemFornecimento::where('numero','=',$request->numero_ordem)->get();
     }
 }
+
+

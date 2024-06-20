@@ -15,7 +15,9 @@
                     <ol class="breadcrumb text-right">
                         <li class="active">
                             <div class="float-right"><a href="{{ route('ordem.create') }}" class="btn btn-success">Adicionar
-                                    Ordem</a></div>
+                                    Ordem</a>
+                                    <button id="btnExport" class="btn btn-success">Exportar para Excel</button>      
+                            </div>
                         </li>
                     </ol>
                 </div>
@@ -56,14 +58,20 @@
                     </select>
 
                 </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="descricao" class="control-label mb-1">Descrição</label><br>
+                    <input type="text" name="descricao" class="form-control form-control-sm" value="{{$descricao}}">
+                </div>
+
                 <div class="col-md-2 mb-3">
                     <label for="item" class="control-label mb-1">Item</label><br>
                     <select name="item" id="select4" class="select2 form-control cc-exp">
 
-                        @foreach ($ordem->unique('item') as $process2)
+                        @foreach ($ordem->unique('item') as $process4)
                             <option value="">Item</option>
-                            <option value="{{ $process2->item }}" {{ $process2->item == $item ? 'selected' : '' }}>
-                                {{  $process2?->item }}</option>
+                            <option value="{{ $process4->item }}" {{ $process4->item == $item ? 'selected' : '' }}>
+                                {{  $process4?->item }}</option>
                         @endforeach
 
                     </select>
@@ -93,6 +101,11 @@
                     </select>
                 </div>
 
+                <div class="col-md-2 mb-3">
+                    <label for="nota_fiscal" class="control-label mb-1">Número da Nota fiscal</label><br>
+                    <input type="text" name="nota_fiscal" class="form-control form-control-sm" value="{{$nota_fiscal}}">
+                </div>
+
             </div>
 
             <button type="submit" class="btn btn-primary "><i class="fa fa-search"></i> Procurar</button>
@@ -110,7 +123,7 @@
             </div>
         @endif
 
-        <table class="table hover">
+        <table class="table hover" id="divTabela">
             <thead class="table-primary">
                 <tr>
                     <th>#</th>
@@ -119,6 +132,9 @@
                     <th>Ordem</th>
                     <th>Empenho</th>
                     <th>Item</th>
+                    <th>Descrição</th>
+                    <th>Nota Fiscal</th>
+                    <th>Quantidade</th>
                     <th> Valor Total</th>
                     <th class="text-center">Ação</th>
 
@@ -135,6 +151,9 @@
                             <td class = "align-middle">{{ $rs->numero_ordem }}</td>
                             <td class = "align-middle">{{ $rs->empenho }}</td>
                             <td class = "align-middle">{{ $rs->item }}</td>
+                            <td class = "align-middle">{{ $rs->descricao }}</td>
+                            <td class = "align-middle">{{ $rs->nota_fiscal }}</td>
+                            <td class = "align-middle">{{ $rs->quant_total }}</td>
                             <td class = "align-middle"> {{ Number::format($rs->valor_total, locale: 'pt_BR') }} R$</td>
 
 
@@ -168,16 +187,16 @@
                         <td>Não existe ordens cadastradas nesse processo.</td>
                     </tr>
                 @endif
-                @if (isset($id_processo) and $id_fornecedor == false)
-                    @if ($resultado == 0)
-                        <div class="alert alert-success" role="alert">Processo bem aproveitado</div>
-                    @elseif($resultado > 0)
+                @if (isset($id_processo) and isset($numero_ordem))
+                    @if ($resultado_of == 0)
+                        <div class="alert alert-success" role="alert">A ordem foi cumprida na sua totalidade.</div>
+                    @elseif($resultado_of > 0)
                         <div class="alert alert-warning" role="alert">Existe
                             {{ Number::format($resultado, locale: 'pt_BR') }} R$ de saldo disponíveis a serem pedidos!
                         </div>
-                    @elseif($resultado < 0)
-                        <div class="alert alert-danger" role="alert">Você pediu
-                            {{ Number::format($resultado, locale: 'pt_BR') }} R$ a mais que deveria, contate o Departamento
+                    @elseif($resultado_of < 0)
+                        <div class="alert alert-danger" role="alert">Você recebeu
+                            {{ Number::format($resultado, locale: 'pt_BR') }} R$ a mais de material que deveria, contate o departamento
                             de compras!</div>
                     @endif
                 @endif
@@ -186,7 +205,7 @@
                     <tr>
                         <thead class="table-primary">
                             <tr>
-                                <th colspan="8">Valor total das ordens do processo desse fornecedor. </th>
+                                <th colspan="8">Valor total das notas fiscais desse processo. </th>
 
 
 
@@ -203,20 +222,41 @@
 
             <thead class="table-primary">
                 <tr>
-                    <th>Saldo livre processo </th>                   
-                    <th>Quantidade total de produtos a receber </th>
-                    <th>Quantidade do item no processo(Selecionar 1º)</th>
+                    <th>Saldo disponível nas O.F.s </th>                   
+                    <th>Quantidade geral de produtos a receber </th>
+                    <th>Quantidade total empenhada até o momento do produto </th>
+                    @if (isset($item))
+                    <th>Quantidade de itens a receber</th>
+                    @endif  
                     <th>Quantidade total de produtos recebidos</th>
+                    <th>Total da ordem de fornecimento</th>
+                    <th>Status da ordem</th>
                     
                 </tr>
             </thead>
             <tbody>
-                @if (!isset($id_fornecedor))
+                @if (isset($id_fornecedor) or (isset($numero_ordem) or (isset($item)) ))
                     <tr>
                         <td> R${{ Number::format($resultado, locale: 'pt_BR') }}</td>                       
                         <td>{{ $resultado_confronto }}</td>
-                        <td> {{$quantidade_total_item}}</td>
+                        <td>{{ $quantidade_total_item_no_processo}}</td>
+                        @if (isset($item))
+                        <td> 
+                            @if($quantidade_total_item<0)
+                        Você precisa devolver {{$quantidade_total_item}} desse item.
+                           @else  {{$quantidade_total_item}} 
+                        @endif
+                        
+                        </td>
+                        @endif 
                         <td>{{ $resultado_quantidade }}</td>
+                        <td>R${{ Number::format($total_ordem, locale: 'pt_BR') }}</td>
+                         @if($resultado_of==0) <td class="alert alert-success" role="alert">A ordem foi cumprida na sua totalidade.</td>
+                            @elseif($resultado_of>0)<td class="alert alert-warning" role="alert">A ordem não foi cumprida.</td>
+                            @elseif($resultado_of<0)<td class="alert alert-danger" role="alert">Foi recebido mais doque deveria.</td>
+                        @endif                      
+                           
+                     
                     </tr>
                 @endif
             </tbody>
@@ -280,6 +320,21 @@
 
         });
         $('.select4').on('select2:select', handleSelection);
+    </script>
+<script>
+$(document).ready(function () {
+    $("#btnExport").click(function (e) {
+         e.preventDefault();
+         var table_div = document.getElementById('divTabela');   
+         // esse "\ufeff" é importante para manter os acentos         
+         var blobData = new Blob(['\ufeff'+table_div.outerHTML], { type: 'application/vnd.ms-excel' });
+         var url = window.URL.createObjectURL(blobData);
+         var a = document.createElement('a');
+         a.href = url;
+         a.download = 'Meu arquivo Excel'
+               a.click();
+           });
+       });
     </script>
 
 @endsection

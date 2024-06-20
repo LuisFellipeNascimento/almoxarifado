@@ -5,7 +5,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Lista de Processos Cadastradas</h1>
+                    <h1>Lista de Processos Cadastrados</h1>
                 </div>
             </div>
         </div>
@@ -22,7 +22,8 @@
 
     <div class="content mt-3">
         <div class="float-right">
-            <a href="{{ route('processo.create') }}" class="btn btn-success">Adicionar Processos</a>            
+            <a href="{{ route('processo.create') }}" class="btn btn-success">Adicionar Processos</a>       
+              
         </div>
         <form class="form-inline">
             <label class="sr-only" for="inlineFormInputGroupUsername2">Processo</label>
@@ -30,12 +31,13 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">Buscar</div>
                 </div>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Número do Processo" value="{{$nome}}">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Número do Processo" value="{{$nome}}" required>
                 <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição" value="{{$descricao}}">
                 <input type="text" class="form-control" id="item" name="item" placeholder="item" value="{{$item}}">
-                <select name="id_fornecedor"  id="select3" class="select3 form-control" >
+                <input type="text" class="form-control" id="numero_of" name="numero_of" placeholder="Número da O.F" value="{{$numero_of}}">
+                <select name="id_fornecedor"  id="select3" class="form-control" >
                     @if ($Fornecedores->count() > 0)
-                    <option value="" disabled selected>Selecione um fornecedor</option>
+                    <option value="" selected>Selecione um fornecedor</option>
                     @foreach ( $Fornecedores as $Fornecedor )
                     <option value="{{$Fornecedor->id}}"
                         {{ $Fornecedor->id == $id_fornecedor ? 'selected' : '' }}> 
@@ -73,6 +75,7 @@
                     <th>Processo</th>
                     <th>Descrição</th>
                     <th>Fornecedor</th>
+                    <th>Número da O.F</th>
                     <th>Item</th>
                     <th>Quantidade</th>
                     <th>Valor do item</th>
@@ -90,6 +93,7 @@
                             <td class = "align-middle">{{ $rs->numero }}</td>
                             <td class = "align-middle">{{ $rs->descricao }}</td>
                             <td class = "align-middle">{{ $rs->Fornecedores->nome_fantasia  }}</td>
+                            <td class = "align-middle">{{ $rs->numero_of }}</td>
                             <td class = "align-middle">{{ $rs->item }}</td>
                             <td class = "align-middle">{{ $rs->quantidade }}</td>
                             <td class = "align-middle">{{ Number::format($rs->valor,locale: 'pt_BR') }} R$</td>
@@ -119,7 +123,7 @@
                         <td>Não existem processos cadastrados</td>
                     </tr>
                 @endif
-                @if(isset($nome) OR ($descricao) OR ($item) )
+                @if(isset($nome) OR ($descricao) OR ($item))
                 <table class="table hover">
                     <thead class="table-primary">
                         <tr>
@@ -127,8 +131,17 @@
                                                        
                            
                             <th class="align-center">Items do processo: {{$NumeroItem}}</th>                             
-                            <th class="align-center">{{$valorquantidade}}</th>                            
-                            <th class="align-center">{{  Number::format($valorempenhado,locale: 'pt_BR')}} R$</th> 
+                            <th class="align-center">Quantidade de produtos:{{$valorquantidade}}</th>                           
+                            @if(isset ($item) )
+                            <th class="align-center">Quantidade total do item pesquisado:{{$quantidade_total_item_nas_ordens}}
+                            @endif
+                            <th class="align-center">Custo total do processo. {{  Number::format($total_processo,locale: 'pt_BR')}} R$</th>
+                            @if(isset ($id_fornecedor) )
+                            <th class="align-center">Somatório das O.F do fornecedor selecionado. {{  Number::format($valorempenhado,locale: 'pt_BR')}} R$</th>
+                            @endif
+                            @if(isset ($numero_of) )
+                            <th class="align-center">Total da O.F selecionada {{ Number::format($total_ordem,locale: 'pt_BR')}} R$</th>
+                            @endif
                             <th></th>
                        </tr>
                    </thead>
@@ -157,11 +170,6 @@
     });
 </script>
 
-<script>
-   
-    $('select1').select2({
-    theme: 'bootstrap4',
-});
-</script>
+
 
 @endsection

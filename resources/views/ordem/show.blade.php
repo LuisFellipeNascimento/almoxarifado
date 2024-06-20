@@ -41,6 +41,10 @@
         <input type="text"   class= "form-control" name="empenho" id="empenho"  value="{{$OrdemFornecimento->empenho}}" readonly>
         <label class="control-label mb-1"> Item</label>
         <input type="text"   class= "form-control" name="item" id="item"  value="{{$OrdemFornecimento->item}}"  readonly>
+        <label class="control-label mb-1"> Descrição</label>
+        <input type="text"   class= "form-control" name="descricao" id="descricao"  value="{{$OrdemFornecimento->descricao}}"  readonly>
+        <label class="control-label mb-1">Número da Nota Fiscal</label>
+        <input type="text"   class= "form-control" name="nota_fiscal" id="nota_fiscal"  value="{{$OrdemFornecimento->nota_fiscal}}"  readonly>
 
         <label class="control-label mb-1">valor Unitário</label>
         <textarea  class= "form-control" name="valor_unitario" id="valor_unitario" readonly >{{$OrdemFornecimento->valor_unitario}}</textarea>

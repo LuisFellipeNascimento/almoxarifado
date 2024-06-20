@@ -20,7 +20,9 @@ class OrdemFornecimentoController extends Controller
     public function index(Request $request)
     {   $Processos =Processo::orderBy('numero','desc')->get(); 
         $Fornecedores = Fornecedores::all();   
-        $empenho_unico = OrdemFornecimento::distinct()->get(['empenho']);  
+        $empenho_unico = OrdemFornecimento::distinct()->get(['empenho']);
+    
+        
             $ordem =  OrdemFornecimento::orderBy('id', 'desc')
             ->with('processo')
             ->when($request->id_processo, function ($query) use ($request) {
@@ -38,22 +40,38 @@ class OrdemFornecimentoController extends Controller
             ->when($request->numero_ordem, function ($query) use ($request) {
                 $query->where('numero_ordem', $request->numero_ordem);
             })
+            ->when($request->nota_fiscal, function ($query) use ($request) {
+                $query->where('nota_fiscal', $request->nota_fiscal);
+            })
+            ->when($request->descricao, function ($query) use ($request) {
+                $query->where('descricao','like','%'. $request->descricao.'%');
+                 
+            })
        ->orderByDesc('id_fornecedor')
-       ->paginate(25);
+       ->paginate(500);
        $n1=0;
        foreach ($ordem as $rs) {
        $rs->Processo->numero;
        $n1=$rs->Processo->numero;}
      
-       $quantidade_total_item = Processo::where('item','=',$request->item)->where('numero','like','%'.$n1.'%')->sum('quantidade');
        $valorempenhado = Processo::where('numero','like','%'.$n1.'%')->sum('valor');
-       $total_produtos = $ordem->sum('valor_total');
-       
+        //balanço dos valores: quantidade de cada item - oque foi entregue
+       $quantidade_total_item_no_processo = Processo::where('item','=',$request->item)->where('numero','like','%'.$n1.'%')->sum('quantidade');
+       $quantidade_total_item_entregue = $ordem->sum('quant_total');
+       $quantidade_total_item = $quantidade_total_item_no_processo - $quantidade_total_item_entregue;
+
+        //soma do valor total do processo filtrando por ordem      
+       $total_ordem = Processo::where('numero_of','like','%'.$request->numero_ordem.'%')->sum('valor');       
+       $total_produtos = $ordem->sum('valor_total');       
        $resultado = $valorempenhado - $total_produtos;
             
        //somar por fornecedor
        //$valorFornecedor =  $ordem('id_fonecedor',$request->id_fonecedor)->sum('valor_total');
+   
+        //balanço dos valores: da O.F com oque foi entregue.
+        $resultado_of =  $total_ordem - $total_produtos;
 
+        //total geral da quantidade dos itens com oque foi entregue.
        $valorItem =  Processo::where('numero','like','%'.$n1.'%')
        ->where('item','like','%'.$request->item.'%')       
        ->sum('quantidade');
@@ -67,8 +85,11 @@ class OrdemFornecimentoController extends Controller
        $item = $request->item;
        $empenho= $request->empenho;
        $numero_ordem= $request->numero_ordem;
-        return view ('ordem.index',compact('ordem','quantidade_total_item','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item','empenho','numero_ordem','empenho_unico'));
-     
+       $nota_fiscal= $request->nota_fiscal;
+       $descricao= $request->descricao;
+       
+        return view ('ordem.index', compact('quantidade_total_item_no_processo','total_ordem','resultado_of','ordem','quantidade_total_item','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item','empenho','numero_ordem','empenho_unico','descricao','nota_fiscal'));
+        
     }
 
     /**
@@ -94,7 +115,9 @@ class OrdemFornecimentoController extends Controller
       
 
         $campos = $request->validate([ 
-            'numero_ordem'=>['required'],	
+            'numero_ordem'=>['required'],
+            'nota_fiscal'=>['required'],	
+            'descricao'=>['required'],		
             'emissao'=>['required'],
             'empenho'=>['required'],
             'item'=>['required'],
@@ -143,8 +166,9 @@ class OrdemFornecimentoController extends Controller
         $OrdemFornecimento = OrdemFornecimento::findOrFail($id); 
          
         $campos = $request->validate([ 
-        'numero_ordem' =>['required'],	
-
+        'numero_ordem' =>['required'],
+        'nota_fiscal'=>['required'],
+        'descricao'=>['required'],
         'emissao' =>['required'],
 
         'empenho' =>['required'],

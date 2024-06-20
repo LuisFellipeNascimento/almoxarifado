@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('item');
             $table->double('valor_unitario');
             $table->double('valor_total');
+            $table->string('nota_fiscal');
+            $table->text('descricao');
             $table->integer('quant_total');
             $table->unsignedBigInteger('id_fornecedor');
             $table->unsignedBigInteger('id_processo');            

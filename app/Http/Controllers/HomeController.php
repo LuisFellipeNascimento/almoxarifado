@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {   $Fornecedores = Fornecedores::all();
 
-        $Processo = Processo::orderBy('id')  
+        $Processo = Processo::orderBy('numero','asc')->orderBy('numero_of','asc')
         
         ->when($request->nome,function($query) use ($request){
             $query->where('numero','like','%'.$request->nome.'%');  
@@ -26,23 +26,33 @@ class HomeController extends Controller
         })
         
         ->when($request->descricao,function($query) use ($request){
-            $query->where('descricao','like','%'.$request->descricao.'%');  
+            $query->where('descricao','like','%'.$request->descricao);  
         })
 
         ->when($request->id_fornecedor,function($query) use ($request){
             $query->where('id_fornecedor','like','%'.$request->id_fornecedor.'%');  
         })
-        ->orderByDesc('created_at')
-        ->Paginate(7)
+        ->when($request->numero_of,function($query) use ($request){
+            $query->where('numero_of','like','%'.$request->numero_of.'%');  
+        })
+        ->orderBy('item')
+       
+        ->Paginate(10)
         ->withQueryString();
-        $NumeroItem = Processo::where('numero','like','%'.$request->nome.'%')->count('numero');
-        $valorempenhado = Processo::where('numero','like','%'.$request->nome.'%')->sum('valor');
+        $NumeroItem = Processo::where('numero','like','%'.$request->nome.'%')->distinct()->count('item');
+        $valorempenhado = Processo::where('numero','like','%'.$request->nome.'%')->where('id_fornecedor','like','%'.$request->id_fornecedor.'%')->sum('valor');
         $valorquantidade = Processo::where('numero','like','%'.$request->nome.'%')->sum('quantidade');
+        $total_ordem = Processo::where('numero_of','like','%'.$request->numero_of.'%')->where('id_fornecedor','like','%'.$request->id_fornecedor.'%')->sum('valor');
+        $total_processo = Processo::where('numero','like','%'.$request->nome.'%')->sum('valor');
+        $quantidade_total_item_nas_ordens = Processo::where('item','=',$request->item)->sum('quantidade');
+       
         $nome =$request->nome;
         $item=$request->item;
         $descricao=$request->descricao;
         $id_fornecedor=$request->id_fornecedor;
-        return view ('processo.index',compact('Processo','Fornecedores','nome','item','descricao','valorempenhado','valorquantidade','id_fornecedor','NumeroItem'));
+        $numero_of=$request->numero_of;
+       
+        return view ('processo.index',compact('quantidade_total_item_nas_ordens','Processo','Fornecedores','nome','item','descricao','valorempenhado','valorquantidade','id_fornecedor','NumeroItem','numero_of','total_ordem','total_processo'));
        
     }
 
@@ -65,7 +75,7 @@ class HomeController extends Controller
                     'inputs.*.item'=>'required',
                     'inputs.*.quantidade'=>'required',
                     'inputs.*.id_fornecedor'=>'required',
-                    
+                    'inputs.*.numero_of'=>'required',
                 ]  ,
                 [ 
                     'inputs.*.numero'=>'É preciso digitar o número do processo',
@@ -74,6 +84,7 @@ class HomeController extends Controller
                     'inputs.*.item'=>'É preciso digitar o número do item',
                     'inputs.*.quantidade'=>'É preciso digitar a quantidade deste item',
                     'inputs.*.id_fornecedor'=>'É preciso escolher um fornecedor',
+                    'inputs.*.numero_of'=>'É preciso digitar o número da of',
                 ]            
             );
          
@@ -106,6 +117,7 @@ class HomeController extends Controller
         
       $campos = $request->validate([ 
     'numero'=>['required'],
+    'numero_of'=>'required',
     'descricao'=>'required',
     'valor'=>'required',
     'id_fornecedor'=>'required',

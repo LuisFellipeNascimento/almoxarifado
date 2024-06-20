@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('processo', function (Blueprint $table) {
             $table->id();
             $table->string('numero');
+            $table->string('numero_of');
             $table->string('descricao');
             $table->double('valor');
             $table->string('item');

@@ -78,6 +78,10 @@
        
         <label class="control-label mb-1">Item</label>
         <input type="text"   class= "form-control"name="item" id="item" placeholder="Item do processo" value="{{ old('item')}}" >
+        <label class="control-label mb-1">Descrição</label>
+        <input type="text"   class= "form-control"name="descricao" id="descricao" placeholder="descricao do processo" value="{{ old('descricao')}}" >
+        <label class="control-label mb-1">Nota Fiscal</label>
+        <input type="text"   class= "form-control"name="nota_fiscal" id="nota_fiscal" placeholder="Número da notafiscal" value="{{ old('nota_fiscal')}}" >
         <label class="control-label mb-1">Valor unitario</label>
         <input type="number" step="0.01" class= "form-control" name="valor_unitario" onblur="soma()" id="valor_unitario" value="{{ old ('valor_unitario')}}" >       
         <label class="control-label mb-1">Quantidade</label>
