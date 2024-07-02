@@ -57,7 +57,7 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
             $request->validate([ 
-            'nome'=>['required'],
+            'nome'=>['required','unique:produtos'],
             'vencimento'=>'nullable',	
             'local'=>['required'],
             'estoque_min'=>['required'],
@@ -121,7 +121,7 @@ class ProdutoController extends Controller
     public function update(Request $request, string $id)
     {  
         $request->validate([ 
-            'nome'=>['required'],	
+            'nome'=>['required','unique:produtos'],	
             'local'=>['required'],
             'vencimento'=>['nullable'],
             'estoque_min'=>['required'],

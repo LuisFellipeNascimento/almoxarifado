@@ -172,7 +172,7 @@
                            @foreach ($ja_vencida as $resultado)
                                 <a class="dropdown-item media bg-flat-color-4" href="#">
                                     
-                                   Data da Emissão{{ date('d/m/Y', strtotime($resultado->emissao))}} Vencimento {{Carbon\Carbon::parse($resultado->emissao)->addDays(12)->format('d/m/Y')}} Número da ordem: {{ $resultado->numero_ordem}} Fornecedor:{{ $resultado->Fornecedores->nome_fantasia}}<br> 
+                                   Data da Emissão{{ date('d/m/Y', strtotime($resultado->emissao))}} Vencimento {{Carbon\Carbon::parse($resultado->emissao)->addDays(12)->format('d/m/Y')}} Número da ordem: {{ $resultado->numero_ordem}} Fornecedor:{{ $resultado->Fornecedores->nome_fantasia}} Processo:{{ $rs->Processo->numero}}<br> 
                                 </a>
                           @endforeach
                               
