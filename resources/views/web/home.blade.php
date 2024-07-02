@@ -156,16 +156,16 @@
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                <span class="count bg-danger">{{$ja_vencida->count()+$vencimento->count()}} </span>
+                                <span class="count bg-danger">{{$ja_vencida->count()+$vencimento_da_ordem->count()}} </span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">Você tem {{ $ja_vencida->count()+$vencimento->count()}} ordens em aberto</p>
+                                <p class="red">Você tem {{ $ja_vencida->count()+$vencimento_da_ordem->count()}} Ordens em aberto.</p>
 
                                 Vencidas<i class="fa fa-check"></i> 
-                                @foreach ($vencimento as $rs)
+                                @foreach ($vencimento_da_ordem as $rs)
                                 <a class="dropdown-item media bg-flat-color-1" href="#">
                                                                      
-                                    Data da Emissão{{ date('d/m/Y', strtotime($rs->emissao))}} Vencimento {{Carbon\Carbon::parse($rs->emissao)->addDays(12)->format('d/m/Y')}} Número da ordem: {{ $rs->numero_ordem}} Fornecedor:{{ $rs->Fornecedores->nome_fantasia}}<br> 
+                                    Data da Emissão{{ date('d/m/Y', strtotime($rs->emissao))}} Vencimento {{Carbon\Carbon::parse($rs->emissao)->addDays(12)->format('d/m/Y')}} Número da ordem: {{ $rs->numero_ordem}} Fornecedor:{{ $rs->Fornecedores->nome_fantasia}} Processo:{{ $rs->Processo->numero}}<br> 
                                 </a> 
                            @endforeach
                            A vencer<i class="fa fa-info"></i> 
