@@ -21,7 +21,7 @@
     </div>
 
     <div class="content mt-3">
-        <form  action="{{url('produto.update',$produto->id)}}" enctype="multipart/form-data" method="POST">
+        <form  action="{{route('produto.update',$produto->id)}}" enctype="multipart/form-data" method="POST">
             @csrf
             @method('PUT')
             @if ($errors->any())
@@ -64,7 +64,9 @@
             <input type="text"   class= "form-control" name="codigobarras"  id="codigobarras"  value="{{$produto->codigobarras}}"  >
              
             <label class="control-label mb-1">Foto</label>
-            <td class = "align-middle"><img  name="foto" src="{{asset($produto->foto) }}" style="width: 70px; height: 70px;" alt="img"/></td>
+            <a href="{{ asset ($produto->foto) }}" data-fancybox   data-caption="{{$produto->nome}}">
+           <img  name="foto2"  class="img-fluid" src="{{asset($produto->foto) }}" style="width: 100px; height: 100px;" alt="img"/>
+            </a>
             <input type="file"   class= "form-control" name="foto" id="foto" >                
             <label class="control-label mb-1">Observação</label>
             <textarea  class= "form-control" name="observacao" id="observacao">{{$produto->observacao}}</textarea>

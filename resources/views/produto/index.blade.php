@@ -81,10 +81,8 @@
                             <td class = "align-middle">{{ $rs->nome }}</td>
                             <td class = "align-middle">{{ date('d/m/Y', strtotime($rs->vencimento))}}</td>
                             <td class = "align-middle">{{ $rs->local }}</td> 
-                            <td class = "align-middle">{{ $rs->quant_total }}</td>                           
-                            <td class = "align-middle"><img src="{{ asset($rs->foto) }}" style="width: 70px; height: 70px;" alt="img"/></td>
-
-                           
+                            <td class = "align-middle">{{ $rs->quant_total }}</td> 
+                            <td class = "align-middle"><a href="{{ asset ($rs->foto) }}" data-fancybox   data-caption="{{$rs->nome}}"><img src="{{ asset($rs->foto) }}" style="width: 70px; height: 70px;" alt="img"/></td>
                             <td class = "align-middle">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#show-{{$rs->id}}">

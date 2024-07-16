@@ -32,7 +32,7 @@
             <input type="text"   class= "form-control" name="codigobarras"  id="codigobarras"  value="{{$rs->codigobarras}}" readonly>
              
             <label class="control-label mb-1">Foto</label><br>
-            <img src="{{ asset($rs->foto) }}" style="width: 100px; height: 100px;" alt="img"/><br>               
+            <a href="{{ asset ($rs->foto) }}" data-fancybox   data-caption="{{$rs->nome}}"><img src="{{ asset($rs->foto) }}" style="width: 100px; height: 100px;" alt="img"/></a><br>               
             <label class="control-label mb-1">Observação</label>
             <textarea  class= "form-control" name="observacao" id="observacao" readonly >{{$rs->observacao}}</textarea>
             

@@ -31,6 +31,7 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
+
     <!-- Select2 dependencias -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -45,6 +46,12 @@
 
     <!-- Masck -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+
+    <!-- Apliar imagem  -->  
+   
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <link  rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+
 
 
 </head>
@@ -233,7 +240,11 @@
     <script src="{{ url('vendors/jqvmap/dist/jquery.vmap.min.js') }}"></script>
     <script src="{{ url('vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
     <script src="{{ url('vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-
+    <script>
+    Fancybox.bind("[data-fancybox]", {
+        // Your custom options
+      });
+    </script>  
 
 
     <script>

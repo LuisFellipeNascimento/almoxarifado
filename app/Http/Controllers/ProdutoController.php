@@ -77,7 +77,8 @@ class ProdutoController extends Controller
                 $path = 'uploads/foto_produtos/';
                 $file->move($path,$filename);
             }
-
+            $path = NULL;
+            $filename = NULL;
  
                 
         Produto::create([
@@ -121,7 +122,7 @@ class ProdutoController extends Controller
     public function update(Request $request, string $id)
     {  
         $request->validate([ 
-            'nome'=>['required','unique:produtos'],	
+            'nome'=>['required'],	
             'local'=>['required'],
             'vencimento'=>['nullable'],
             'estoque_min'=>['required'],
@@ -135,6 +136,7 @@ class ProdutoController extends Controller
             ]) ;
             
             $produto = Produto::findOrFail($id);
+           
 
             if($request->has('foto')){
                 $file = $request->file('foto');
@@ -143,12 +145,28 @@ class ProdutoController extends Controller
                 $path = 'uploads/foto_produtos/';
                 $file->move($path, $filename);
 
+               
+
              if(File::exists($produto->foto)){
                 File::delete($produto->foto);
-             }   
+             }
+             
+             $produto->update([
+                'nome'=>$request->nome,	
+                'local'=>$request->local,
+                'vencimento'=>$request->vencimento,
+                'estoque_min'=>$request->estoque_min,
+                'estoque_ideal'=>$request->estoque_ideal,           
+                'valor_saida'=>$request->valor_saida,          
+                'foto'=>$path.$filename,
+                'observacao'=>$request->observacao,           
+                'id_categoria'=>$request->id_categoria,
+                'quant_total'=>$request->quant_total,
+                'codigobarras'=>$request->codigobarras,
+                  ]);
+             
             }
-
-            
+       
                 
         $produto->update([
         'nome'=>$request->nome,	
@@ -156,8 +174,7 @@ class ProdutoController extends Controller
         'vencimento'=>$request->vencimento,
         'estoque_min'=>$request->estoque_min,
         'estoque_ideal'=>$request->estoque_ideal,           
-        'valor_saida'=>$request->valor_saida,          
-        'foto'=>$path.$filename,
+        'valor_saida'=>$request->valor_saida,
         'observacao'=>$request->observacao,           
         'id_categoria'=>$request->id_categoria,
         'quant_total'=>$request->quant_total,
@@ -171,8 +188,15 @@ class ProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produto $produto)
+    public function destroy(Produto $produto,string $id)
     {
-        //
+        $produto = Produto::findOrFail($id);
+        if(File::exists($produto->foto)){
+            File::delete($produto->foto);
+        }
+
+        $produto->delete();
+
+        return redirect()->back()->with('success','O produto foi apagado o com sucesso!');
     }
 }
