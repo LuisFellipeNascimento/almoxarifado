@@ -3,17 +3,16 @@
 namespace App\Exports;
 
 
-use App\Models\OrdemFornecimento;
+use App\Models\Pedidos;
+use App\Models\Unidades;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class OrdemExport implements FromCollection
-{
-    use Exportable;
 
-    public function collection(Request $request)
+class OrdemExport implements  FromCollection
+{  
+    public function collection()
     {
-        return OrdemFornecimento::where('numero','=',$request->numero_ordem)->get();
+        dd();
+    
+        }
     }
-}
-
-

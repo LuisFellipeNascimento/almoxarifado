@@ -47,11 +47,14 @@
     <!-- Masck -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 
-    <!-- Apliar imagem  -->  
+    <!-- Ampliar imagem  -->  
    
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <link  rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
-
+  <!-- Exportar pdf  -->  
+   
+  <link rel="stylesheet"   href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css"/>
+  <link rel="stylesheet"  href="https://cdn.datatables.net/buttons/3.1.1/css/buttons.dataTables.css"/>
 
 
 </head>
@@ -122,7 +125,7 @@
                             <ul class="sub-menu children dropdown-menu">
                                 <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li>
                                 <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.create') }}">Cadastrar</a></li>
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/saidas.index') }}">Dar Saidas</a></li>
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Dar Saidas</a></li>
                                 <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Pedidos de compra</a></li>
                                 <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Gerenciar Categorias</a></li>
 
@@ -130,7 +133,18 @@
 
                     
                     </li>
+                    <h3 class="menu-title">Movimentação de Unidades</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Gerenciar Unidades</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/unidades.index') }}">Cadastrar</a></li>
+                             
 
+                            </ul>   
+
+                    
+                    </li>
                     
                  
 

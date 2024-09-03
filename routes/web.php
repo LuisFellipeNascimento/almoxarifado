@@ -7,6 +7,8 @@ use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\OrdemFornecimentoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\PedidosController;
+use App\Http\Controllers\UnidadesController;
 use App\Exports\OrdemExport;
 
 
@@ -119,8 +121,8 @@ Route::delete('ordem.destroy/{id}', [App\Http\Controllers\OrdemFornecimentoContr
 ->middleware(['auth'],['verified'])
 ->name('ordem.destroy');
 
-Route::get('ordem.export', [OrdemFornecimentoController::class, 'export'])
-->name('ordem.export');
+Route::get('pedidos.export', [PedidosController::class, 'export'])
+->name('pedidos.export');
 
 Route::get('logout', [App\Http\Controllers\Auth\AuthenticatedSessionController::class,'destroy']);
 
@@ -151,6 +153,62 @@ Route::get('produto.edit/{id}', [App\Http\Controllers\ProdutoController::class,'
 Route::delete('produto.destroy/{id}', [App\Http\Controllers\ProdutoController::class,'destroy'])
 ->middleware(['auth'],['verified'])
 ->name('produto.destroy');
+
+Route::get('unidades.index', [App\Http\Controllers\UnidadesController::class,'index'])
+->middleware(['auth'],['verified'])
+->name('unidades.index');
+
+Route::get('unidades.create', [App\Http\Controllers\unidadesController::class,'create'])
+->middleware(['auth'],['verified'])
+->name('unidades.create');
+
+Route::post('unidades.store', [App\Http\Controllers\unidadesController::class,'store'])
+->middleware(['auth'],['verified'])
+->name('unidades.store');
+
+Route::get('unidades.show/{id}', [App\Http\Controllers\unidadesController::class, 'show'])
+->middleware(['auth'],['verified'])
+->name('unidades.show');
+
+Route::put('unidades.update/{id}', [App\Http\Controllers\unidadesController::class, 'update'])
+->middleware(['auth'],['verified'])
+->name('unidades.update');
+
+Route::get('unidades.edit/{id}', [App\Http\Controllers\unidadesController::class,'edit'])
+->middleware(['auth'],['verified'])
+->name('unidades.edit');
+
+Route::delete('unidades.destroy/{id}', [App\Http\Controllers\unidadesController::class,'destroy'])
+->middleware(['auth'],['verified'])
+->name('unidades.destroy');
+
+Route::get('pedidos.index', [App\Http\Controllers\PedidosController::class,'index'])
+->middleware(['auth'],['verified'])
+->name('pedidos.index');
+
+Route::get('pedidos.create', [App\Http\Controllers\PedidosController::class,'create'])
+->middleware(['auth'],['verified'])
+->name('pedidos.create');
+
+Route::post('pedidos.store', [App\Http\Controllers\PedidosController::class,'store'])
+->middleware(['auth'],['verified'])
+->name('pedidos.store');
+
+Route::get('pedidos.show', [App\Http\Controllers\PedidosController::class, 'export'])
+->middleware(['auth'],['verified'])
+->name('pedidos.show');
+
+Route::put('pedidos.update/{id}', [App\Http\Controllers\PedidosController::class, 'update'])
+->middleware(['auth'],['verified'])
+->name('pedidos.update');
+
+Route::get('pedidos.edit/{id}', [App\Http\Controllers\PedidosController::class,'edit'])
+->middleware(['auth'],['verified'])
+->name('pedidos.edit');
+
+Route::delete('pedidos.destroy/{id}', [App\Http\Controllers\PedidosController::class,'destroy'])
+->middleware(['auth'],['verified'])
+->name('pedidos.destroy');
 
 
 require __DIR__.'/auth.php';
