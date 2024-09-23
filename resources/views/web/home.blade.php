@@ -72,7 +72,7 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="./"><img src={{ url('images/logo.png') }} alt="Logo"></a>
+                <a class="navbar-brand" href="./"><img src="uploads/foto_produtos/menu1.png"  alt="Logo"></a>
                 <a class="navbar-brand hidden" href="./"><img src={{ url('images/logo2.png') }} alt="Logo"></a>
             </div>
 
@@ -123,9 +123,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Gerenciar Materias</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li>
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.create') }}">Cadastrar</a></li>
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Dar Saidas</a></li>
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li>                               
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Saidas</a></li>
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.saldo') }}">Saldo em Estoque</a></li>
                                 <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Pedidos de compra</a></li>
                                 <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Gerenciar Categorias</a></li>
 

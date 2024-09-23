@@ -90,7 +90,7 @@
                             <td class = "align-middle">{{ $loop->iteration }}</td>
                             <td class = "align-middle">{{ $rs->codigo_pedido }}</td>
                             <td class = "align-middle">{{ $rs->unidades->nome }}</td>
-                            <td class = "align-middle">{{ $rs->Produtos->nome }}</td>
+                            <td class = "align-middle">{{ $rs->Produto->nome }}</td>
                             <td class = "align-middle">{{ $rs->quantidade }}</td>
                             <td class = "align-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -112,7 +112,7 @@
 
                 @else
                     <tr>
-                        <td>Não existem processos cadastrados</td>
+                        <td colspan="6" style="text-align: center">Não existem pedidos cadastrados.</td>
                     </tr>
                 @endif
                

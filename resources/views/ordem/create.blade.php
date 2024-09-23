@@ -79,8 +79,17 @@
         <label class="control-label mb-1">Item</label>
         <input type="text"   class= "form-control"name="item" id="item" placeholder="Item do processo" value="{{ old('item')}}" >
         <label class="control-label mb-1">Descrição</label>
-        <input type="text"   class= "form-control"name="descricao" id="descricao" placeholder="descricao do processo" value="{{ old('descricao')}}" >
-        <label class="control-label mb-1">Nota Fiscal</label>
+        <select name="id_produtos" id="select" class="form-control select">
+            @if ($Produtos->count() > 0)
+                <option value="" disabled selected>Selecione um produto.</option>
+                @foreach ($Produtos as $Produto)
+                    <option value="{{ $Produto->id }}">{{ $Produto->nome }}</option>
+                @endforeach
+            @else
+                No records
+            @endif
+
+        </select> <label class="control-label mb-1">Nota Fiscal</label>
         <input type="text"   class= "form-control"name="nota_fiscal" id="nota_fiscal" placeholder="Número da notafiscal" value="{{ old('nota_fiscal')}}" >
         <label class="control-label mb-1">Valor unitario</label>
         <input type="number" step="0.01" class= "form-control" name="valor_unitario" onblur="soma()" id="valor_unitario" value="{{ old ('valor_unitario')}}" >       
@@ -88,7 +97,9 @@
         <input type="number" step="0.01"  class= "form-control" name="quant_total" id="quant_total" onblur="soma()" value="{{ old('quant_total')}}"  >
         <label class="control-label mb-1">valor Total</label>
         <input type="text"  class= "form-control"    name="valor_total"   readonly id="valor_total"   >
-       
+        
+        <label class="control-label mb-1">Data de assinatura da nota fiscal</label>
+        <input type="date" class= "form-control"  name="data_entrega" id="data_entrega" placeholder="Número do processo" value="{{ old('data_entrega')}}" >        
         
         
        <br>

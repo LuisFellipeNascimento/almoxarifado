@@ -61,10 +61,17 @@
                 
                 <div class="col-md-6 mb-3">
                     <label for="descricao" class="control-label mb-1">Descrição</label><br>
-                    <input type="text" name="descricao" class="form-control form-control-sm" value="{{$descricao}}">
+                    <select name="id_produtos" id="select13" class="select2 form-control cc-exp">
+
+                        @foreach ($Produtos as $Produto)
+                            <option value="">Ver todos os Produtoes envolvidos.</option>
+                            <option value="{{ $Produto->id }}" {{ $Produto->id == $id_produtos ? 'selected' : '' }}>
+                                {{ $Produto->nome }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
-                <div class="col-md-2 mb-3">
+                <div class="col-md-1 mb-3">
                     <label for="item" class="control-label mb-1">Item</label><br>
                     <select name="item" id="select4" class="select2 form-control cc-exp">
 
@@ -77,7 +84,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-2 mb-3">
+                <div class="col-md-1 mb-3">
                     <label for="empenho" class="control-label mb-1">Empenho</label><br>
                     <select name="empenho" id="select5" class="select2 form-control cc-exp">
                         @foreach ($ordem->unique('empenho') as $empenho1)
@@ -104,6 +111,15 @@
                 <div class="col-md-2 mb-3">
                     <label for="nota_fiscal" class="control-label mb-1">Número da Nota fiscal</label><br>
                     <input type="text" name="nota_fiscal" class="form-control form-control-sm" value="{{$nota_fiscal}}">
+                </div>
+
+                <div class="col-md-2 mb-2">
+                    <label for="data_inicial" class="control-label mb-1">Inicio do recebimento</label><br>
+                    <input type="date" name="data_inicial" class="form-control form-control-sm" value="{{$data_inicial}}">
+                </div>    
+                <div class="col-md-2 mb-2">
+                    <label for="data_inicial" class="control-label mb-1">Fim do recebimento</label><br>    
+                    <input type="date" name="data_final" class="form-control form-control-sm" value="{{$data_final}}">
                 </div>
 
             </div>
@@ -134,6 +150,7 @@
                     <th>Item</th>
                     <th>Descrição</th>
                     <th>Nota Fiscal</th>
+                    <th>Data de entrega do Fornecedor</th>
                     <th>Quantidade</th>
                     <th> Valor Total</th>
                     <th class="text-center">Ação</th>
@@ -151,8 +168,9 @@
                             <td class = "align-middle">{{ $rs->numero_ordem }}</td>
                             <td class = "align-middle">{{ $rs->empenho }}</td>
                             <td class = "align-middle">{{ $rs->item }}</td>
-                            <td class = "align-middle">{{ $rs->descricao }}</td>
+                            <td class = "align-middle">{{ $rs->Produto->nome }}</td>
                             <td class = "align-middle">{{ $rs->nota_fiscal }}</td>
+                            <td class = "align-middle">{{Carbon\Carbon::parse($rs->data_entrega)->format('d/m/Y')}}</td>
                             <td class = "align-middle">{{ $rs->quant_total }}</td>
                             <td class = "align-middle"> {{ Number::format($rs->valor_total, locale: 'pt_BR') }} R$</td>
 
@@ -184,7 +202,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td>Não existe ordens cadastradas nesse processo.</td>
+                        <td colspan="12" style="text-align: center">Não existe ordens cadastradas nesse processo.</td>
                     </tr>
                 @endif
                 @if (isset($id_processo) and isset($numero_ordem))
@@ -205,7 +223,7 @@
                     <tr>
                         <thead class="table-primary">
                             <tr>
-                                <th colspan="8">Valor total das notas fiscais desse processo. </th>
+                                <th colspan="12">Valor total das notas fiscais desse processo. </th>
 
 
 
@@ -213,7 +231,7 @@
                         </thead>
 
             <tbody>
-                <td>
+                <td  colspan="11" class="text-right">
                     {{ Number::format($total_produtos, locale: 'pt_BR') }} R$
                 </td>
 
@@ -338,3 +356,4 @@ $(document).ready(function () {
     </script>
 
 @endsection
+

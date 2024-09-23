@@ -92,7 +92,7 @@
         @endforeach
         @else
         <tr>
-            <td>Não existe fornecedor</td>
+            <td colspan="9" style="text-align: center">Não existem fornecedores cadastrados.</td>
         </tr>
         @endif 
     </tbody>

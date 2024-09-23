@@ -43,7 +43,7 @@
 
         
 
-        <select name="id_fornecedor"  id="select" class="form-control">
+        <select name="id_fornecedor"  id="select2" class="form-control">
 
             <option value = "{{ $OrdemFornecimento->id_fornecedor}}"  @if ($OrdemFornecimento->id_fornecedor ===$OrdemFornecimento->fornecedores->numero) {'selected':''}  @endif> {{$OrdemFornecimento->Fornecedores->nome_fantasia}}</option>
 
@@ -73,10 +73,19 @@
         <input type="text"   class= "form-control" name="empenho" id="empenho"  value="{{$OrdemFornecimento->empenho}}" >
         <label class="control-label mb-1"> Item</label>
         <input type="text"   class= "form-control" name="item" id="item"  value="{{$OrdemFornecimento->item}}"  >
-        <label class="control-label mb-1"> Descrição</label>
-        <textarea  class= "form-control" name="descricao" id="descricao">  {{$OrdemFornecimento->descricao}}  </textarea> 
+        <label class="control-label mb-1"> Material</label>
+        <select name="id_produtos"  id="select1" class="form-control">
+        <option value = "{{ $OrdemFornecimento->id_produtos}}"  @if ($OrdemFornecimento->id_produtos ===$OrdemFornecimento->Produto->id) {'selected':''}  @endif> {{$OrdemFornecimento->Produto->nome}}</option>
+        @foreach ( $Produtos as $Prod)
+        <option  value="{{$Prod->id}}" >{{$Prod->nome}}</option>
+        @endforeach
+       </select>
         <label class="control-label mb-1">Número da Nota Fiscal</label>
         <input type="text"   class= "form-control" name="nota_fiscal" id="nota_fiscal"  value="{{$OrdemFornecimento->nota_fiscal}}"  >
+
+        <label class="control-label mb-1">Data de assinatura da nota fiscal</label>
+        <input type="date" class= "form-control"  name="data_entrega" id="data_entrega" value="{{$OrdemFornecimento->data_entrega}}" >        
+        
 
         <label class="control-label mb-1">valor Unitário</label>
         <input type="number" step="0.01" class= "form-control" name="valor_unitario" onblur="soma()" id="valor_unitario" value="{{$OrdemFornecimento->valor_unitario}}">
@@ -84,7 +93,7 @@
         <input type="number" step="0.01"   class= "form-control" name="quant_total" onblur="soma()" id="quant_total" value="{{$OrdemFornecimento->quant_total}}"  >
         <label class="control-label mb-1">Valor total</label>
         <input type="text"   class= "form-control" name="valor_total" id="valor_total"  value="{{$OrdemFornecimento->valor_total}}"  readonly  >
-    
+      
         
        <br>
 
@@ -114,5 +123,13 @@
         id('valor_total').value = total;
     }
     </script>
+
+<script>
+   
+    $('select').select2({
+    theme: 'bootstrap4',
+});
+</script>
+
 
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Fornecedores;
+use App\Models\Produto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +16,7 @@ class OrdemFornecimento extends Model
 
     'emissao',
 
-    'descricao',
+    'id_produtos',
 
     'nota_fiscal',
 
@@ -30,6 +31,8 @@ class OrdemFornecimento extends Model
     'quant_total',
 
     'id_fornecedor',
+
+    'data_entrega',
 
     'id_processo'];
 
@@ -46,4 +49,9 @@ class OrdemFornecimento extends Model
         return $this->belongsTo(Processo::class,'id_processo','id')->withDefault([
             'numero' => 'Processo excluído']);
     }
-}
+    public function Produto(){
+        return $this->belongsTo(produto::class,'id_produtos')->withDefault([
+            'nome' => 'Produto excluído']);
+    }
+
+ }

@@ -21,8 +21,9 @@ class ProcessoFactory extends Factory
             'valor'=>$this->faker->numberBetween(15000,90000),  
             'descricao'=>$this->faker->randomElement(array('Mobília Escolar','Material de Expediente','Extintores','Uniforme')),
             'id_fornecedor'=>$this->faker->randomElement(array('1','2','3','4')),
-            'item'=>$this->faker->numberBetween(15000,90000),
+            'item'=>$this->faker->randomNumber(1,30),
             'quantidade'=>$this->faker->randomNumber(3),
+            'numero_of'=>$this->faker->numberBetween(15000,90000),
         ];
     }
 }

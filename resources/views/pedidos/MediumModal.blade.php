@@ -16,7 +16,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <form action="{{ route('unidades.destroy', $rs->id) }}" method="POST">
+                <form action="{{ route('pedidos.destroy', $rs->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-primary" type="submit">Apagar</button>

@@ -198,6 +198,10 @@ Route::get('pedidos.show', [App\Http\Controllers\PedidosController::class, 'expo
 ->middleware(['auth'],['verified'])
 ->name('pedidos.show');
 
+Route::get('pedidos.inventario', [App\Http\Controllers\PedidosController::class, 'exportar_saldo'])
+->middleware(['auth'],['verified'])
+->name('pedidos.inventario');
+
 Route::put('pedidos.update/{id}', [App\Http\Controllers\PedidosController::class, 'update'])
 ->middleware(['auth'],['verified'])
 ->name('pedidos.update');
@@ -210,5 +214,8 @@ Route::delete('pedidos.destroy/{id}', [App\Http\Controllers\PedidosController::c
 ->middleware(['auth'],['verified'])
 ->name('pedidos.destroy');
 
+Route::get('pedidos.saldo', [App\Http\Controllers\PedidosController::class,'saldo'])
+->middleware(['auth'],['verified'])
+->name('pedidos.saldo');
 
 require __DIR__.'/auth.php';

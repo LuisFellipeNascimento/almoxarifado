@@ -8,6 +8,7 @@ use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\UnidadesController;
 use App\Models\Produto;
 use App\Models\Unidades;
+use App\Models\OrdemFornecimento;
 
 class Pedidos extends Model
 {
@@ -23,7 +24,7 @@ class Pedidos extends Model
 
     'id_produtos'];
 
-    public function Produtos(){
+    public function Produto(){
         return $this->belongsTo(produto::class,'id_produtos','id')->withDefault([
             'nome' => 'Produto excluído']);
     }
@@ -31,5 +32,7 @@ class Pedidos extends Model
         return $this->belongsTo(unidades::class,'id_unidades','id')->withDefault([
             'nome' => 'Unidade excluída']);
     }
+
+    
     
 }

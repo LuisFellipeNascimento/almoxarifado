@@ -41,11 +41,26 @@ class Produto extends Model
             'numero' => 'Processo excluído']);
     }
 
-   
-    public function Produtos(){
-        return $this->hasMany(Produto::class)->withDefault();
+    public function Produto(){
+        return $this->belongsTo(produto::class,'id_produtos','id')->withDefault([
+            'nome' => 'Produto excluído']);
     }
 
+
+   public function OrdemFornecimentos()
+                  {
+                return $this->hasMany(OrdemFornecimento::class,'id_produtos');
+            }
    
+            public function pedidos(){
+                return $this->hasMany(pedidos::class,'id_produtos');
+                    }
+
+            public function getSaldoAtualAttribute()
+            {   $entrada_inicial = $this->Produto()->sum('quant_total'); 
+                $entradas = $this->ordemFornecimentos()->sum('quant_total');
+                $saidas = $this->pedidos()->sum('quantidade');
+                return $this->quant_total + (($entradas + $entrada_inicial)  - $saidas);
+            }
 }
 	

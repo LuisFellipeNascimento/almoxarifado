@@ -96,10 +96,13 @@
                 @endif
             </tbody>
         </table>
+        <div class="d-flex">
+            {!! $unidades->links() !!}
 
-
+        </div>
+    
     </div>
 
-
+  
 
 @endsection

@@ -15,15 +15,17 @@ return new class extends Migration
             $table->id();                       
             $table->string('numero_ordem');
             $table->date('emissao');
+            $table->date('data_entrega');
             $table->string('empenho');
             $table->string('item');
             $table->double('valor_unitario');
             $table->double('valor_total');
-            $table->string('nota_fiscal');
-            $table->text('descricao');
+            $table->string('nota_fiscal');         
             $table->integer('quant_total');
             $table->unsignedBigInteger('id_fornecedor');
-            $table->unsignedBigInteger('id_processo');            
+            $table->unsignedBigInteger('id_processo');
+            $table->unsignedBigInteger('id_produtos')->nullable();
+            $table->foreign('id_produtos')->references('id')->on('produtos')->onDelete('cascade');            
             $table->timestamps();
         });
         Schema::table('ordem_fornecimentos', function (Blueprint $table) { 

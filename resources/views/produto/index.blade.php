@@ -67,7 +67,7 @@
                     <th class="text-left">Quantidade</th>                    
                     <th class="text-center">Foto</th>
                     
-                    <th class="text-center" colspan="4">Ação</th>
+                    <th class="text-center" colspan="3">Ação</th>
                 
 
                 </tr>
@@ -83,29 +83,34 @@
                             <td class = "align-middle">{{ $rs->local }}</td> 
                             <td class = "align-middle">{{ $rs->quant_total }}</td> 
                             <td class = "align-middle"><a href="{{ asset ($rs->foto) }}" data-fancybox   data-caption="{{$rs->nome}}"><img src="{{ asset($rs->foto) }}" style="width: 70px; height: 70px;" alt="img"/></td>
-                            <td class = "align-middle">
+                            <td class = "align-center" >
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#show-{{$rs->id}}">
-                                        Detalhes
-                                    </button>
-    
-                                    @include('produto.show')
-                                </div>
-                                </td>   
-                            
-                                <td class = "align-middle">
-                                                                        <a href="{{ route('produto.edit', $rs->id) }}" type="button"
-                                        class="btn btn-info">Editar</a>
+                                       
                                 
-                                    </td>  
-                            
-                                    <td class = "align-middle">
+                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#show-{{$rs->id}}">
+                                            Detalhes
+                                            
+                                        </button>
+                                        @include('produto.show')
+
+                                        
+                                    </div> 
+                                    
+                            </td>       
+                                        <td class = "align-center">
+                                            <a href="{{ route('produto.edit', $rs->id) }}" type="button"
+                                                class="btn btn-info">Editar</a>
+                                        </td>
+                                            <td class = "align-center">
+                                         
                                         <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#mediumModal-{{$rs->id}}">
                                             <i class="bi bi-trash"></i>
                                         </button>
-
-                                        @include('produto.MediumModal')
-                                    </td>
+                                        
+                                           @include('produto.MediumModal')
+                                            
+                            </td>             
+                                    
                                   
                                
                            

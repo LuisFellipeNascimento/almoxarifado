@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedidos;
 use App\Models\Produto;
+use App\Models\OrdemFornecimento;
 use App\Models\Unidades;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Exports\OrdemExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
@@ -128,9 +130,11 @@ foreach($request->inputs as $key=>$value){
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pedidos $pedidos)
+       public function destroy(Request $request,string $id)
     {
-        //
+        $pedidos = pedidos::Find($id);
+        $pedidos->delete($id);
+        return redirect()->route('pedidos.index')->with('success','O  item foi apagada do pedido com sucesso!');
     }
 
     public function export(Request $request) 
@@ -153,4 +157,37 @@ foreach($request->inputs as $key=>$value){
         $pdf = PDF::loadView('pedidos.show',['pedidos' => $pedidos,'image'=> $image]);
         return $pdf->download('document.pdf');
 }
+
+public function saldo(Request $request)
+{ 
+       $Produtos = Produto::all();  
+       $saidas = Produto::with(['OrdemFornecimentos', 'pedidos'])              
+       ->when($request->id_produtos,function($query) use ($request){
+                $query->where('id','like','%'.$request->id_produtos.'%');  
+            })
+       ->orderBy('nome','ASC')
+       ->Paginate(10);
+
+       
+   
+        return view('pedidos.saldo', compact('saidas','Produtos'));
+}
+
+public function exportar_saldo(Request $request) 
+{ 
+      
+    $saidas = Produto::with(['OrdemFornecimentos', 'pedidos'])              
+       ->when($request->id_produtos,function($query) use ($request){
+                $query->where('id','like','%'.$request->id_produtos.'%');  
+            })
+       ->orderBy('nome','ASC')  
+       ->get();
+       
+       $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));
+       
+        $pdf = PDF::loadView('pedidos.inventario',['saidas' => $saidas,'image'=> $image]);
+        return $pdf->download('document.pdf');
+}
+
+
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Fornecedores;
 use App\Models\OrdemFornecimento;
 use App\Models\Processo;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\Cast\Double;
@@ -19,7 +20,8 @@ class OrdemFornecimentoController extends Controller
      */
     public function index(Request $request)
     {   $Processos =Processo::orderBy('numero','desc')->get(); 
-        $Fornecedores = Fornecedores::all();   
+        $Fornecedores = Fornecedores::all();
+        $Produtos =Produto::all();   
         $empenho_unico = OrdemFornecimento::distinct()->get(['empenho']);
     
         
@@ -43,11 +45,15 @@ class OrdemFornecimentoController extends Controller
             ->when($request->nota_fiscal, function ($query) use ($request) {
                 $query->where('nota_fiscal', $request->nota_fiscal);
             })
-            ->when($request->descricao, function ($query) use ($request) {
-                $query->where('descricao','like','%'. $request->descricao.'%');
+            ->when($request->id_produtos, function ($query) use ($request) {
+                $query->where('id_produtos','like','%'. $request->id_produtos.'%');
                  
             })
-       ->orderByDesc('id_fornecedor')
+            ->when($request->data_inicial && $request->data_final, function ($query) use ($request) {
+                $query->whereBetween('data_entrega', [$request->data_inicial, $request->data_final]);
+                 
+            })
+       ->orderByDesc('data_entrega','id_fornecedor')
        ->paginate(500);
        $n1=0;
        foreach ($ordem as $rs) {
@@ -86,9 +92,12 @@ class OrdemFornecimentoController extends Controller
        $empenho= $request->empenho;
        $numero_ordem= $request->numero_ordem;
        $nota_fiscal= $request->nota_fiscal;
-       $descricao= $request->descricao;
+       $data_inicial= $request->data_inicial;
+       $data_final= $request->data_final;
+       $id_produtos= $request->id_produtos;
        
-        return view ('ordem.index', compact('quantidade_total_item_no_processo','total_ordem','resultado_of','ordem','quantidade_total_item','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item','empenho','numero_ordem','empenho_unico','descricao','nota_fiscal'));
+       
+        return view ('ordem.index', compact('data_inicial','data_final','Produtos','quantidade_total_item_no_processo','total_ordem','resultado_of','ordem','quantidade_total_item','Fornecedores','Processos','total_produtos','resultado','id_processo','id_fornecedor','resultado_quantidade','resultado_confronto','item','empenho','numero_ordem','empenho_unico','id_produtos','nota_fiscal'));
         
     }
 
@@ -100,8 +109,8 @@ class OrdemFornecimentoController extends Controller
         //para compor os select de Fornecedores e Processos
         $Fornecedores = Fornecedores::all();
         $Processos =Processo::all();
-        
-        return view ('ordem.create',compact('Processos','Fornecedores'));
+        $Produtos =Produto::all();
+        return view ('ordem.create',compact('Processos','Fornecedores','Produtos'));
 
     }
 
@@ -116,16 +125,17 @@ class OrdemFornecimentoController extends Controller
 
         $campos = $request->validate([ 
             'numero_ordem'=>['required'],
-            'nota_fiscal'=>['required'],	
-            'descricao'=>['required'],		
+            'nota_fiscal'=>['required'],         		
             'emissao'=>['required'],
+            'data_entrega'=>['required'],
             'empenho'=>['required'],
             'item'=>['required'],
             'valor_unitario'=>['required'],
             'valor_total'=>['required'],          
             'quant_total'=>['required'],
             'id_fornecedor'=>['required'],
-            'id_processo'=>['required']]) ;
+            'id_processo'=>['required'],            
+            'id_produtos'=>['required'],]) ;
                  
                 
             OrdemFornecimento::create($campos);
@@ -142,8 +152,9 @@ class OrdemFornecimentoController extends Controller
     {
         $Fornecedores = Fornecedores::all();
         $Processos =Processo::all();
+        $Produtos =Produto::all();
         $OrdemFornecimento = OrdemFornecimento::findOrFail($id);
-        return view ('ordem.show',compact('OrdemFornecimento','Processos','Fornecedores'));
+        return view ('ordem.show',compact('OrdemFornecimento','Processos','Fornecedores','Produtos'));
     }
 
     /**
@@ -153,8 +164,9 @@ class OrdemFornecimentoController extends Controller
     {
         $Fornecedores = Fornecedores::all();
         $Processo =Processo::all();
+        $Produtos =Produto::all();
         $OrdemFornecimento = OrdemFornecimento::findOrFail($id);
-        return view ('ordem.edit',compact('OrdemFornecimento','Processo','Fornecedores'));
+        return view ('ordem.edit',compact('OrdemFornecimento','Processo','Fornecedores','Produtos'));
         
     }
 
@@ -168,8 +180,10 @@ class OrdemFornecimentoController extends Controller
         $campos = $request->validate([ 
         'numero_ordem' =>['required'],
         'nota_fiscal'=>['required'],
-        'descricao'=>['required'],
+     
         'emissao' =>['required'],
+
+        'data_entrega'=>['required'],
 
         'empenho' =>['required'],
 
@@ -183,7 +197,11 @@ class OrdemFornecimentoController extends Controller
 
         'id_fornecedor' =>['required'],
 
-        'id_processo' =>['required']]);
+        'id_processo' =>['required'],
+
+        'id_produtos' =>['required']
+
+    ]);
 
         
         $OrdemFornecimento->update($campos);

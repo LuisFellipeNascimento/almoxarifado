@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('numero');
             $table->string('numero_of');
-            $table->string('descricao');
+            $table->longText('descricao');
             $table->double('valor');
             $table->string('item');
             $table->integer('quantidade');
@@ -33,7 +33,7 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
+    {       
         Schema::dropIfExists('processo');
     }
 };

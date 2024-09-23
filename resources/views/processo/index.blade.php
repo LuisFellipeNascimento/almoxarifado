@@ -119,8 +119,8 @@
                     @endforeach
 
                 @else
-                    <tr>
-                        <td>Não existem processos cadastrados</td>
+                    <tr>                     
+                        <td colspan="9" style="text-align: center">Não existem processos cadastrados</td>
                     </tr>
                 @endif
                 @if(isset($nome) OR ($descricao) OR ($item))

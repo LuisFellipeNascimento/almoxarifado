@@ -52,6 +52,9 @@
         <input type="text"   class= "form-control" name="quant_total" id="quant_total" value="{{$OrdemFornecimento->quant_total}}" readonly >
         <label class="control-label mb-1">Valor total</label>
         <input type="text"   class= "form-control" name="valor_total" id="valor_total"  value="{{Number::format($OrdemFornecimento->valor_total,locale: 'pt_BR')}}"  readonly>
+        <label class="control-label mb-1">Data de assinatura da nota fiscal</label>
+        <input type="date" class= "form-control"  name="data_entrega" id="data_entrega" value="{{ $OrdemFornecimento->data_entrega}}" readonly  >        
+        
     
 
          
