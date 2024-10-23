@@ -182,6 +182,10 @@ Route::delete('unidades.destroy/{id}', [App\Http\Controllers\unidadesController:
 ->middleware(['auth'],['verified'])
 ->name('unidades.destroy');
 
+Route::get('unidades.export-users', [App\Http\Controllers\unidadesController::class,'export'])
+->middleware(['auth'],['verified'])
+->name('unidades.export');
+
 Route::get('pedidos.index', [App\Http\Controllers\PedidosController::class,'index'])
 ->middleware(['auth'],['verified'])
 ->name('pedidos.index');
@@ -217,5 +221,9 @@ Route::delete('pedidos.destroy/{id}', [App\Http\Controllers\PedidosController::c
 Route::get('pedidos.saldo', [App\Http\Controllers\PedidosController::class,'saldo'])
 ->middleware(['auth'],['verified'])
 ->name('pedidos.saldo');
+
+Route::get('pedidos.saida_produto', [App\Http\Controllers\PedidosController::class,'saida_produto'])
+->middleware(['auth'],['verified'])
+->name('pedidos.saida_produto');
 
 require __DIR__.'/auth.php';

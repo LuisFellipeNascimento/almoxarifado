@@ -30,7 +30,7 @@ class UnidadesFactory extends Factory
                     ,
                       'Creche Municipal Aparecida Azedo'
                       ,
-                        'CIEP 497 - Municipalizado Professora Silvia Tupinamba'
+                        'Creche Municipal do Teixeira'
                         ,
                           'Creche Municipal Edson Cruz Amado'
                           ,

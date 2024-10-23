@@ -189,5 +189,19 @@ public function exportar_saldo(Request $request)
         return $pdf->download('document.pdf');
 }
 
+public function saida_produto(Request $request)
+{ 
+       $Materiais = Produto::all();  
+       $saidas = pedidos::orderBy('id_produtos','ASC')            
+       ->when($request->id_produtos,function($query) use ($request){
+                $query->where('id_produtos','like','%'.$request->id_produtos.'%');  
+            })
+       
+       ->Paginate(10);
+       $totalValor = $saidas->sum('quantidade');
+       $id_produtos=$request->id_produtos;
+       return view('pedidos.saida_produto', compact('saidas','Materiais','totalValor','id_produtos'));
+
+}
 
 }

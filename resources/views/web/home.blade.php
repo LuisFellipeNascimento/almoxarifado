@@ -123,10 +123,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Gerenciar Materias</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li>                               
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Saidas</a></li>
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.saldo') }}">Saldo em Estoque</a></li>
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Pedidos de compra</a></li>
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li> 
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.saida_produto') }}">Saidas por Materiais</a></li>                              
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Pedidos</a></li>
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.saldo') }}">Saldo em Estoque</a></li>                            
                                 <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Gerenciar Categorias</a></li>
 
                             </ul>   

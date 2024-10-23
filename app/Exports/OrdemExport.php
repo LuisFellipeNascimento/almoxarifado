@@ -2,17 +2,16 @@
 
 namespace App\Exports;
 
-
-use App\Models\Pedidos;
 use App\Models\Unidades;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-
-class OrdemExport implements  FromCollection
-{  
-    public function collection()
+class OrdemExport implements FromView
+{
+    public function view(): View
     {
-        dd();
-    
-        }
+        return view('unidades.planilha', [
+            'unidades' => \App\Models\unidades::all()
+        ]);
     }
+}

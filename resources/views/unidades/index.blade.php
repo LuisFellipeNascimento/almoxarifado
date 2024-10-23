@@ -25,6 +25,9 @@
         <div class="float-right">
             <a href="{{ route('unidades.create') }}" class="btn btn-success">Adicionar Unidade</a>
         </div>
+        <div class="float-right">
+            <a href="{{ route('unidades.export') }}" class="btn btn-success">Exportar Unidade</a>
+        </div>
         <form class="form-inline">
             <label class="sr-only" for="inlineFormInputGroupUsername2">Nome da unidade</label>
             <div class="input-group mb-2 mr-sm-2">

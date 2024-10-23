@@ -100,8 +100,8 @@
                 <tr>
 
                     <td style="text-align:center;">{{ $loop->iteration }}</td>
-                    <td style="text-align:center;">{{ $pedido->Produtos->id ?? null }} </td>
-                    <td>{{ $pedido->Produtos->nome ?? null }} </td>
+                    <td style="text-align:center;">{{ $pedido->Produto->id ?? null }} </td>
+                    <td>{{ $pedido->Produto->nome ?? null }} </td>
                     <td style="text-align:center;">{{ $pedido->quantidade ?? null }} </td>
 
                 </tr>

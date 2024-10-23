@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Unidades;
 use Illuminate\Http\Request;
+use App\Exports\OrdemExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UnidadesController extends Controller
 {
@@ -98,5 +100,10 @@ class UnidadesController extends Controller
         $unidades = unidades::Find($id);
         $unidades->delete($id);
         return redirect()->route('unidades.index')->with('success','A unidade foi apagada com sucesso!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new OrdemExport, 'unidades para plaqueamento.ods', \Maatwebsite\Excel\Excel::ODS);
     }
 }
