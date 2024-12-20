@@ -66,8 +66,8 @@
             <tr>
                
                 <th>Produto</th>
+                <th>Setor/Departamento</th>
                 <th>Unidade</th>
-                <th>Quantidade</th>
                 
 
             

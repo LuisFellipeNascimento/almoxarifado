@@ -22,8 +22,19 @@
 
     <div class="content mt-3">
         <div class="float-right">
-            <a href="{{ route('produto.create') }}" class="btn btn-success">Adicionar Material</a>            
+            <a href="{{ route('produto.create') }}" class="btn btn-success">Adicionar Material</a> 
+            
+                           
         </div>
+        <form action="{{ route('produto.import') }}" method="POST"  enctype="multipart/form-data" >Importar Inventário
+            @csrf
+                <div class="form-group">
+                    <label for="file">Selecionar Arquivo</label>
+                    <input type="file" name="excel_file" id="file" accept=".xlsx,.xls,.csv" class="form-control-file" required>
+                </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i>Importar 
+                        </button>
+        </form> 
         <form class="form-inline">
             <label class="sr-only" for="inlineFormInputGroupUsername2">Material</label>
             <div class="input-group mb-2 mr-sm-2">
@@ -79,7 +90,12 @@
                         <tr>
                             <td class = "align-middle">{{ $loop->iteration }}</td>
                             <td class = "align-middle">{{ $rs->nome }}</td>
-                            <td class = "align-middle">{{ date('d/m/Y', strtotime($rs->vencimento))}}</td>
+                            <td class = "align-middle">@if($rs->vencimento == '1970-01-01')
+                                <p>Indeterminada</p>
+                               @else
+                                 {{$rs->vencimento}} </td>
+                                @endif
+                            </td>
                             <td class = "align-middle">{{ $rs->local }}</td> 
                             <td class = "align-middle">{{ $rs->quant_total }}</td> 
                             <td class = "align-middle"><a href="{{ asset ($rs->foto) }}" data-fancybox   data-caption="{{$rs->nome}}"><img src="{{ asset($rs->foto) }}" style="width: 70px; height: 70px;" alt="img"/></td>

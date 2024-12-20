@@ -155,7 +155,7 @@ foreach($request->inputs as $key=>$value){
        $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));
        
         $pdf = PDF::loadView('pedidos.show',['pedidos' => $pedidos,'image'=> $image]);
-        return $pdf->download('document.pdf');
+        return $pdf->download('recibo.pdf');
 }
 
 public function saldo(Request $request)
@@ -186,7 +186,7 @@ public function exportar_saldo(Request $request)
        $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));
        
         $pdf = PDF::loadView('pedidos.inventario',['saidas' => $saidas,'image'=> $image]);
-        return $pdf->download('document.pdf');
+        return $pdf->download('Inventário.pdf');
 }
 
 public function saida_produto(Request $request)

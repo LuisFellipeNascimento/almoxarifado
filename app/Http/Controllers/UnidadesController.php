@@ -104,6 +104,7 @@ class UnidadesController extends Controller
 
     public function export()
     {
-        return Excel::download(new OrdemExport, 'unidades para plaqueamento.ods', \Maatwebsite\Excel\Excel::ODS);
+        return Excel::download(new OrdemExport, 'Nome das unidades.ods', \Maatwebsite\Excel\Excel::ODS);
     }
 }
+

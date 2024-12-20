@@ -7,6 +7,9 @@ use App\Models\Fornecedores;
 use App\Models\Processo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProdutoExport;
+
 
 class ProdutoController extends Controller
 {
@@ -199,4 +202,21 @@ class ProdutoController extends Controller
 
         return redirect()->back()->with('success','O produto foi apagado o com sucesso!');
     }
+
+    public function export()
+    {
+        return Excel::download(new OrdemExport, 'unidades para plaqueamento.ods', \Maatwebsite\Excel\Excel::ODS);
+    }
+
+    public function import(Request $request)
+    {
+        
+        
+    Excel::import(new ProdutoExport, $request->file('excel_file'), \Maatwebsite\Excel\Excel::XLSX);
+     
+    return redirect()->back()->with('success', 'Dados importados com sucesso!');
+    }
+    
+
+
 }

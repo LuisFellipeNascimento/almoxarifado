@@ -80,22 +80,22 @@
 
         <table class="p1" style="width:100%">
             <tr>
-
-                <th width="5%">Item</th>
                 <th width="5%">Código</th>
                 <th width="85%">Material</th>
                 <th width="5%">Quant.</th>
-
+                <th width="5%">Validade</th>
             </tr>
 
 
             @foreach ($saidas as $saida)
                 <tr>
-
-                    <td style="text-align:center;">{{ $loop->iteration }}</td>
                     <td style="text-align:center;">{{ $saida->id ?? null }} </td>
                     <td>{{ $saida->nome ?? null }} </td>
                     <td style="text-align:center;">{{ $saida->saldo_atual ?? null }} </td>
+                    <td>
+                        {{date( 'd/m/Y' , strtotime($saida->vencimento)) }} 
+                      
+                    </td>    
 
                 </tr>
             @endforeach

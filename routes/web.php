@@ -154,6 +154,10 @@ Route::delete('produto.destroy/{id}', [App\Http\Controllers\ProdutoController::c
 ->middleware(['auth'],['verified'])
 ->name('produto.destroy');
 
+Route::post('produto.import', [App\Http\Controllers\ProdutoController::class,'import'])
+->middleware(['auth'],['verified'])
+->name('produto.import');
+
 Route::get('unidades.index', [App\Http\Controllers\UnidadesController::class,'index'])
 ->middleware(['auth'],['verified'])
 ->name('unidades.index');

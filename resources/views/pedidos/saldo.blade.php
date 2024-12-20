@@ -67,6 +67,7 @@
                 <th>Código</th>
                 <th>Produto</th>
                 <th>Quantidade</th>
+                <th>Validade</th>
                 
 
             
@@ -78,6 +79,7 @@
                     <td>{{ $saida->id }}</td>
                     <td>{{ $saida->nome }}</td>
                     <td>{{ $saida->saldo_atual }}</td>
+                    <td>{{ $saida->vencimento }}</td>
                  
                   
                 </tr>

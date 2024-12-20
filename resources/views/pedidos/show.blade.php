@@ -90,8 +90,9 @@
 
                 <th width="5%">Item</th>
                 <th width="5%">Código</th>
-                <th width="85%">Material</th>
-                <th width="5%">Quant.</th>
+                <th width="80%">Material</th>
+                <th width="5%">Unidade</th>
+                <th width="5%">Vencimento</th>
 
             </tr>
 
@@ -103,7 +104,12 @@
                     <td style="text-align:center;">{{ $pedido->Produto->id ?? null }} </td>
                     <td>{{ $pedido->Produto->nome ?? null }} </td>
                     <td style="text-align:center;">{{ $pedido->quantidade ?? null }} </td>
-
+                    <td style="text-align:center;">
+                    @if(date( 'd/m/Y' , strtotime( $pedido->Produto->vencimento)) == "31/12/1969")
+                     Indeterminada
+                    @else
+                     {{ date( 'd/m/Y' , strtotime( $pedido->Produto->vencimento)) }} </td>
+                     @endif
                 </tr>
             @endforeach
 
@@ -120,7 +126,7 @@
             </tr>
 
             <tr>
-                <td scope="col" class="assinatura" align ="left">Nome:____________________</td>
+                <td scope="col" class="assinatura" align ="left">{{ Auth::user()->name }}</td>
                 <td scope="col" class="assinatura"align="center" colspan="3">______/______/_____________</td>
 
                 <td scope="col" class="assinatura"align="right">Nome:____________________</td>
