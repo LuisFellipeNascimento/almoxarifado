@@ -6,11 +6,15 @@ use App\Models\Pedidos;
 use App\Models\Produto;
 use App\Models\OrdemFornecimento;
 use App\Models\Unidades;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Exports\OrdemExport;
+use App\Exports\SaldoExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use OwenIt\Auditing\Models\Audit;
 
 class PedidosController extends Controller
 {
@@ -51,9 +55,9 @@ class PedidosController extends Controller
     public function create()
     {
         $unidades = unidades::all();
-         $Produtos = Produto::all();
+         $Produto = Produto::all();
          
-         return view ('pedidos.create',compact('unidades','Produtos'));
+         return view ('pedidos.create',compact('unidades','Produto'));
   
     }
 
@@ -139,6 +143,8 @@ foreach($request->inputs as $key=>$value){
 
     public function export(Request $request) 
 { 
+    // Aumentar o limite de memória temporariamente
+    ini_set('memory_limit', '1024M');
       
     $pedidos = pedidos::orderBy('updated_at','asc')->orderBy('created_at','asc')
     ->with('unidades')
@@ -165,7 +171,7 @@ public function saldo(Request $request)
        ->when($request->id_produtos,function($query) use ($request){
                 $query->where('id','like','%'.$request->id_produtos.'%');  
             })
-       ->orderBy('nome','ASC')
+       ->orderBy('nome_produto','ASC')
        ->Paginate(10);
 
        
@@ -175,18 +181,32 @@ public function saldo(Request $request)
 
 public function exportar_saldo(Request $request) 
 { 
-      
+    // Aumentar o limite de memória temporariamente
+    ini_set('memory_limit', '1024M');
+
     $saidas = Produto::with(['OrdemFornecimentos', 'pedidos'])              
        ->when($request->id_produtos,function($query) use ($request){
                 $query->where('id','like','%'.$request->id_produtos.'%');  
             })
-       ->orderBy('nome','ASC')  
+       ->orderBy('nome_produto','ASC')  
        ->get();
        
        $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));
        
         $pdf = PDF::loadView('pedidos.inventario',['saidas' => $saidas,'image'=> $image]);
         return $pdf->download('Inventário.pdf');
+}
+
+public function exportar_excel(Request $request) 
+{
+    $saidas = Produto::with(['OrdemFornecimentos', 'pedidos'])              
+       ->when($request->id_produtos,function($query) use ($request){
+                $query->where('id','like','%'.$request->id_produtos.'%');  
+            })
+       ->orderBy('nome_produto','ASC')  
+       ->get();
+       return Excel::download(new SaldoExport($saidas),'Saldo Mensal.xlsx');
+       
 }
 
 public function saida_produto(Request $request)
@@ -196,12 +216,43 @@ public function saida_produto(Request $request)
        ->when($request->id_produtos,function($query) use ($request){
                 $query->where('id_produtos','like','%'.$request->id_produtos.'%');  
             })
+            ->when($request->filled('start_date') && $request->filled('end_date'), function($query) use ($request) {
+                $start_date = Carbon::parse($request->start_date)->startOfDay();
+                $end_date = Carbon::parse($request->end_date)->endOfDay(); // Inclui até o final do dia
+                $query->whereBetween('created_at', [$start_date, $end_date]);
+            })
+        
        
        ->Paginate(10);
        $totalValor = $saidas->sum('quantidade');
        $id_produtos=$request->id_produtos;
-       return view('pedidos.saida_produto', compact('saidas','Materiais','totalValor','id_produtos'));
+       $start_date = $request->start_date;
+       $end_date = $request->end_date;
+      
+       return view('pedidos.saida_produto', compact('saidas','Materiais','totalValor','start_date', 'end_date',));
 
 }
 
+public function atividades(Request $request)
+{       $autores = user::all();
+       
+        $auditorias = Audit::orderBy('updated_at','desc')
+        ->with('user')            
+       ->when($request->nome_do_usuario,function($query) use ($request){
+            $query->where('user_id','like','%'.$request->nome_do_usuario.'%');  
+        }) 
+       
+        ->Paginate(10)
+        ->withQueryString();
+    
+       
+       
+        $nome_do_usuario=$request->nome_do_usuario;       
+  
+        return view('pedidos.atividades', compact('auditorias','autores','nome_do_usuario'));
+     
+    
+    
+   
+}
 }

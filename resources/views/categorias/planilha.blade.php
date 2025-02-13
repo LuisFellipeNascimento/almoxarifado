@@ -1,14 +1,14 @@
 <table>
     <thead>
         <tr>
-            <th>Nome</th>
+            <th>Nome das categorias</th>
            
         </tr>
     </thead>
     <tbody>
-        @foreach($unidades as $unidade)
+        @foreach($categorias as $categoria)
             <tr>
-                <td>{{ $unidade->nome_unidade }}</td>
+                <td>{{ $categoria->nome_categoria }}</td>
               
             </tr>
         @endforeach

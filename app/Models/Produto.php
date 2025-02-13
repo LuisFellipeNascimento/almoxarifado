@@ -5,18 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\PedidosController;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Produto extends Model
+class Produto extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
 
     protected $table ='produtos';
 
     protected $fillable = [ 
-        'nome',	
+        'nome_produto',	
         'local',
         'vencimento',
         'estoque_min',
@@ -25,8 +28,7 @@ class Produto extends Model
         'foto',
         'observacao',           
         'id_categoria',
-        'quant_total',
-        'valor_saida',     
+        'quant_total',            
         'codigobarras',    
         
       ];
@@ -43,8 +45,13 @@ class Produto extends Model
 
     public function Produto(){
         return $this->belongsTo(produto::class,'id_produtos','id')->withDefault([
-            'nome' => 'Produto excluído']);
+            'nome_produto' => 'Produto excluído']);
     }
+
+    public function Categorias(){
+         return $this->belongsTo(Categorias::class,'id_categoria','id')->withDefault([
+            'nome_categoria' => 'A Categoria foi excluída']);
+         }
 
 
    public function OrdemFornecimentos()

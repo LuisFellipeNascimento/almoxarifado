@@ -168,7 +168,7 @@
                             <td class = "align-middle">{{ $rs->numero_ordem }}</td>
                             <td class = "align-middle">{{ $rs->empenho }}</td>
                             <td class = "align-middle">{{ $rs->item }}</td>
-                            <td class = "align-middle">{{ $rs->Produto->nome }}</td>
+                            <td class = "align-middle">{{ $rs->Produto->nome_produto }}</td>
                             <td class = "align-middle">{{ $rs->nota_fiscal }}</td>
                             <td class = "align-middle">{{Carbon\Carbon::parse($rs->data_entrega)->format('d/m/Y')}}</td>
                             <td class = "align-middle">{{ $rs->quant_total }}</td>
@@ -269,7 +269,7 @@
                         @endif 
                         <td>{{ $resultado_quantidade }}</td>
                         <td>R${{ Number::format($total_ordem, locale: 'pt_BR') }}</td>
-                         @if($resultado_of==0) <td class="alert alert-success" role="alert">A ordem foi cumprida na sua totalidade.</td>
+                         @if($resultado_of=false) <td class="alert alert-success" role="alert">A ordem foi cumprida na sua totalidade.</td>
                             @elseif($resultado_of>0)<td class="alert alert-warning" role="alert">A ordem não foi cumprida.</td>
                             @elseif($resultado_of<0)<td class="alert alert-danger" role="alert">Foi recebido mais doque deveria.</td>
                         @endif                      

@@ -40,7 +40,17 @@
             @endif  
             
             <label class="control-label mb-1" >Nome</label>
-            <input type="text" class= "form-control"  name="nome" id="nome" value="{{ $produto->nome}}" > 
+            <input type="text" class= "form-control"  name="nome_produto" id="nome_produto" value="{{ $produto->nome_produto}}" >
+            <label class="control-label mb-1" >Categoria</label>
+            <select name="id_categoria"  id="select2" class="form-control">
+
+                <option value = "{{ $produto->id_categoria}}"  @if ($produto->id_categoria ===$produto->Categorias->id) {'selected':''}  @endif> {{$produto->Categorias->nome_categoria}}</option>
+    
+                @foreach ( $Categorias as $Categoria )
+                <option  value="{{$Categoria->id}}" >{{$Categoria->nome_categoria}}</option>
+                @endforeach
+            </select>
+           
             <label class="control-label mb-1" >Data de Vencimento</label>
             <input type="date" class= "form-control"  name="vencimento" id="vencimento" value="{{ $produto->vencimento}}" >  
             <label class="control-label mb-1">Quantidade</label>
@@ -82,6 +92,11 @@
         </form>
     
     </div>
- 
+    <script>
+   
+        $('select').select2({
+        theme: 'bootstrap4',
+    });
+    </script>
 
 @endsection

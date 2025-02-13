@@ -6,9 +6,11 @@ use App\Models\Fornecedores;
 use App\Models\Produto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class OrdemFornecimento extends Model
+class OrdemFornecimento extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;   
     protected $table ='ordem_fornecimentos';
 
@@ -51,7 +53,7 @@ class OrdemFornecimento extends Model
     }
     public function Produto(){
         return $this->belongsTo(produto::class,'id_produtos')->withDefault([
-            'nome' => 'Produto excluído']);
+            'nome_produto' => 'Produto excluído']);
     }
 
  }

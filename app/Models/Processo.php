@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\HomeController;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Processo extends Model
+class Processo extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
 
-    protected $table ='processo';
+    protected $table ='processo';    
 
     protected $fillable = [
 

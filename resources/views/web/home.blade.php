@@ -123,11 +123,11 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Gerenciar Materias</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li> 
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.saida_produto') }}">Saidas por Materiais</a></li>                              
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.index') }}">Pedidos</a></li>
+                                <li><i class="fa fa-search"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li> 
+                                <li><i class="fa ti-arrow-down"></i><a href="{{ url('/pedidos.saida_produto') }}">Saidas por Materiais</a></li>                              
+                                <li><i class="fa ti-shopping-cart-full"></i><a href="{{ url('/pedidos.index') }}">Pedidos</a></li>
                                 <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.saldo') }}">Saldo em Estoque</a></li>                            
-                                <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Gerenciar Categorias</a></li>
+                                <li><i class="fa fa-bars"></i><a href="{{ url('/categorias.index') }}">Categorias</a></li>
 
                             </ul>   
 
@@ -136,16 +136,24 @@
                     <h3 class="menu-title">Movimentação de Unidades</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Gerenciar Unidades</a>
+                            aria-expanded="false"> <i class="menu-icon ti-layout-grid4-alt"></i>Gerenciar Unidades</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/unidades.index') }}">Cadastrar</a></li>
+                                <li><i class="fa ti-layout-grid4-alt"></i><a href="{{ url('/unidades.index') }}">Ver</a></li>
                              
 
                             </ul>   
 
                     
                     </li>
-                    
+                    <h3 class="menu-title">Auditoria</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Modificações</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.atividades') }}">Ver</a></li>                            
+
+                            </ul>   
+                    </li>
                  
 
 

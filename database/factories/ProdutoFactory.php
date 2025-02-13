@@ -17,18 +17,18 @@ class ProdutoFactory extends Factory
     public function definition(): array
     {
         return [
-           // 'nome'=>$this->faker->word,
-           // 'local'=>$this->faker->randomElement(array('Almoxarifado SMEC','Reta','Patrimônio')),
-            //'vencimento'=>$this->faker->dateTimeInInterval('-1 years ', '+2 years '),
-            //'estoque_min'=>$this->faker->randomDigitNotNull(5),
-            //'estoque_ideal'=>$this->faker->randomDigitNotNull(5),         
-            //'valor_saida'=>$this->faker->randomFloat(2),             
-            //'foto'=>$this->faker->imageUrl($width = 640, $height = 480),
-            //'observacao'=>$this->faker->sentence(45),          
-            //'id_categoria'=>$this->faker->numberBetween(1,7), 
-            //'quant_total'=>$this->faker->randomNumber(5),
-            //'valor_saida'=>$this->faker->randomFloat(2),
-            //'codigobarras'=>$this->faker->ean13(),   
+            'nome_produto'=>$this->faker->word,
+            'local'=>$this->faker->randomElement(array('Almoxarifado SMEC','Reta','Patrimônio')),
+            'vencimento'=>$this->faker->dateTimeInInterval('-1 years ', '+2 years '),
+            'estoque_min'=>$this->faker->randomDigitNotNull(5),
+            'estoque_ideal'=>$this->faker->randomDigitNotNull(5),         
+            'valor_saida'=>$this->faker->randomFloat(2),             
+            'foto'=>$this->faker->imageUrl($width = 640, $height = 480),
+            'observacao'=>$this->faker->sentence(45),          
+            'id_categoria'=>$this->faker->numberBetween(1,7), 
+            'quant_total'=>$this->faker->randomNumber(5),
+            'valor_saida'=>$this->faker->randomFloat(2),
+            'codigobarras'=>$this->faker->ean13(),   
                     
       
         ];

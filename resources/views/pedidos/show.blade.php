@@ -77,7 +77,7 @@
         <h3>
             Local de entrega:
             @foreach ($pedidos->unique('id_unidades') as $pedido)
-                {{ $pedido->unidades->nome }}
+                {{ $pedido->unidades->nome_unidade }}
             @endforeach
         </h3>
 
@@ -102,7 +102,7 @@
 
                     <td style="text-align:center;">{{ $loop->iteration }}</td>
                     <td style="text-align:center;">{{ $pedido->Produto->id ?? null }} </td>
-                    <td>{{ $pedido->Produto->nome ?? null }} </td>
+                    <td>{{ $pedido->Produto->nome_produto ?? null }} </td>
                     <td style="text-align:center;">{{ $pedido->quantidade ?? null }} </td>
                     <td style="text-align:center;">
                     @if(date( 'd/m/Y' , strtotime( $pedido->Produto->vencimento)) == "31/12/1969")

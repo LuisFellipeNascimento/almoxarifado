@@ -40,7 +40,7 @@
                     @foreach ( $unidades as $unidade )
                     <option value="{{$unidade->id}}"
                         {{ $unidade->id == $id_unidades ? 'selected' : '' }}> 
-                        {{$unidade->nome}}</option>
+                        {{$unidade->nome_unidade}}</option>
                     @endforeach
                     @else
                     No records
@@ -89,8 +89,8 @@
                         <tr>
                             <td class = "align-middle">{{ $loop->iteration }}</td>
                             <td class = "align-middle">{{ $rs->codigo_pedido }}</td>
-                            <td class = "align-middle">{{ $rs->unidades->nome }}</td>
-                            <td class = "align-middle">{{ $rs->Produto->nome }}</td>
+                            <td class = "align-middle">{{ $rs->unidades->nome_unidade }}</td>
+                            <td class = "align-middle">{{ $rs->Produto->nome_produto }}</td>
                             <td class = "align-middle">{{ $rs->quantidade }}</td>
                             <td class = "align-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">

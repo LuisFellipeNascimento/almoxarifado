@@ -210,6 +210,10 @@ Route::get('pedidos.inventario', [App\Http\Controllers\PedidosController::class,
 ->middleware(['auth'],['verified'])
 ->name('pedidos.inventario');
 
+Route::get('pedidos.saldo_excel', [App\Http\Controllers\PedidosController::class, 'exportar_excel'])
+->middleware(['auth'],['verified'])
+->name('pedidos.saldo_excel');
+
 Route::put('pedidos.update/{id}', [App\Http\Controllers\PedidosController::class, 'update'])
 ->middleware(['auth'],['verified'])
 ->name('pedidos.update');
@@ -229,5 +233,41 @@ Route::get('pedidos.saldo', [App\Http\Controllers\PedidosController::class,'sald
 Route::get('pedidos.saida_produto', [App\Http\Controllers\PedidosController::class,'saida_produto'])
 ->middleware(['auth'],['verified'])
 ->name('pedidos.saida_produto');
+
+Route::get('pedidos.atividades', [App\Http\Controllers\PedidosController::class,'atividades'])
+->middleware(['auth'],['verified'])
+->name('pedidos.atividades');
+
+Route::get('categorias.index', [App\Http\Controllers\CategoriasController::class,'index'])
+->middleware(['auth'],['verified'])
+->name('categorias.index');
+
+Route::get('categorias.create', [App\Http\Controllers\CategoriasController::class,'create'])
+->middleware(['auth'],['verified'])
+->name('categorias.create');
+
+Route::post('categorias.store', [App\Http\Controllers\CategoriasController::class,'store'])
+->middleware(['auth'],['verified'])
+->name('categorias.store');
+
+Route::get('categorias.show/{id}', [App\Http\Controllers\CategoriasController::class, 'show'])
+->middleware(['auth'],['verified'])
+->name('categorias.show');
+
+Route::put('categorias.update/{id}', [App\Http\Controllers\CategoriasController::class, 'update'])
+->middleware(['auth'],['verified'])
+->name('categorias.update');
+
+Route::get('categorias.edit/{id}', [App\Http\Controllers\CategoriasController::class,'edit'])
+->middleware(['auth'],['verified'])
+->name('categorias.edit');
+
+Route::delete('categorias.destroy/{id}', [App\Http\Controllers\CategoriasController::class,'destroy'])
+->middleware(['auth'],['verified'])
+->name('categorias.destroy');
+
+Route::get('categorias.export', [App\Http\Controllers\CategoriasController::class,'export'])
+->middleware(['auth'],['verified'])
+->name('categorias.export');
 
 require __DIR__.'/auth.php';

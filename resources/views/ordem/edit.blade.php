@@ -75,9 +75,9 @@
         <input type="text"   class= "form-control" name="item" id="item"  value="{{$OrdemFornecimento->item}}"  >
         <label class="control-label mb-1"> Material</label>
         <select name="id_produtos"  id="select1" class="form-control">
-        <option value = "{{ $OrdemFornecimento->id_produtos}}"  @if ($OrdemFornecimento->id_produtos ===$OrdemFornecimento->Produto->id) {'selected':''}  @endif> {{$OrdemFornecimento->Produto->nome}}</option>
+        <option value = "{{ $OrdemFornecimento->id_produtos}}"  @if ($OrdemFornecimento->id_produtos ===$OrdemFornecimento->Produto->id) {'selected':''}  @endif> {{$OrdemFornecimento->Produto->nome_produto}}</option>
         @foreach ( $Produtos as $Prod)
-        <option  value="{{$Prod->id}}" >{{$Prod->nome}}</option>
+        <option  value="{{$Prod->id}}" >{{$Prod->nome_produto}}</option>
         @endforeach
        </select>
         <label class="control-label mb-1">Número da Nota Fiscal</label>

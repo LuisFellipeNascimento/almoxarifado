@@ -9,9 +9,11 @@ use App\Http\Controllers\UnidadesController;
 use App\Models\Produto;
 use App\Models\Unidades;
 use App\Models\OrdemFornecimento;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Pedidos extends Model
+class Pedidos extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
 
     protected $table ='pedidos';

@@ -23,7 +23,10 @@
     <div class="content mt-3">
    
         <div class="float-right">                
-            <a href="{{ url('pedidos.inventario?'.request()->getQueryString()) }}" class="btn btn-danger">Exportar</a>    
+            <a href="{{ url('pedidos.inventario?'.request()->getQueryString()) }}" class="btn btn-danger">Exportar</a>
+            <form method="GET" action="{{ route('pedidos.saldo_excel') }}" class="form-inline mb-4"> 
+                <button type="submit" class="btn btn-primary">Exportar p/ Excel</button>  
+            </form>    
         </div>
         <form class="form-inline">
             <label class="sr-only" for="inlineFormInputGroupUsername2">Materiais</label>
@@ -35,7 +38,7 @@
                     @if ($Produtos->count() > 0)
                         <option value="" disabled selected>Selecione um produto.</option>
                         @foreach ($Produtos as $Produto)
-                            <option value="{{ $Produto->id }}">{{ $Produto->nome }}</option>
+                            <option value="{{ $Produto->id }}">{{ $Produto->nome_produto }}</option>
                         @endforeach
                     @else
                         No records
@@ -64,9 +67,13 @@
             <thead>
         <thead>
             <tr>
-                <th>Código</th>
                 <th>Produto</th>
+                <th>Código</th>
+                <th>Código Antigo</th>
+                <th>Local de Armazenamento</th>
                 <th>Quantidade</th>
+                <th>Valor unitário</th>
+                <th>Valor Total</th>
                 <th>Validade</th>
                 
 
@@ -76,10 +83,15 @@
         <tbody>
             @foreach ($saidas as $saida)
                 <tr>
+                    
+                    <td>{{ $saida->nome_produto }}</td>
                     <td>{{ $saida->id }}</td>
-                    <td>{{ $saida->nome }}</td>
+                    <td>{{ $saida->codigobarras }}</td>
+                    <td>{{ $saida->local }}</td>
                     <td>{{ $saida->saldo_atual }}</td>
-                    <td>{{ $saida->vencimento }}</td>
+                    <td>{{ $saida->valor_saida }}</td>
+                    <td>{{ $saida->saldo_atual*$saida->valor_saida }}</td>
+                    <td>{{ Carbon\Carbon::parse($saida->vencimento)->format('d/m/Y')}}</td>
                  
                   
                 </tr>

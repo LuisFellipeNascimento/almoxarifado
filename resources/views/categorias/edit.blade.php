@@ -5,7 +5,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Editar unidade</h1>
+                <h1>Editar categoria</h1>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
 
 <div class="content mt-3">
     
-    <form  action="{{route('unidades.update',$unidades->id)}}" method="POST" id="form-id">
+    <form  action="{{route('categorias.update',$categorias->id)}}" method="POST" id="form-id">
         @csrf
         @method('PUT')
         @if ($errors->any())
@@ -39,9 +39,9 @@
             {{Session::get('success')}}
            </div>
         @endif    
-        <label class="control-label mb-1" >Nome da unidade</label>
+        <label class="control-label mb-1" >Nome da categoria</label>
                   
-        <textarea  class= "form-control" name="nome_unidade" id="nome_unidade"  placeholder="Digite o nome da unidade"  >{{ $unidades->nome_unidade}}</textarea>
+        <textarea  class= "form-control" name="nome_categoria" id="nome_categoria"  placeholder="Digite o nome da categoria"  >{{ $categorias->nome_categoria}}</textarea>
         
  <br>
 

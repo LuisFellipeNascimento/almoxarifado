@@ -80,24 +80,23 @@
 
         <table class="p1" style="width:100%">
             <tr>
-                <th width="5%">Código</th>
-                <th width="85%">Material</th>
+               
+                <th width="90%">Material</th>
                 <th width="5%">Quant.</th>
                 <th width="5%">Validade</th>
+                <th>Local de armazenamento</th>
+                <th>Valor unitário</th>                
+                <th>Valor Total</th>                
             </tr>
-
-
             @foreach ($saidas as $saida)
-                <tr>
-                    <td style="text-align:center;">{{ $saida->id ?? null }} </td>
-                    <td>{{ $saida->nome ?? null }} </td>
+                <tr>                   
+                    <td>{{ $saida->nome_produto ?? null }} </td>
                     <td style="text-align:center;">{{ $saida->saldo_atual ?? null }} </td>
-                    <td>
-                        {{date( 'd/m/Y' , strtotime($saida->vencimento)) }} 
-                      
-                    </td>    
-
-                </tr>
+                    <td>{{ Carbon\Carbon::parse($saida->vencimento)->format('d/m/Y')}}</td>                    
+                    <td>{{ $saida->local }}</td>                   
+                    <td>{{ Number::format($saida->valor_saida,locale: 'pt_BR') }} R$</td>
+                    <td>{{  Number::format( $saida->saldo_atual*$saida->valor_saida,locale: 'pt_BR') }} R$</td> 
+               </tr>
             @endforeach
 
         </table>

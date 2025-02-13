@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->longText('nome');
+            $table->longText('nome_produto');
             $table->string('local');
             $table->date('vencimento')->nullable(); 
             $table->integer('estoque_min');
@@ -29,7 +29,7 @@ return new class extends Migration
         });
         Schema::table('produtos', function (Blueprint $table) { 
 
-            $table->foreign('id_categoria')->references('id')->on('categoria')->onDelete('cascade');
+            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('cascade');
           
         });
      

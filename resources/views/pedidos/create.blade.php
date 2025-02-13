@@ -1,5 +1,4 @@
 @extends('web.home')
-
 @section('content')
     <div class="breadcrumbs">
         <div class="col-sm-4">
@@ -55,11 +54,11 @@
                 <tbody>
                     <tr>
                         <td>
-                            <select name="inputs[0][id_unidades]" id="select1" class="select3 form-control">
+                            <select name="inputs[0][id_unidades]" id="select1" class="form-control select2">
                                 @if ($unidades->count() > 0)
                                     <option value="" disabled selected>Selecione uma unidade</option>
                                     @foreach ($unidades as $unidade)
-                                        <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
+                                        <option value="{{ $unidade->id }}">{{ $unidade->nome_unidade }}</option>
                                     @endforeach
                                 @else
                                     No records
@@ -70,11 +69,11 @@
 
 
                         <td>
-                            <select name="inputs[0][id_produtos]" id="select3" class="select3 form-control">
-                                @if ($Produtos->count() > 0)
+                            <select name="inputs[0][id_produtos]" id="select2" class="form-control select2">
+                                @if ($Produto->count() > 0)
                                     <option value="" disabled selected>Selecione um produto.</option>
-                                    @foreach ($Produtos as $Produto)
-                                        <option value="{{ $Produto->id }}">{{ $Produto->nome }}</option>
+                                    @foreach ($Produto as $Mostra)
+                                        <option value="{{ $Mostra->id }}">{{ $Mostra->nome_produto }}</option>
                                     @endforeach
                                 @else
                                     No records
@@ -85,10 +84,10 @@
 
 
                         <td><input type="number" step=".01" class= "form-control" name="inputs[0][quantidade]"
-                                placeholder="10.000,00"></td>
+                            required></td>
 
-                        <td><input type="text" name="inputs[0][codigo_pedido]" id="teste" class="form-control"
-                                placeholder="Número do pedido"></td>
+                        <td><input type="text" class="form-control" name="inputs[0][codigo_pedido]"  id="codigo_pedido"
+                                placeholder="Número do pedido" required></td>
 
 
     </div>
@@ -108,76 +107,76 @@
     </div>
 
 
-    <script>
-        var i = 0;
-        $('#add').click(function() {
+<script>
+   
+    $('select').select2({
+    theme: 'bootstrap4',
+});
+</script>
 
 
-            ++i;
-
-            $('#table').append(
-
-                `<tr>
-                       <td>              
-                       <select name="inputs[` + i + `][id_unidades]"  id="select10" class="select3 form-control" >
-                            @if ($unidades->count() > 0)
-                            <option value="" disabled selected>Selecione uma unidade</option>
-                            @foreach ($unidades as $unidade)
-                            <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
-                            @endforeach
-                            @else
-                            No records
-                            @endif
-                        </select>
-                          </td> 
-  
-                        
-                        <td>
-                            <select name="inputs[` + i + `][id_produtos]"  id="select2" class="select3 form-control">
-                                        @if ($Produtos->count() > 0)
-                                        <option value="" disabled selected>Selecione um produto</option>
-                                        @foreach ($Produtos as $Produto)
-                                        <option value="{{ $Produto->id }}">{{ $Produto->nome }}</option>
-                                        @endforeach
-                                        @else
-                                        No records
-                                        @endif
-                            
-                            </select>                           
-                         </td>
-                       
-                        <td>                 
-                            <input type="number" step=".01"  class= "form-control"  name="inputs[` + i + `][quantidade]"  id="debit-transaction-edit" placeholder="10.000,00" ></td>
-                       <td> <input type="text" class= "form-control" name="inputs[` + i + `][codigo_pedido] id="select122"
-                       placeholder="Número do pedido"> </td> 
-
-                            <td><button type="button" class= "btn btn-danger remove-table-row">Remover</button></td>
-                            
-                     
-                
-            </tr> `);
-
-            //adicionando mascara no formulário
-
-            $('select').select2({
-                theme: 'bootstrap4',
-            });
-
+<script>
+     var unidades = @json($unidades);
+    var produtos = @json($Produto);
+    var i = 0;
+    
+    $('#add').click(function() {
+        ++i;
+        
+        // Criando as opções dinamicamente
+        var unidadeOptions = ['<option value="">Selecione uma unidade</option>'];
+        unidades.forEach(function(unidade) {
+            unidadeOptions.push(`<option value="${unidade.id}">${unidade.nome_unidade}</option>`);
         });
-        $(document).on('click', '.remove-table-row', function() {
-
-
-            $(this).parents('tr').remove();
-
-
+        
+        var produtoOptions = ['<option value="">Selecione um produto</option>'];
+        produtos.forEach(function(produto) {
+            produtoOptions.push(`<option value="${produto.id}">${produto.nome_produto}</option>`);
         });
-    </script>
 
-    <script>
-        $('select').select2({
+        var codigoPedidoValue = $('#codigo_pedido').val(); // Pegando o valor atual do campo código do pedido
+        var codigoUnidadeValue = $('#select1').val(); // Pegando o valor atual do campo unidade
+        
+        var newRow = `
+            <tr>
+                <td>
+                    <select name="inputs[${i}][id_unidades]" class="form-control select2-dynamic"  value="${codigoUnidadeValue}" required>
+                        ${unidadeOptions.join('')}
+                    </select>
+                </td>
+                <td>
+                    <select name="inputs[${i}][id_produtos]" class="form-control select2-dynamic">
+                        ${produtoOptions.join('')}
+                    </select>
+                </td>
+                <td>
+                    <input type="number" name="inputs[${i}][quantidade]" class="form-control" step=".01"  >
+                </td>
+                <td>
+                    <input type="text" name="inputs[${i}][codigo_pedido]" class="form-control"  value="${codigoPedidoValue}">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger remove-tr">Remover</button>
+                </td>
+            </tr>
+        `;
+        
+        $('#table tbody').append(newRow);
+
+            // Remove a linha
+        $(document).on('click', '.remove-tr', function() {
+            $(this).closest('tr').remove();
+        });
+        
+        // Inicializa os novos selects
+        $('select.select2-dynamic').select2({
             theme: 'bootstrap4',
+            width: '100%'
         });
-    </script>
+        $('#codigo_pedido').on('change', function() { var newValue = $(this).val(); $('.codigo_pedido').val(newValue); });
+    });
+</script>
+
 
 
 @endsection

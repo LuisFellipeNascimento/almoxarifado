@@ -83,7 +83,7 @@
             @if ($Produtos->count() > 0)
                 <option value="" disabled selected>Selecione um produto.</option>
                 @foreach ($Produtos as $Produto)
-                    <option value="{{ $Produto->id }}">{{ $Produto->nome }}</option>
+                    <option value="{{ $Produto->id }}">{{ $Produto->nome_produto }}</option>
                 @endforeach
             @else
                 No records

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produto;
 use App\Models\Fornecedores;
 use App\Models\Processo;
+use App\Models\Categorias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,9 +19,13 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
+        $Categorias =Categorias::all();
         $produto =  produto::orderBy('id','desc')       
             ->when($request->nome, function ($query) use ($request) {
-                $query->where('nome','like','%'. $request->nome.'%');
+                $query->where('nome_produto','like','%'. $request->nome.'%');
+            })
+            ->when($request->codigobarras, function ($query) use ($request) {
+                $query->where('codigobarras', $request->codigobarras);
             })
             ->when($request->local, function ($query) use ($request) {
                 $query->where('local','like','%'.$request->local.'%');
@@ -29,6 +34,9 @@ class ProdutoController extends Controller
             ->when($request->vencimento, function ($query) use ($request) {
                 $query->whereYear('vencimento','like','%'. $request->vencimento.'%');
             })
+            ->when($request->id_categoria, function ($query) use ($request) {
+                $query->where('id_categoria','like','%'. $request->id_categoria.'%');
+            })
       
         
        ->orderByDesc('created_at')
@@ -36,9 +44,12 @@ class ProdutoController extends Controller
        ->withQueryString();
         //recuperar valor selecionado
         $nome = $request->nome;
+        $codigobarras= $request->codigobarras;
         $local = $request->local;
         $vencimento = $request->vencimento;
-        return view ('produto.index',compact('produto','local','nome','vencimento'));
+        $id_categoria=$request->id_categoria;
+        $selectedCategoryId = $request->input('id_categoria'); // Ou pegue esse valor de outra fonte, se necessário
+        return view ('produto.index',compact('produto','local','nome','vencimento','Categorias','id_categoria','selectedCategoryId','codigobarras'));
   
     }
 
@@ -50,8 +61,9 @@ class ProdutoController extends Controller
          //para compor os select de Fornecedores e Processos
          $Fornecedores = Fornecedores::all();
          $Processos =Processo::all();
+         $Categorias =Categorias::all();
          
-         return view ('produto.create',compact('Processos','Fornecedores'));
+         return view ('produto.create',compact('Processos','Fornecedores','Categorias'));
     }
 
     /**
@@ -60,7 +72,7 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
             $request->validate([ 
-            'nome'=>['required','unique:produtos'],
+            'nome_produto'=>['required','unique:produtos'],
             'vencimento'=>'nullable',	
             'local'=>['required'],
             'estoque_min'=>['required'],
@@ -68,7 +80,7 @@ class ProdutoController extends Controller
             'valor_saida'=>['required'],          
             'foto'=> 'nullable|mimes:jpeg,jpg,png',
             'observacao'=>['nullable'],           
-            'id_categoria'=>['nullable'],
+            'id_categoria'=>['required'],
             'codigobarras'=>['nullable'],
             'quant_total'=>['required']
             ]) ;
@@ -85,7 +97,7 @@ class ProdutoController extends Controller
  
                 
         Produto::create([
-        'nome'=>$request->nome,	
+        'nome_produto'=>$request->nome_produto,	
         'local'=>$request->local,
         'vencimento'=>$request->vencimento,
         'estoque_min'=>$request->estoque_min,
@@ -114,9 +126,9 @@ class ProdutoController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {   
+    {   $Categorias = Categorias::all();
         $produto = produto::findOrFail($id);
-        return view ('produto.edit',compact('produto'));
+        return view ('produto.edit',compact('produto','Categorias'));
     }
 
     /**
@@ -125,7 +137,7 @@ class ProdutoController extends Controller
     public function update(Request $request, string $id)
     {  
         $request->validate([ 
-            'nome'=>['required'],	
+            'nome_produto'=>['required'],	
             'local'=>['required'],
             'vencimento'=>['nullable'],
             'estoque_min'=>['required'],
@@ -133,7 +145,7 @@ class ProdutoController extends Controller
             'valor_saida'=>['required'],          
             'foto'=> 'nullable|mimes:jpeg,jpg,png',
             'observacao'=>['nullable'],           
-            'id_categoria'=>['nullable'],
+            'id_categoria'=>['required'],
             'quant_total'=>['required'],
             'codigobarras'=>['nullable'],
             ]) ;
@@ -155,7 +167,7 @@ class ProdutoController extends Controller
              }
              
              $produto->update([
-                'nome'=>$request->nome,	
+                'nome_produto'=>$request->nome_produto,	
                 'local'=>$request->local,
                 'vencimento'=>$request->vencimento,
                 'estoque_min'=>$request->estoque_min,
@@ -172,7 +184,7 @@ class ProdutoController extends Controller
        
                 
         $produto->update([
-        'nome'=>$request->nome,	
+        'nome_produto'=>$request->nome_produto,	
         'local'=>$request->local,
         'vencimento'=>$request->vencimento,
         'estoque_min'=>$request->estoque_min,

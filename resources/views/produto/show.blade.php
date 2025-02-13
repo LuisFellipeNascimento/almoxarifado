@@ -11,9 +11,12 @@
               
                 
             <label class="control-label mb-1" >Nome</label>
-            <input type="text" class= "form-control"  name="nome" id="nome" value="{{$rs->nome}}" readonly >  
+            <input type="text" class= "form-control"  name="nome" id="nome" value="{{$rs->nome_produto}}" readonly >  
             <label class="control-label mb-1" >Data de Vencimento</label>
-            <input type="date" class= "form-control"  name="vencimento" id="vencimento" value="{{$rs->vencimento}}"readonly >  
+            <input type="date" class= "form-control"  name="vencimento" id="vencimento" value="{{$rs->vencimento}}"readonly >
+            
+            <label class="control-label mb-1" >Categoria</label>
+        <input type="text" class= "form-control"  name="id_categoria" id="id_categoria" value="{{$rs->Categorias->nome_categoria}}" readonly>
             
             <label class="control-label mb-1">Quantidade</label>
             <input type="number" step="0.01"  class= "form-control" name="quant_total" id="quant_total"  value="{{$rs->quant_total}}" readonly  >

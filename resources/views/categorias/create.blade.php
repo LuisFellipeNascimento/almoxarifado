@@ -5,7 +5,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Cadastrar unidade</h1>
+                    <h1>Cadastrar categoria</h1>
                 </div>
             </div>
         </div>
@@ -13,7 +13,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">unidade</li>
+                        <li class="active">categoria</li>
                     </ol>
                 </div>
             </div>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="content mt-3">
-        <form  action="{{route('unidades.store')}}" enctype="multipart/form-data" method="POST">
+        <form  action="{{route('categorias.store')}}" enctype="multipart/form-data" method="POST">
             @csrf
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -39,7 +39,7 @@
             @endif  
             
             <label class="control-label mb-1" >Nome</label>           
-            <textarea  class= "form-control" name="nome_unidade" id="nome_unidade"  value="{{ old('nome_unidade')}}" placeholder="Digite o nome da unidade"  ></textarea>
+            <textarea  class= "form-control" name="nome_categoria" id="nome_categoria"  value="{{ old('nome_categoria')}}" placeholder="Digite o nome da categoria"  ></textarea>
             
     
      <br>

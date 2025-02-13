@@ -15,19 +15,19 @@ class UnidadesController extends Controller
     public function index(Request $request)
     {
      
-        $unidades =  Unidades::when($request->has('nome','codigo'), function ($whenQuery) use ($request){
-            if($request->nome)
-            $whenQuery ->where('nome','like','%'.$request->nome.'%');
+        $unidades =  Unidades::when($request->has('nome_unidade','codigo'), function ($whenQuery) use ($request){
+            if($request->nome_unidade)
+            $whenQuery ->where('nome_unidade','like','%'.$request->nome_unidade.'%');
             if($request->codigo)
             $whenQuery->where('id','like','%'.$request->codigo.'%');
         })
        ->orderByDesc('created_at')
-       ->Paginate(5);
+       ->Paginate(12);
        $oi = "Olá";
-       $nome = $request->nome;
+       $nome_unidade = $request->nome_unidade;
        $codigo = $request->codigo;
        
-       return view ('unidades.index',compact('unidades','oi','nome','codigo'));
+       return view ('unidades.index',compact('unidades','oi','nome_unidade','codigo'));
     }
 
     /**
@@ -45,13 +45,13 @@ class UnidadesController extends Controller
     {
        
         $request->validate([ 
-            'nome'=>['required','unique:unidades'],            
+            'nome_unidade'=>['required','unique:unidades'],            
             ]) ;
 
            
                 
         unidades::create([
-        'nome'=>$request->nome,	        
+        'nome_unidade'=>$request->nome_unidade,	        
           ]);
        
          return redirect()->route('unidades.index')->with('success','A unidade foi cadastrada com sucesso!');
@@ -84,7 +84,7 @@ class UnidadesController extends Controller
         $unidades = unidades::findOrFail($id);   
         
     $request->validate([ 
-    'nome'=>['required','unique:unidades'],	
+    'nome_unidade'=>['required','unique:unidades'],	
      ]);
                         
      $unidades->update($request->all());

@@ -39,9 +39,21 @@
             @endif  
             
             <label class="control-label mb-1" >Nome</label>
-            <input type="text" class= "form-control"  name="nome" id="nome" value="{{ old('nome')}}" placeholder="Ex.: Lápis"  >  
+            <input type="text" class= "form-control"  name="nome_produto" id="nome_produto" value="{{ old('nome_produto')}}" placeholder="Ex.: Lápis"  >  
             <label class="control-label mb-1" >Data de Vencimento</label>
-            <input type="date" class= "form-control"  name="vencimento" id="vencimento" value="{{ old('vencimento')}}" >  
+            <input type="date" class= "form-control"  name="vencimento" id="vencimento" value="{{ old('vencimento')}}" >
+            <label class="control-label mb-1">Categoria</label>
+        <select name="id_categoria" id="id_categoria" class="form-control select">
+            @if ($Categorias->count() > 0)
+                <option value="" disabled selected>Selecione uma categoria.</option>
+                @foreach ($Categorias as $Categoria)
+                    <option value="{{ $Categoria->id }}">{{ $Categoria->nome_categoria }}</option>
+                @endforeach
+            @else
+                Não existem categorias cadastradas.
+            @endif
+
+        </select>  
             
             <label class="control-label mb-1">Quantidade</label>
             <input type="number" step="0.01"  class= "form-control" name="quant_total" id="quant_total"  value="{{ old('quant_total')}}" placeholder="Ex.: Digite a quantidade da compra"  >
