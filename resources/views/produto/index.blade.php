@@ -42,11 +42,12 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">Buscar</div>
                 </div>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Material" style="width:150px;"
-                    value="{{ $nome }}">
-                    <input type="text" class="form-control" id="codigobarras" name="codigobarras" placeholder="Código Antigo" style="width:150px;"
-                    value="{{ $codigobarras }}">
-                <select name="vencimento" id="vencimento" class="form-control" value="{{ $vencimento }}" style="width:150px;">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Material"
+                    style="width:150px;" value="{{ $nome }}">
+                <input type="text" class="form-control" id="codigobarras" name="codigobarras" placeholder="Código Antigo"
+                    style="width:150px;" value="{{ $codigobarras }}">
+                <select name="vencimento" id="vencimento" class="form-control" value="{{ $vencimento }}"
+                    style="width:150px;">
                     <option value="" disabled selected>Validade</option>
                     <option value="2023">2023</option>
                     <option value="2024">2024</option>
@@ -57,9 +58,12 @@
                 </select>
                 <select name="id_categoria" id="id_categoria" class="form-control" style="width: 300px;">
                     @if ($Categorias->count() > 0)
-                        <option value="" disabled selected {{ old('id_categoria', $selectedCategoryId ?? '') === null ? 'selected' : '' }}>Selecione uma categoria.</option>
+                        <option value="" disabled selected
+                            {{ old('id_categoria', $selectedCategoryId ?? '') === null ? 'selected' : '' }}>Selecione uma
+                            categoria.</option>
                         @foreach ($Categorias as $Categoria)
-                            <option value="{{ $Categoria->id }}" {{ (old('id_categoria') == $Categoria->id || (isset($selectedCategoryId) && $selectedCategoryId == $Categoria->id)) ? 'selected' : '' }}>
+                            <option value="{{ $Categoria->id }}"
+                                {{ old('id_categoria') == $Categoria->id || (isset($selectedCategoryId) && $selectedCategoryId == $Categoria->id) ? 'selected' : '' }}>
                                 {{ $Categoria->nome_categoria }}
                             </option>
                         @endforeach
@@ -67,11 +71,11 @@
                         Não existem categorias cadastradas.
                     @endif
                 </select>
-                
 
 
-                <input type="text" class="form-control" id="local" name="local" placeholder="Reta,Patrimônio" style="width:150px;"
-                    value="{{ $local }}">
+
+                <input type="text" class="form-control" id="local" name="local" placeholder="Reta,Patrimônio"
+                    style="width:150px;" value="{{ $local }}">
 
             </div>
 
@@ -94,7 +98,7 @@
             <thead class="table-primary">
                 <tr>
 
-                    
+
                     <th class="text-center">Código Antigo</th>
                     <th class="text-center">Descrição</th>
                     <th class="text-center">Vencimento</th>
@@ -112,62 +116,62 @@
                 @if ($produto->count() > 0)
                     @foreach ($produto as $rs)
                         <tr>
-                            
-                            <td class = "align-middle">{{ $rs->codigobarras }}</td> 
+
+                            <td class = "align-middle">{{ $rs->codigobarras }}</td>
                             <td class = "align-middle">{{ $rs->nome_produto }}</td>
-                            <td class = "align-middle">
-                                @if ($rs->vencimento == '1970-01-01')
-                                    <p>Indeterminada</p>
+                            <td class="align-middle">
+                                @if ($rs->vencimento == '0000-00-00' || !$rs->vencimento)
+                                    Indeterminada
                                 @else
                                     {{ Carbon\Carbon::parse($rs->vencimento)->format('d/m/Y') }}
+                                @endif
                             </td>
-                    @endif
-                    </td>
-                    <td class = "align-middle">{{ $rs->local }}</td>
-                    <td class = "align-middle">{{ $rs->quant_total }}</td>
-                    <td class = "align-middle"><a href="{{ asset($rs->foto) }}" data-fancybox
-                            data-caption="{{ $rs->nome_produto }}"><img src="{{ asset($rs->foto) }}"
-                                style="width: 70px; height: 70px;" alt="img" /></td>
-                    <td class = "align-center">
-                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <td class = "align-middle">{{ $rs->local }}</td>
+                            <td class = "align-middle">{{ $rs->quant_total }}</td>
+                            <td class = "align-middle"><a href="{{ asset($rs->foto) }}" data-fancybox
+                                    data-caption="{{ $rs->nome_produto }}"><img src="{{ asset($rs->foto) }}"
+                                        style="width: 70px; height: 70px;" alt="img" /></td>
+                            <td class = "align-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
 
 
-                            <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                data-target="#show-{{ $rs->id }}">
-                                Detalhes
+                                    <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                        data-target="#show-{{ $rs->id }}">
+                                        Detalhes
 
-                            </button>
-                            @include('produto.show')
-
-
-                        </div>
-
-                    </td>
-                    <td class = "align-center">
-                        <a href="{{ route('produto.edit', $rs->id) }}" type="button" class="btn btn-info">Editar</a>
-                    </td>
-                    <td class = "align-center">
-
-                        <button type="button" class="btn btn-danger " data-toggle="modal"
-                            data-target="#mediumModal-{{ $rs->id }}">
-                            <i class="bi bi-trash"></i>
-                        </button>
-
-                        @include('produto.MediumModal')
-
-                    </td>
+                                    </button>
+                                    @include('produto.show')
 
 
+                                </div>
+
+                            </td>
+                            <td class = "align-center">
+                                <a href="{{ route('produto.edit', $rs->id) }}" type="button"
+                                    class="btn btn-info">Editar</a>
+                            </td>
+                            <td class = "align-center">
+
+                                <button type="button" class="btn btn-danger " data-toggle="modal"
+                                    data-target="#mediumModal-{{ $rs->id }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+
+                                @include('produto.MediumModal')
+
+                            </td>
 
 
 
 
+
+
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td>Não existe resultado para essa busca.</td>
                     </tr>
-                @endforeach
-            @else
-                <tr>
-                    <td>Não existe resultado para essa busca.</td>
-                </tr>
                 @endif
             </tbody>
         </table>
@@ -178,12 +182,9 @@
     </div>
 
     <script>
-         
-   
-   $('select').select2({
-   theme: 'bootstrap4',
-});
-
+        $('select').select2({
+            theme: 'bootstrap4',
+        });
     </script>
 
 @endsection

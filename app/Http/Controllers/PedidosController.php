@@ -24,7 +24,7 @@ class PedidosController extends Controller
     public function index(Request $request)
     {   $unidades = unidades::all();
 
-        $pedidos = pedidos::orderBy('updated_at','asc')->orderBy('created_at','asc')
+        $pedidos = pedidos::orderBy('updated_at','desc')->orderBy('created_at','desc')
         ->with('unidades')
         ->when($request->codigo_pedido,function($query) use ($request){
             $query->where('codigo_pedido','like',$request->codigo_pedido);  
@@ -58,6 +58,21 @@ class PedidosController extends Controller
          $Produto = Produto::all();
          
          return view ('pedidos.create',compact('unidades','Produto'));
+  
+    }
+
+    public function criar(Request $request)
+    {
+        $unidades = unidades::all();
+         $Produto = Produto::all();
+         $saidas = Produto::with(['OrdemFornecimentos', 'pedidos'])              
+       ->when($request->filled('id_produtos'),function($query) use ($request){
+                $query->where('id',$request->id_produtos);  
+            })
+       ->orderBy('nome_produto','ASC');
+     
+         
+         return view ('pedidos.create',compact('unidades','Produto','saidas'));
   
     }
 
@@ -144,7 +159,7 @@ foreach($request->inputs as $key=>$value){
     public function export(Request $request) 
 { 
     // Aumentar o limite de memória temporariamente
-    ini_set('memory_limit', '1024M');
+    ini_set('memory_limit', '1024M');   
       
     $pedidos = pedidos::orderBy('updated_at','asc')->orderBy('created_at','asc')
     ->with('unidades')
@@ -168,15 +183,15 @@ public function saldo(Request $request)
 { 
        $Produtos = Produto::all();  
        $saidas = Produto::with(['OrdemFornecimentos', 'pedidos'])              
-       ->when($request->id_produtos,function($query) use ($request){
-                $query->where('id','like','%'.$request->id_produtos.'%');  
+       ->when($request->filled('id_produtos'),function($query) use ($request){
+                $query->where('id',$request->id_produtos);  
             })
        ->orderBy('nome_produto','ASC')
        ->Paginate(10);
 
-       
-   
-        return view('pedidos.saldo', compact('saidas','Produtos'));
+       $ProdutoselecionadoId = $request->input('id_produtos');
+
+        return view('pedidos.saldo', compact('saidas','Produtos','ProdutoselecionadoId'));
 }
 
 public function exportar_saldo(Request $request) 

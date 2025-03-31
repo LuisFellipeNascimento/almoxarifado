@@ -10,7 +10,7 @@
             <div class="modal-body">
                 
                
-                  <p>  Tem certeza que deseja apagar o item <strong> {{$rs->descricao}}</strong> do  processo<strong> {{$rs->codigo_pedido}}</strong>  ?</p>
+                  <p>  Tem certeza que deseja apagar o  produto <strong>{{$rs->Produto->nome_produto}}</strong>  do pedido <strong> {{$rs->codigo_pedido}}</strong>  ?</p>
                    <p>  Essa operação não poderá ser desfeita. </p>
                 
             </div>

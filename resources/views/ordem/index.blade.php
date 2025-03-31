@@ -66,7 +66,7 @@
                         @foreach ($Produtos as $Produto)
                             <option value="">Ver todos os Produtoes envolvidos.</option>
                             <option value="{{ $Produto->id }}" {{ $Produto->id == $id_produtos ? 'selected' : '' }}>
-                                {{ $Produto->nome }}</option>
+                                {{ $Produto->nome_produto }}</option>
                         @endforeach
                     </select>
                 </div>

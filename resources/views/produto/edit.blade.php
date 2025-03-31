@@ -62,13 +62,8 @@
             <input type="number" step="0.01"   class= "form-control" name="estoque_min"   id="estoque_min"  value="{{$produto->estoque_min}}"  >
             
             <label class="control-label mb-1">Estoque ideal</label>
-            <input type="number" step="0.01"   class= "form-control" name="estoque_ideal" id="estoque_ideal"  value="{{$produto->estoque_ideal}}"  >
-         
-            <label class="control-label mb-1">Valor unitario</label>
-            <input type="number" step="0.01"   class= "form-control" name="valor_unitario"  id="valor_unitario"  value="{{$produto->valor_unitario}}"  >
-           
-           
-            <label class="control-label mb-1">Valor saida</label>
+            <input type="number" step="0.01"   class= "form-control" name="estoque_ideal" id="estoque_ideal"  value="{{$produto->estoque_ideal}}"  >         
+            <label class="control-label mb-1">Preço unitario</label>
             <input type="number" step="0.01"   class= "form-control" name="valor_saida"  id="valor_saida"  value="{{$produto->valor_saida}}"  >
             <label class="control-label mb-1">Código de barras</label>
             <input type="text"   class= "form-control" name="codigobarras"  id="codigobarras"  value="{{$produto->codigobarras}}"  >

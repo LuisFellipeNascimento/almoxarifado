@@ -11,7 +11,7 @@
               
                 
             <label class="control-label mb-1" >Nome</label>
-            <input type="text" class= "form-control"  name="nome" id="nome" value="{{$rs->nome}}" readonly >  
+            <input type="text" class= "form-control"  name="nome" id="nome" value="{{$rs->nome_unidade}}" readonly >  
             
             </div>
             <div class="modal-footer">

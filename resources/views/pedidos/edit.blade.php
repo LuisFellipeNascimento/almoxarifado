@@ -55,10 +55,10 @@
         <label class="control-label mb-1" >Produtos</label><br>  
         <select name="id_produtos"  id="select" class="form-control">
 
-            <option value = "{{ $pedidos->id_produtos}}"  @if ($pedidos->id_produtos ===$pedidos->Produto->nome) {'selected':''}  @endif> {{$pedidos->Produto->nome_produto}}</option>
+            <option value = "{{ $pedidos->id_produtos}}"  @if ($pedidos->id_produtos ===$pedidos->Produto->nome_produto) {'selected':''}  @endif> {{$pedidos->Produto->nome_produto}}</option>
 
             @foreach ( $Produtos as $Process )
-            <option  value="{{$Process->id}}" >{{$Process->nome_unidade}}</option>
+            <option  value="{{$Process->id}}" >{{$Process->nome_produto}}</option>
             @endforeach
         </select><br> 
         <label class="control-label mb-1" >Quantidade</label><br> 

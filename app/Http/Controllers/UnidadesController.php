@@ -21,8 +21,8 @@ class UnidadesController extends Controller
             if($request->codigo)
             $whenQuery->where('id','like','%'.$request->codigo.'%');
         })
-       ->orderByDesc('created_at')
-       ->Paginate(12);
+       ->orderByDesc('nome_unidade')
+       ->Paginate(30);
        $oi = "Olá";
        $nome_unidade = $request->nome_unidade;
        $codigo = $request->codigo;

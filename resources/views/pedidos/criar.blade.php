@@ -4,7 +4,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Cadastrar Saida de Material</h1>
+                    <h1>Cadastrar Saida de Material123</h1>
                 </div>
             </div>
         </div>
@@ -44,8 +44,9 @@
             <table class="table" id="table">
                 <thead>
                     <tr>
-                        <th scope="col" style="width:40%">Unidade</th>
-                        <th scope="col" style="width:40%">Material</th>
+                        <th scope="col" style="width:35%">Unidade</th>
+                        <th scope="col" style="width:35%">Material</th>
+                        <th scope="col" style="width:10%">Saldo</th>
                         <th scope="col" style="width:10%">Quantidade</th>
                         <th scope="col" style="width:10%">Número do pedido</th>
                         <th scope="col">Ação</th>
@@ -81,7 +82,8 @@
 
                             </select>
                         </td>
-
+                        <td><input type="number" step=".01" class= "form-control" name="saldos"
+                            value ="{{$saidas->saldo_atual}}"></td>
 
                         <td><input type="number" step=".01" class= "form-control" name="inputs[0][quantidade]"
                             required></td>

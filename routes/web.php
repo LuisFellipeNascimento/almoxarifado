@@ -198,6 +198,10 @@ Route::get('pedidos.create', [App\Http\Controllers\PedidosController::class,'cre
 ->middleware(['auth'],['verified'])
 ->name('pedidos.create');
 
+Route::get('pedidos.criar', [App\Http\Controllers\PedidosController::class,'criar'])
+->middleware(['auth'],['verified'])
+->name('pedidos.criar');
+
 Route::post('pedidos.store', [App\Http\Controllers\PedidosController::class,'store'])
 ->middleware(['auth'],['verified'])
 ->name('pedidos.store');

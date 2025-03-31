@@ -34,7 +34,7 @@
                 <input type="text" class="form-control" id="codigo_pedido" name="codigo_pedido" placeholder="Código do pedido" value="{{$codigo_pedido}}" >
                
                              
-                <select name="id_unidades"  id="select3" class="form-control" >
+                <select name="id_unidades"  id="select3" class="form-control" required >
                     @if ($unidades->count() > 0)
                     <option value="" selected>Selecione uma unidade</option>
                     @foreach ( $unidades as $unidade )
@@ -72,9 +72,9 @@
     
             <thead>
                 <tr> 
-                    <th style="width:5%" >Item</th>
+                    <th style="width:5%" >#</th>
                     <th style="width:5%">Número do pedido</th>
-                    <th style="width:40%">Unidade</th>
+                    <th style="width:40%">Unidade / Departamento</th>
                     <th style="width:40%">Produto</th>
                     <th style="width:5%">Quantidade</th>
                     <th class="text-center" style="width:5%">Ação</th>

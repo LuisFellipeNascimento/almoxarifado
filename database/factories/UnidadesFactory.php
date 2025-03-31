@@ -19,6 +19,7 @@ class UnidadesFactory extends Factory
         return [
        'nome_unidade'=>$this->faker->randomElement(array(
       'Centro Municipal de Atendimento Educacional Especializado - Cemaee',
+      '	CEI/CESMI',
       'CIEP 300 - Municipalizado Prefeito Vicente Cicarino',
       'CIEP 496 - Municipalizado Maestro Francisco Mignone',
       'CIEP 497 - Municipalizado Professora Silvia Tupinamba',
@@ -60,7 +61,7 @@ class UnidadesFactory extends Factory
       'E.M Argentina Coutinho',
       'E.M João Vicente Soares',
       'E.M Jorge Flores Da Silva',
-      'E.M Guilhermina De Souza Freire,',
+      'E.M Guilhermina De Souza Freire',
       'E.M Oscar José De Souza',
       'E.M Padre Rafael Scarfó',
       'E.M Pref. Abeilard Goulart De Souza',
@@ -78,7 +79,6 @@ class UnidadesFactory extends Factory
       'E.M Vereador Taciano Fernandes Nunes',
       'E.M Professora Marianilde Siqueira Gonçalves',    
       'E.M das Acacias',
-
        'CPD', 
       'Departamento de Assistência a Rede',		
       'Departamento de Compras e Pedidos',

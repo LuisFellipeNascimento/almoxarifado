@@ -43,6 +43,17 @@
                     @else
                         No records
                     @endif
+
+                    @if ($Produtos->count() > 0)
+                        <option value="" disabled selected {{ old('id_produtos', $ProdutoselecionadoId ?? '') === null ? 'selected' : '' }}>Selecione um produto.</option>
+                        @foreach ($Produtos as $Produto)
+                            <option value="{{ $Produto->id }}" {{ (old('id_produtos') == $Produto->id || (isset($ProdutoselecionadoId) && $ProdutoselecionadoId == $Produto->id)) ? 'selected' : '' }}>
+                                {{ $Produto->nome_produto }}
+                            </option>
+                        @endforeach
+                    @else
+                        Não existem Produtos cadastradas.
+                    @endif
                                                     
                 </select>
                                                                                  

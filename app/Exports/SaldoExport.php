@@ -31,7 +31,7 @@ class SaldoExport implements FromCollection, WithHeadings,ShouldAutoSize,WithSty
             return [
                 'Nome do Material' => $saida->nome_produto,
                 'Local' => $saida->local,
-                'Quantidade em estoque' => $saida->quant_total,
+                'Quantidade em estoque' => $saida->saldo_atual,
                 'Valor unitário' => $saida->valor_saida,
                 'Valor Total' => $saida->quant_total * $saida->valor_saida,
                 'Validade' => Carbon::parse($saida->vencimento)->format('d/m/Y'),
