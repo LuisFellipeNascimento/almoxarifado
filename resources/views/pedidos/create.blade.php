@@ -83,7 +83,7 @@
                         </td>
 
 
-                        <td><input type="number" step=".01" class= "form-control" name="inputs[0][quantidade]"
+                        <td><input type="number" step="1" min="1" class= "form-control" name="inputs[0][quantidade]"
                             required></td>
 
                         <td><input type="text" class="form-control" name="inputs[0][codigo_pedido]"  id="codigo_pedido"
@@ -140,20 +140,17 @@
         var newRow = `
             <tr>
                 <td>
-                    <select name="inputs[${i}][id_unidades]" class="form-control select2-dynamic"  value="${codigoUnidadeValue}" required>
-                        ${unidadeOptions.join('')}
-                    </select>
-                </td>
-                <td>
+                    <input type="text" name="inputs[${i}][id_unidades]" class="form-control"  value="${codigoUnidadeValue}" readonly>                   
+                                   <td>
                     <select name="inputs[${i}][id_produtos]" class="form-control select2-dynamic">
                         ${produtoOptions.join('')}
                     </select>
                 </td>
                 <td>
-                    <input type="number" name="inputs[${i}][quantidade]" class="form-control" step=".01"  >
+                    <input type="number" name="inputs[${i}][quantidade]" class="form-control" step="1" min="1" >
                 </td>
                 <td>
-                    <input type="text" name="inputs[${i}][codigo_pedido]" class="form-control"  value="${codigoPedidoValue}">
+                    <input type="text" name="inputs[${i}][codigo_pedido]" class="form-control"  value="${codigoPedidoValue}" readonly>
                 </td>
                 <td>
                     <button type="button" class="btn btn-danger remove-tr">Remover</button>
