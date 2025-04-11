@@ -104,8 +104,8 @@
                             <td class = "align-middle">
                                 <pre>{{ json_encode($auditoria->old_values, JSON_PRETTY_PRINT) }}</pre>
                             </td>
-                            <td class = "align-middle">{{ $auditoria->created_at }}</td>
-                            <td class = "align-middle">{{ $auditoria->updated_at }}</td>
+                            <td class = "align-middle">{{ $auditoria->created_at->format('d/m/Y H:i:s') }}</td>
+                            <td class = "align-middle">{{ $auditoria->updated_at->format('d/m/Y H:i:s') }}</td>
 
                         </tr>
                     @endforeach

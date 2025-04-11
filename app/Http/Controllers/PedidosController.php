@@ -257,7 +257,7 @@ public function atividades(Request $request)
             $query->where('user_id','like','%'.$request->nome_do_usuario.'%');  
         }) 
        
-        ->Paginate(10)
+        ->Paginate(100)
         ->withQueryString();
     
        

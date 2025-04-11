@@ -77,6 +77,8 @@
                     <th style="width:40%">Unidade / Departamento</th>
                     <th style="width:40%">Produto</th>
                     <th style="width:5%">Quantidade</th>
+                    <th style="width:5%">Criação</th>
+                    <th style="width:5%">Alteração</th>
                     <th class="text-center" style="width:5%">Ação</th>
                     
 
@@ -92,6 +94,8 @@
                             <td class = "align-middle">{{ $rs->unidades->nome_unidade }}</td>
                             <td class = "align-middle">{{ $rs->Produto->nome_produto }}</td>
                             <td class = "align-middle">{{ $rs->quantidade }}</td>
+                            <td class = "align-middle">{{ $rs->created_at->format('d/m/Y H:i:s') }}</td>
+                            <td class = "align-middle">{{ $rs->updated_at->format('d/m/Y H:i:s') }}</td>
                             <td class = "align-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{ route('pedidos.show', $rs->id) }}" type="button"

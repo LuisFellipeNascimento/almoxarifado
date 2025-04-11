@@ -82,6 +82,7 @@
                             </select>
                         </td>
 
+                        
 
                         <td><input type="number" step="1" min="1" class= "form-control" name="inputs[0][quantidade]"
                             required></td>
