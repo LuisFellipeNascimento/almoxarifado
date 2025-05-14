@@ -39,7 +39,7 @@
             @endif  
             
             <label class="control-label mb-1" >Nome</label>
-            <input type="text" class= "form-control"  name="nome_produto" id="nome_produto" value="{{ old('nome_produto')}}" placeholder="Ex.: Lápis"  >  
+            <input type="text" class= "form-control"  name="nome_produto" id="nome_produto" value="{{ old('nome_produto')}}" placeholder="Verifique se não existe algum produto semelhante, antes de criar um novo."  >  
             <label class="control-label mb-1" >Data de Vencimento</label>
             <input type="date" class= "form-control"  name="vencimento" id="vencimento" value="{{ old('vencimento')}}" >
             <label class="control-label mb-1">Categoria</label>
@@ -57,7 +57,7 @@
             
             <label class="control-label mb-1">Quantidade</label>
             <input type="number" step="0.01"  class= "form-control" name="quant_total" id="quant_total"  value="{{ old('quant_total')}}" placeholder="Ex.: Digite a quantidade da compra"  >
-            <label class="control-label mb-1">Local de recebimento</label>    
+            <label class="control-label mb-1">Local de Armazenamento</label>    
             <input type="text"  class= "form-control"   name="local" id="local"  value="{{ old('local')}}"  placeholder="Ex.:Almoxarifado SMEC, Patrimonio, Reta" > 
        
             <label class="control-label mb-1">Estoque minimo</label>

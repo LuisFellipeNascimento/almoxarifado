@@ -54,8 +54,8 @@
             <label class="control-label mb-1" >Data de Vencimento</label>
             <input type="date" class= "form-control"  name="vencimento" id="vencimento" value="{{ $produto->vencimento}}" >  
             <label class="control-label mb-1">Quantidade</label>
-            <input type="number" step="0.01"  class= "form-control" name="quant_total" id="quant_total"  value="{{$produto->quant_total}}" >
-            <label class="control-label mb-1">Local de recebimento</label>    
+            <input type="number" step="0.01"  class= "form-control" name="quant_total" id="quant_total"  value="{{$produto->quant_total}}"  >
+            <label class="control-label mb-1">Local de Armazenamento</label>    
             <input type="text"  class= "form-control"   name="local" id="local"  value="{{$produto->local}}"  > 
        
             <label class="control-label mb-1">Estoque minimo</label>
