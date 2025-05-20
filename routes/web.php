@@ -210,6 +210,10 @@ Route::get('pedidos.show', [App\Http\Controllers\PedidosController::class, 'expo
 ->middleware(['auth'],['verified'])
 ->name('pedidos.show');
 
+Route::get('pedidos.dupla', [App\Http\Controllers\PedidosController::class, 'dupla'])
+->middleware(['auth'],['verified'])
+->name('pedidos.dupla');
+
 Route::get('pedidos.inventario', [App\Http\Controllers\PedidosController::class, 'exportar_saldo'])
 ->middleware(['auth'],['verified'])
 ->name('pedidos.inventario');

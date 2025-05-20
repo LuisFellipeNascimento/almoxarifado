@@ -24,6 +24,8 @@
         <div class="float-right">
             <a href="{{ route('pedidos.create') }}" class="btn btn-success">Adicionar saida</a>       
             <a href="{{ url('pedidos.show?'.request()->getQueryString()) }}" class="btn btn-danger">Exportar</a>    
+            <a href="{{ url('pedidos.dupla?'.request()->getQueryString()) }}" class="btn btn-dark"><i class="fa fa-files-o"></i>Folha Dupla</a>    
+            </d
         </div>
         <form class="form-inline">
             <label class="sr-only" for="inlineFormInputGroupUsername2">Saidas</label>

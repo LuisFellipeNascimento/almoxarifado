@@ -179,6 +179,28 @@ foreach($request->inputs as $key=>$value){
         return $pdf->download('recibo.pdf');
 }
 
+public function dupla(Request $request) 
+{ 
+    // Aumentar o limite de memória temporariamente
+    ini_set('memory_limit', '1024M');   
+      
+    $pedidos = pedidos::orderBy('updated_at','asc')->orderBy('created_at','asc')
+    ->with('unidades')
+    ->when($request->codigo_pedido,function($query) use ($request){
+        $query->where('codigo_pedido','like',$request->codigo_pedido);  
+    })
+    
+   ->when($request->id_unidades,function($query) use ($request){
+        $query->where('id_unidades','like','%'.$request->id_unidades.'%');  
+    })
+      ->orderByDesc('created_at')
+       ->get();
+       
+       $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));
+       
+        $pdf = PDF::loadView('pedidos.dupla',['pedidos' => $pedidos,'image'=> $image]);
+        return $pdf->download('recibo folha dupa.pdf');
+}
 public function saldo(Request $request)
 { 
        $Produtos = Produto::all();  
