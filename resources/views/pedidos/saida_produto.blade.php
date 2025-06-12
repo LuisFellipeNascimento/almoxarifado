@@ -42,11 +42,7 @@
                     @endif
 
                 </select>
-                <input type="date" name="start_date" class="form-control" style="width:145px;"
-                    value="{{ old('start_date', $start_date) }}">
-                <input type="date" name="end_date" class="form-control mr-2" style="width:145px;"
-                    value="{{ old('end_date', $end_date) }}">
-
+               
 
             </div>
 
@@ -102,7 +98,7 @@
         @endif
 
         <div class="d-flex">
-            {!! $saidas->links() !!}
+            {!! $saidas->appends(request()->query())->links() !!}
 
         </div>
 

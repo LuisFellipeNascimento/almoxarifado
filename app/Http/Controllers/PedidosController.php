@@ -249,24 +249,18 @@ public function exportar_excel(Request $request)
 public function saida_produto(Request $request)
 { 
        $Materiais = Produto::all();  
-       $saidas = pedidos::orderBy('id_produtos','ASC')            
+       $saidas =  Pedidos::query()          
        ->when($request->id_produtos,function($query) use ($request){
-                $query->where('id_produtos','like','%'.$request->id_produtos.'%');  
+                $query->where('id_produtos',$request->id_produtos);  
             })
-            ->when($request->filled('start_date') && $request->filled('end_date'), function($query) use ($request) {
-                $start_date = Carbon::parse($request->start_date)->startOfDay();
-                $end_date = Carbon::parse($request->end_date)->endOfDay(); // Inclui até o final do dia
-                $query->whereBetween('created_at', [$start_date, $end_date]);
-            })
-        
+        ->orderBy('created_at', 'desc') // Ordenando pela data mais recente         
        
-       ->Paginate(100);
-       $totalValor = $saidas->sum('quantidade');
+       ->Paginate(10);
+     
        $id_produtos=$request->id_produtos;
-       $start_date = $request->start_date;
-       $end_date = $request->end_date;
       
-       return view('pedidos.saida_produto', compact('saidas','Materiais','totalValor','start_date', 'end_date',));
+      
+       return view('pedidos.saida_produto', compact('saidas','Materiais'));
 
 }
 
