@@ -260,7 +260,7 @@ public function saida_produto(Request $request)
             })
         
        
-       ->Paginate(10);
+       ->Paginate(100);
        $totalValor = $saidas->sum('quantidade');
        $id_produtos=$request->id_produtos;
        $start_date = $request->start_date;
