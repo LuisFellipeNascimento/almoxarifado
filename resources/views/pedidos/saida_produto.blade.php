@@ -23,7 +23,7 @@
     <div class="content mt-3">
 
         <div class="float-right">
-            <a href="{{ url('pedidos.inventario?' . request()->getQueryString()) }}" class="btn btn-danger">Exportar</a>
+            <a href="{{ url('pedidos.relatorio_saida?'. request()->getQueryString()) }}" class="btn btn-danger">Exportar</a>
         </div>
         <form class="form-inline">
             <label class="sr-only" for="inlineFormInputGroupUsername2">Materiais</label>
@@ -41,6 +41,21 @@
                         No records
                     @endif
 
+                </select>
+                <select name="id_unidades"  id="select3" class="form-control" style="width:450px;"  >
+                    @if ($unidades->count() > 0)
+                    <option value="" selected>Selecione uma unidade</option>
+                    @foreach ( $unidades as $unidade )
+                    <option value="{{$unidade->id}}"
+                        {{ $unidade->id == $id_unidades ? 'selected' : '' }}> 
+                        {{$unidade->nome_unidade}}</option>
+                    @endforeach
+                    @else
+                    No records
+                    @endif
+
+                   
+                                            
                 </select>
                
 
@@ -68,7 +83,7 @@
 
                         <th>Produto</th>
                         <th>Setor/Departamento</th>
-                        <th>Unidade</th>
+                        <th>Quantidade</th>
                         <th>Data da entrega</th>
 
 
@@ -91,11 +106,7 @@
 
 
         </table>
-        @if (isset($id_produtos))
-            <div>
-                <b>Total de saidas: {{ $totalValor }}</b>
-            </div>
-        @endif
+       
 
         <div class="d-flex">
             {!! $saidas->appends(request()->query())->links() !!}

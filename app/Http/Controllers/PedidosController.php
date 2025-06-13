@@ -234,6 +234,29 @@ public function exportar_saldo(Request $request)
         return $pdf->download('Inventário.pdf');
 }
 
+public function relatorio_saida(Request $request) 
+{ 
+        // Aumentar o limite de memória temporariamente
+     ini_set('memory_limit', '1024M');
+     
+
+     $pedidos = pedidos::with(['unidades','produto'])              
+        ->when($request->id_produtos,function($query) use ($request){
+                 $query->where('id_produtos','like','%'.$request->id_produtos.'%');  
+             })
+         ->when($request->id_unidades,function($query) use ($request){
+                $query->where('id_unidades','like','%'.$request->id_unidades.'%');  
+            })
+        
+        ->get();
+       
+       $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));     
+       
+       
+        $pdf = PDF::loadView('pedidos.relatorio_saida',['pedidos' => $pedidos,'image'=> $image]);
+        return $pdf->download('relatorio_saidas.pdf');
+}
+
 public function exportar_excel(Request $request) 
 {
     $saidas = Produto::with(['OrdemFornecimentos', 'pedidos'])              
@@ -247,20 +270,23 @@ public function exportar_excel(Request $request)
 }
 
 public function saida_produto(Request $request)
-{ 
+{      $unidades = unidades::all();
        $Materiais = Produto::all();  
        $saidas =  Pedidos::query()          
        ->when($request->id_produtos,function($query) use ($request){
                 $query->where('id_produtos',$request->id_produtos);  
+            })
+            ->when($request->id_unidades,function($query) use ($request){
+                $query->where('id_unidades',$request->id_unidades);  
             })
         ->orderBy('created_at', 'desc') // Ordenando pela data mais recente         
        
        ->Paginate(10);
      
        $id_produtos=$request->id_produtos;
+       $id_unidades=$request->id_unidades;
       
-      
-       return view('pedidos.saida_produto', compact('saidas','Materiais'));
+       return view('pedidos.saida_produto', compact('saidas','Materiais','id_unidades','id_produtos','unidades'));
 
 }
 

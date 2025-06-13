@@ -218,6 +218,10 @@ Route::get('pedidos.inventario', [App\Http\Controllers\PedidosController::class,
 ->middleware(['auth'],['verified'])
 ->name('pedidos.inventario');
 
+Route::get('pedidos.relatorio_saida', [App\Http\Controllers\PedidosController::class, 'relatorio_saida'])
+->middleware(['auth'],['verified'])
+->name('pedidos.relatorio_saida');
+
 Route::get('pedidos.saldo_excel', [App\Http\Controllers\PedidosController::class, 'exportar_excel'])
 ->middleware(['auth'],['verified'])
 ->name('pedidos.saldo_excel');
