@@ -251,12 +251,20 @@ public function relatorio_saida(Request $request)
               $query->where('id_unidades',$request->id_unidades);  
           })
           ->get();
-           
-     
+          $qq = Pedidos::with(['Produtos', 'Unidades'])
+          ->when($request->id_produtos, function ($qq) use ($request) {
+              $qq->where('id_produtos', $request->id_produtos);
+          })
+          ->when($request->id_unidades,function($qq) use ($request){
+            $qq->where('id_unidades',$request->id_unidades);  
+        });   
+          $totalValor = $qq->clone()->sum('quantidade');
+ 
+
        $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));     
        
        
-        $pdf = PDF::loadView('pedidos.relatorio_saida',['pedidos' => $pedidos,'image'=> $image]);
+        $pdf = PDF::loadView('pedidos.relatorio_saida',['pedidos' => $pedidos,'image'=> $image,'totalValor'=>$totalValor]);
         return $pdf->download('relatorio_saidas.pdf');
 }
 

@@ -26,26 +26,26 @@
 
         }
 
-        table.p2 
-                {
-                background: white;
-                border: none;
-            }
+        table.p2 {
+            background: white;
+            border: none;
+        }
 
-            td.assinatura {
-                border: none
-            }
-            .left {
-    float: left;
-    width: 50%;
-  }
-  .right {
-    float: right;
-    width: 50%;
-    text-align: right;
-  }     
-              
-                </style>
+        td.assinatura {
+            border: none
+        }
+
+        .left {
+            float: left;
+            width: 50%;
+        }
+
+        .right {
+            float: right;
+            width: 50%;
+            text-align: right;
+        }
+    </style>
 
 </head>
 
@@ -59,40 +59,40 @@
     <p align="center">Departamento de Patrimônio e Almoxarifado</p>
 
     <hr>
-   <p>
-    <span class="left">Relatório de saidas por material.
-    </span> 
-    <span class="right">
-        Emitido em,<?php date_default_timezone_set('America/Sao_Paulo');
-        $date = date('d/m/Y H:i');
-        echo $date; ?>
-         </span> 
-        </p>
+    <p>
+        <span class="left">Relatório de saidas por material.
+        </span>
+        <span class="right">
+            Emitido em,<?php date_default_timezone_set('America/Sao_Paulo');
+            $date = date('d/m/Y H:i');
+            echo $date; ?>
+        </span>
+    </p>
 
-        </div>
+    </div>
 
-        <table class="p1" style="width:100%">
+    <table class="p1" style="width:100%">
+        <tr>
+
+            <th width="80%">Material</th>
+            <th width="10%">Unidade/Departamento</th>
+            <th width="5%">Data da emissão</th>
+            <th width="5%">Quant.</th>
+        </tr>
+        @foreach ($pedidos as $pedido)
             <tr>
-               
-                <th width="80%">Material</th>
-                <th width="10%">Unidade/Departamento</th>
-                <th width="5%">Data da emissão</th>
-                <th width="5%">Quant.</th>                            
+                <td>{{ $pedido->Produto->nome_produto ?? null }} </td>
+                <td>{{ $pedido->Unidades->nome_unidade ?? null }} </td>
+                <td>{{ $pedido->created_at->format('d/m/Y H:i:s') }} </td>
+                <td>{{ $pedido->quantidade ?? null }} </td>
             </tr>
-            @foreach ($pedidos as $pedido)
-                <tr>                   
-                    <td>{{ $pedido->Produto->nome_produto ?? null }} </td>
-                    <td>{{ $pedido->Unidades->nome_unidade ?? null }} </td>
-                    <td>{{ $pedido->created_at->format('d/m/Y H:i:s') }} </td>     
-                    <td>{{ $pedido->quantidade ?? null }} </td>
-                   
-                            
-                
-               </tr>
-            @endforeach
-           
-        </table>
-       
+        @endforeach
+
+        <tr>
+           <td colspan="4"  style="text-align:right" > Total de saídas:<strong>{{ $totalValor }}</strong></td>
+        </tr>
+    </table>
+
 </body>
 
 </html>
