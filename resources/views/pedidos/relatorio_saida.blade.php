@@ -76,17 +76,21 @@
                
                 <th width="80%">Material</th>
                 <th width="10%">Unidade/Departamento</th>
-                <th width="10%">Quant.</th>                          
+                <th width="5%">Data da emissão</th>
+                <th width="5%">Quant.</th>                            
             </tr>
             @foreach ($pedidos as $pedido)
                 <tr>                   
-                    <td>{{ $pedido->nome_produto ?? null }} </td>
-                    <td>{{ $pedido->nome_produto ?? null }} </td>
-                    <td>{{ $pedido->nome_produto ?? null }} </td>
+                    <td>{{ $pedido->Produto->nome_produto ?? null }} </td>
+                    <td>{{ $pedido->Unidades->nome_unidade ?? null }} </td>
+                    <td>{{ $pedido->created_at->format('d/m/Y H:i:s') }} </td>     
+                    <td>{{ $pedido->quantidade ?? null }} </td>
+                   
+                            
                 
                </tr>
             @endforeach
-
+           
         </table>
        
 </body>
