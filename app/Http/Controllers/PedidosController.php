@@ -242,20 +242,17 @@ public function relatorio_saida(Request $request)
 
      $unidades = unidades::all();
      $Materiais = Produto::all();  
-     $pedidos =  Pedidos::query()          
+     $pedidos =  Pedidos::orderBy('created_at', 'desc')// Ordenando pela data mais recente  
+     ->with('unidades')          
      ->when($request->id_produtos,function($query) use ($request){
               $query->where('id_produtos',$request->id_produtos);  
           })
           ->when($request->id_unidades,function($query) use ($request){
               $query->where('id_unidades',$request->id_unidades);  
           })
-      ->orderBy('created_at', 'desc'); // Ordenando pela data mais recente         
+          ->get();
+           
      
-    
-   
-     $id_produtos=$request->id_produtos;
-     $id_unidades=$request->id_unidades;
-       
        $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));     
        
        
