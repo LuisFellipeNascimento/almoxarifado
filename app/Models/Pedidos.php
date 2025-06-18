@@ -28,11 +28,11 @@ class Pedidos extends Model implements Auditable
 
     public function Produto(){
         return $this->belongsTo(produto::class,'id_produtos','id')->withDefault([
-            'nome' => 'Produto excluído']);
+            'nome_produto' => 'Produto excluído']);
     }
     public function Unidades(){
         return $this->belongsTo(unidades::class,'id_unidades','id')->withDefault([
-            'nome' => 'Unidade excluída']);
+            'nome_unidade' => 'Unidade excluída']);
     }
 
     
