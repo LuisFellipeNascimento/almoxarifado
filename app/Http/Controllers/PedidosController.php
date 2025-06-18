@@ -55,7 +55,7 @@ class PedidosController extends Controller
     public function create()
     {
         $unidades = unidades::all();
-         $Produto = Produto::all();
+         $Produto = Produto::orderBy('nome_produto','asc')->get();
          
          return view ('pedidos.create',compact('unidades','Produto'));
   
@@ -120,7 +120,7 @@ foreach($request->inputs as $key=>$value){
      */
     public function edit(String $id)
     {    $unidades = unidades::all();
-        $Produtos = Produto::all();
+        $Produtos = Produto::orderBy('nome_produto','asc')->get();
         $pedidos = Pedidos::findOrFail($id);
         return view ('pedidos.edit',compact('pedidos','unidades','Produtos'));
     }
