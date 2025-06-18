@@ -199,7 +199,7 @@ public function dupla(Request $request)
        $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));
        
         $pdf = PDF::loadView('pedidos.dupla',['pedidos' => $pedidos,'image'=> $image]);
-        return $pdf->download('recibo folha dupa.pdf');
+        return $pdf->download('recibo folha dupla.pdf');
 }
 public function saldo(Request $request)
 { 
@@ -240,15 +240,21 @@ public function relatorio_saida(Request $request)
      ini_set('memory_limit', '1024M');
      
 
-     $pedidos = pedidos::with(['unidades','produto'])              
-        ->when($request->id_produtos,function($query) use ($request){
-                 $query->where('id_produtos','like','%'.$request->id_produtos.'%');  
-             })
-         ->when($request->id_unidades,function($query) use ($request){
-                $query->where('id_unidades','like','%'.$request->id_unidades.'%');  
-            })
-        
-        ->get();
+     $unidades = unidades::all();
+     $Materiais = Produto::all();  
+     $pedidos =  Pedidos::query()          
+     ->when($request->id_produtos,function($query) use ($request){
+              $query->where('id_produtos',$request->id_produtos);  
+          })
+          ->when($request->id_unidades,function($query) use ($request){
+              $query->where('id_unidades',$request->id_unidades);  
+          })
+      ->orderBy('created_at', 'desc'); // Ordenando pela data mais recente         
+     
+    
+   
+     $id_produtos=$request->id_produtos;
+     $id_unidades=$request->id_unidades;
        
        $image =base64_encode(file_get_contents(public_path('uploads/foto_produtos/logo-prefeitura.png')));     
        
