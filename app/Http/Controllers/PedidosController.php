@@ -31,7 +31,7 @@ class PedidosController extends Controller
         })
         
        ->when($request->id_unidades,function($query) use ($request){
-            $query->where('id_unidades','like','%'.$request->id_unidades.'%');  
+            $query->where('id_unidades','like',$request->id_unidades);  
         })
        
        
