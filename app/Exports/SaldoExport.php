@@ -34,7 +34,9 @@ class SaldoExport implements FromCollection, WithHeadings,ShouldAutoSize,WithSty
                 'Quantidade em estoque' => $saida->saldo_atual,
                 'Valor unitário' => $saida->valor_saida,
                 'Valor Total' => $saida->quant_total * $saida->valor_saida,
-                'Validade' => Carbon::parse($saida->vencimento)->format('d/m/Y'),
+                'Validade' => $saida->vencimento
+    ? Carbon::parse($saida->vencimento)->format('d/m/Y')
+    : 'Indeterminada',
             ];
         });
 
