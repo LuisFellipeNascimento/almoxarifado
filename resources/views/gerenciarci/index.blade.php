@@ -81,7 +81,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Status</div>
                         </div>
-                        <select id="status" class="form-control" name="status" required>
+                        <select id="status" class="form-control" name="status">
                             <option value="" {{ old('status', $status) == '' ? 'selected' : '' }}></option>
                             <option value="NÃO ATENDIDA" {{ old('status', $status) == 'NÃO ATENDIDA' ? 'selected' : '' }}>NÃO ATENDIDA</option>
                             <option value="ATENDIDA" {{ old('status', $status) == 'ATENDIDA' ? 'selected' : '' }}>ATENDIDA</option>
