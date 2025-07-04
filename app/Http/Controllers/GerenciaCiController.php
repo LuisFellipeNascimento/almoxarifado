@@ -14,7 +14,7 @@ class GerenciaCiController extends Controller
     public function index(Request $request)
     {
         $unidades = Unidades::all();
-        $controle_ci =  GerenciaCi::orderBy('atendimento_ci', 'desc')       
+        $controle_ci =  GerenciaCi::orderBy('created_at', 'desc')       
      
         ->when($request->numero_ci, function ($query) use ($request) {
             $query->where('numero_ci', $request->numero_ci);
