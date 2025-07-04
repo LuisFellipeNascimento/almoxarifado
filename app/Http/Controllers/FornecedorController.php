@@ -38,7 +38,7 @@ class FornecedorController extends Controller
             'razao_social'=>['required'],
             'nome_representante'=>['required'],
             'inscricao_estadual'=>['required'],
-            'telefone'=>['required','celular_com_ddd'],
+            'telefone'=>['nullable'],
             'telefone2'=>['nullable'],
             'endereco'=>['required'],
             'email'=>['required'],
@@ -67,11 +67,11 @@ class FornecedorController extends Controller
         $Fornecedores = Fornecedores::findOrFail($id);   
         
     $request->validate([ 
-    'nome_fantasia'=>['required','unique:Fornecedores'],	
-    'razao_social'=>['required','unique:Fornecedores'],
+    'nome_fantasia'=>['required'],	
+    'razao_social'=>['required'],
     'nome_representante'=>'required',
     'inscricao_estadual'=>'required',
-    'telefone'=>'required',
+    'telefone'=>'nullable',
     'telefone2'=>'nullable',
     'endereco'=>'required',
     'email'=>'required',
