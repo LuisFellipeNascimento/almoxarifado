@@ -10,6 +10,8 @@ use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\UnidadesController;
 use App\Exports\OrdemExport;
+use App\Exports\GerenciarCiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 /*
@@ -281,5 +283,34 @@ Route::delete('categorias.destroy/{id}', [App\Http\Controllers\CategoriasControl
 Route::get('categorias.export', [App\Http\Controllers\CategoriasController::class,'export'])
 ->middleware(['auth'],['verified'])
 ->name('categorias.export');
+
+Route::get('gerenciarci.index', [App\Http\Controllers\GerenciaCiController::class,'index'])
+->middleware(['auth'],['verified'])
+->name('gerenciarci.index');
+
+Route::get('gerenciarci.create', [App\Http\Controllers\GerenciaCiController::class,'create'])
+->middleware(['auth'],['verified'])
+->name('gerenciarci.create');
+
+Route::post('gerenciarci.store', [App\Http\Controllers\GerenciaCiController::class,'store'])
+->middleware(['auth'],['verified'])
+->name('gerenciarci.store');
+
+Route::get('gerenciarci.edit/{id}', [App\Http\Controllers\GerenciaCiController::class,'edit'])
+->middleware(['auth'],['verified'])
+->name('gerenciarci.edit');
+
+Route::put('gerenciarci.update/{id}', [App\Http\Controllers\GerenciaCiController::class, 'update'])
+->middleware(['auth'],['verified'])
+->name('gerenciarci.update');
+
+Route::delete('gerenciarci.destroy/{id}', [App\Http\Controllers\GerenciaCiController::class,'destroy'])
+->middleware(['auth'],['verified'])
+->name('gerenciarci.destroy');
+
+Route::get('gerenciarci.show', function (Illuminate\Http\Request $request) {
+    $filters = $request->all(); // Captura os filtros do formulário
+    return Excel::download(new GerenciarCiExport($filters), 'gerenciarci.xlsx');
+})->name('gerenciarci.show');
 
 require __DIR__.'/auth.php';

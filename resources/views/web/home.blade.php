@@ -81,6 +81,32 @@
                     <li class="active">
 
                     </li>
+                    <h3 class="menu-title">Movimentação de Materiais</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Gerenciar Materias</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-search"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li> 
+                                <li><i class="fa ti-arrow-down"></i><a href="{{ url('/pedidos.saida_produto') }}">Saidas por Materiais</a></li>                              
+                                <li><i class="fa ti-shopping-cart-full"></i><a href="{{ url('/pedidos.index') }}">Pedidos</a></li>
+                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.saldo') }}">Saldo em Estoque</a></li>                            
+                                <li><i class="fa fa-bars"></i><a href="{{ url('/categorias.index') }}">Categorias</a></li>
+
+                            </ul>   
+
+                    
+                    </li>
+                    <h3 class="menu-title">Controle de C.I</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Gerenciar C.I</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-search"></i><a href="{{ url('/gerenciarci.index') }}">Ver C.I.s</a></li> 
+                                
+                            </ul>   
+
+                    
+                    </li>
                     <h3 class="menu-title">Controle de Processos</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -118,21 +144,7 @@
 
                         </ul>
                     </li>
-                    <h3 class="menu-title">Movimentação de Materiais</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Gerenciar Materias</a>
-                            <ul class="sub-menu children dropdown-menu">
-                                <li><i class="fa fa-search"></i><a href="{{ url('/produto.index') }}">Ver Materias</a></li> 
-                                <li><i class="fa ti-arrow-down"></i><a href="{{ url('/pedidos.saida_produto') }}">Saidas por Materiais</a></li>                              
-                                <li><i class="fa ti-shopping-cart-full"></i><a href="{{ url('/pedidos.index') }}">Pedidos</a></li>
-                                <li><i class="fa fa-share-square-o"></i><a href="{{ url('/pedidos.saldo') }}">Saldo em Estoque</a></li>                            
-                                <li><i class="fa fa-bars"></i><a href="{{ url('/categorias.index') }}">Categorias</a></li>
-
-                            </ul>   
-
                     
-                    </li>
                     <h3 class="menu-title">Movimentação de Unidades</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
