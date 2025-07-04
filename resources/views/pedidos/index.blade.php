@@ -36,7 +36,7 @@
                 <input type="text" class="form-control" id="codigo_pedido" name="codigo_pedido" placeholder="Código do pedido" value="{{$codigo_pedido}}" >
                
                              
-                <select name="id_unidades"  id="select3" class="form-control" required >
+                <select name="id_unidades"  id="select3" class="form-control"  >
                     @if ($unidades->count() > 0)
                     <option value="" selected>Selecione uma unidade</option>
                     @foreach ( $unidades as $unidade )
