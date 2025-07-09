@@ -102,7 +102,11 @@
                     <td>{{ $saida->saldo_atual }}</td>
                     <td>{{ $saida->valor_saida }}</td>
                     <td>{{ $saida->saldo_atual*$saida->valor_saida }}</td>
-                    <td>{{ Carbon\Carbon::parse($saida->vencimento)->format('d/m/Y')}}</td>
+                    <td>@if ($saida->vencimento == '0000-00-00' || !$saida->vencimento)
+                                    Indeterminada
+                                @else
+                                    {{ Carbon\Carbon::parse($saida->vencimento)->format('d/m/Y') }}
+                                @endif</td>
                  
                   
                 </tr>
