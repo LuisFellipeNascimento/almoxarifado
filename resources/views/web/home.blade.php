@@ -107,14 +107,14 @@
 
                     
                     </li>
-                    <h3 class="menu-title">Controle de Processos</h3><!-- /.menu-title -->
+                    <h3 class="menu-title">Controle de Ordens</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Processos</a>
+                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Ordens</a>
                         <ul class="sub-menu children dropdown-menu">
 
-                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('/processo.index') }}">Processos
-                                    Adm</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('/processo.index') }}">Ordens e Processos
+                       </a></li>
 
 
 
@@ -122,9 +122,9 @@
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Ordens</a>
+                            aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Entrada e Notas fiscais</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('/ordem.index') }}">O.F.s</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url('/ordem.index') }}">N.F.s</a></li>
 
 
 
