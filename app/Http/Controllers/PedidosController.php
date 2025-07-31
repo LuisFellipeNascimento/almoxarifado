@@ -79,33 +79,42 @@ class PedidosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([ 
-            'inputs.*.id_unidades'=>'required',
-            'inputs.*.id_produtos'=>'required',       
-            'inputs.*.codigo_pedido'=>'required',
-            'inputs.*.quantidade'=>'required',
-           
-        ]  ,
-        [ 
-            'inputs.*.id_unidades'=>'Escolha o nome da unidade',
-            'inputs.*.codigo_pedido'=>'Digite o número do pedido', 
-            'inputs.*.id_produtos'=>'Escolha o produto', 
-            'inputs.*.quantidade'=>'É preciso definir a quantidade do item',
-            
-        ]            
-    );
+   public function store(Request $request)
+{
+    $request->validate([ 
+        'inputs.*.id_unidades'   => 'required',
+        'inputs.*.id_produtos'   => 'required',       
+        'inputs.*.codigo_pedido' => 'required',
+        'inputs.*.quantidade'    => 'required',
+    ],
+    [ 
+        'inputs.*.id_unidades'   => 'Escolha o nome da unidade',
+        'inputs.*.codigo_pedido' => 'Digite o número do pedido', 
+        'inputs.*.id_produtos'   => 'Escolha o produto', 
+        'inputs.*.quantidade'    => 'É preciso definir a quantidade do item',
+    ]);
 
-   
-        
-foreach($request->inputs as $key=>$value){
-        Pedidos::create($value); }
+    foreach ($request->inputs as $key => $value) {
+        $produto = Produto::find($value['id_produtos']);
 
-       
-        return redirect()->route('pedidos.index')->with('success','O pedido foi criado com sucesso!');
+        if (!$produto) {
+            return back()->withErrors(["Produto não encontrado para o item #$key"]);
+        }
 
+        if ($produto->saldo_atual <= 0) {
+            return back()->withErrors(["O produto '{$produto->nome_produto}' está com estoque zerado e não pode ser solicitado."]);
+        }
+
+        if ($value['quantidade'] > $produto->saldo_atual) {
+            return back()->withErrors(["A quantidade solicitada do produto '{$produto->nome_produto}' excede o estoque disponível."]);
+        }
+
+        Pedidos::create($value);
     }
+
+    return redirect()->route('pedidos.index')->with('success', 'O pedido foi criado com sucesso!');
+}
+
 
     /**
      * Display the specified resource.
