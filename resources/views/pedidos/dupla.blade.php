@@ -191,7 +191,7 @@
                 <th width="5%">Item</th>
                 <th width="5%">Código</th>
                 <th width="80%">Material</th>
-                <th width="5%">Unidade</th>
+                <th width="5%">Quantidade</th>
                 <th width="5%">Vencimento</th>
 
             </tr>
